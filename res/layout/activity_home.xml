@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+   xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    >
+  <!-- 主题图片 -->  
+<com.ex.SlideShowView  
+        android:id="@+id/slideshowView"  
+        android:layout_width="fill_parent"  
+        android:layout_height="180dp"  
+        android:layout_centerHorizontal="true" />
+
+   <!-- A区产品 -->
+
+  <TextView
+      android:background="@color/background"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:textStyle="bold"
+      android:text="@string/xuangouqu"
+      android:textColor="@color/black"
+      android:textSize="20sp" />  
+    <GridView   
+                      android:id="@+id/gridview_a"  
+                      android:listSelector="@drawable/list_item_selector"  
+                      android:layout_width="fill_parent"  
+                      android:layout_height="wrap_content"  
+                      android:padding="0dip"  
+                      android:layout_margin="0dip"  
+                      android:numColumns="2"  
+                      android:horizontalSpacing="3dip"  
+                      android:verticalSpacing="3dip"  
+                      android:stretchMode="columnWidth"  
+                      android:gravity="fill"/>
+    
+      <TextView
+      android:background="@color/background"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:text="@string/lipinqu"
+      android:textStyle="bold"
+      android:textColor="@color/black"
+      android:textSize="20sp" />  
+      
+    <GridView   
+                      android:id="@+id/gridview_b"  
+                      android:listSelector="@drawable/list_item_selector"  
+                      android:layout_width="fill_parent"  
+                      android:layout_height="wrap_content"  
+                      android:padding="0dip"  
+                      android:layout_margin="0dip"  
+                      android:numColumns="2"  
+                      android:horizontalSpacing="3dip"  
+                      android:verticalSpacing="3dip"  
+                      android:stretchMode="columnWidth"  
+                      android:gravity="fill"/>
+    
+   <!--产品列表  -->
+      <TextView
+      android:background="@color/background"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:text="@string/newgoods"
+      android:textStyle="bold"
+      android:textColor="@color/black"
+      android:textSize="20sp" />  
+   <ListView
+       android:id="@+id/goodslist"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:background="@color/white"
+       android:cacheColorHint="@android:color/transparent"
+       android:divider="@color/border"
+       android:dividerHeight="1px"
+       android:listSelector="@drawable/list_item_selector" >
+</ListView>
+
+       <TextView
+           android:id="@+id/loading"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_vertical|center"
+           android:background="@color/white"
+           android:textColor="@color/black"
+           android:text="@string/loading"
+           android:visibility="gone" />
+
+</LinearLayout>
+ 

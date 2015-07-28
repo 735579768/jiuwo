@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageView
+    android:id="@+id/qidongimg1"
+    android:theme="@android:style/Theme.NoTitleBar"
+    android:layout_width="fill_parent"
+    android:contentDescription="@string/app_name"
+    android:layout_height="fill_parent"
+    android:src="@drawable/bg1">
+    </ImageView>
+</LinearLayout>

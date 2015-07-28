@@ -1,0 +1,46 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+     <!-- animation 样式 -->  
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">  
+    <item name="android:windowFrame">@null</item>  
+        <item name="android:windowIsFloating">true</item>  
+        <item name="android:windowContentOverlay">@null</item>  
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>  
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>  
+      
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">  
+       <!--  <item name="android:windowBackground">@android:color/transparent</item>  --> 
+       <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:background">@drawable/bordershape</item><!--dialog背景样式-->  
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:paddingTop">5dp</item>  
+        <item name="android:paddingBottom">5dp</item>  
+        <item name="android:paddingLeft">10dp</item>  
+        <item name="android:paddingRight">10dp</item>  
+    </style> 
+    
+<style name="CustomProgressStyle" parent="@android:style/Widget.ProgressBar.Inverse">  
+   		 <item name="android:background">@drawable/bordershape</item><!--dialog背景样式-->  
+        <item name="android:minWidth">38dip</item>  
+        <item name="android:maxWidth">38dip</item>  
+        <item name="android:minHeight">38dip</item>  
+        <item name="android:maxHeight">38dip</item>  
+</style>
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+</resources>

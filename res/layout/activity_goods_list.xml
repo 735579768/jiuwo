@@ -1,0 +1,48 @@
+<com.ex.SlidingMenu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slidingLayout"
+    android:background="#000000"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <!-- 引入菜单文件 -->
+<include layout="@layout/category_menu"/>
+<LinearLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="#fafafa"
+        android:orientation="vertical" >
+<FrameLayout 
+        android:layout_width="fill_parent"
+        android:background="@color/background"
+    	android:layout_height="fill_parent">
+        >
+<LinearLayout 
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+<!-- 引入搜索工具栏 -->
+<include layout="@layout/goods_top_menu" />
+<!-- 下拉刷新容器 -->
+<com.ex.PullRefreshScrollView 
+    android:id="@+id/scrollid"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" />
+</LinearLayout>
+    <ProgressBar 
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:padding="20dp"
+        style="@style/CustomProgressStyle"/>
+</FrameLayout>
+</LinearLayout>
+</com.ex.SlidingMenu>

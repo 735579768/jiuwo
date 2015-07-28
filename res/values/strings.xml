@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">九沃</string>
+    <string name="btnset"></string>
+    <string name="action_exit">退出</string>
+    <string name="btnhome"></string>
+    <string name="btnreturn"></string>
+    <string name="btnreload"></string>
+    <string name="btnforword"></string>
+    <string name="btnexit"></string>
+    <string name="loading"> </string>
+<string name="scan_text">请将二维码对准扫描框内,程序即可自动识别</string>
+<string name="down_refresh">下拉刷新</string>
+<string name="last_refresh_time">上次更新时间</string>
+<!--首页标题 -->
+
+<string name="xuangouqu">商品选购</string>
+<string name="lipinqu">礼品赠送</string>
+<string name="newgoods">最新产品</string>
+<string name="addtocart">加入购物车</string>
+<string name="checkdesc">查看商品详情>></string>
+<string name="url_server">http://app.0yuanwang.com/version.xml</string>
+</resources>

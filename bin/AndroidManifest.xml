@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.demo.jiuwo"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+<!-- 必须申明的权限 -->
+   <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+   <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+ <!-- Push service 运行需要的权限 -->
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+<uses-permission android:name="android.permission.VIBRATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />   
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+<!-- 二维码扫描 -->
+<uses-permission android:name="android.permission.VIBRATE" />
+<uses-permission android:name="android.permission.CAMERA" />
+
+<uses-feature android:name="android.hardware.camera" />
+<uses-feature android:name="android.hardware.camera.autofocus" />
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon3"
+        android:label="@string/app_name"
+        android:name="com.demo.core.MYApplication"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <activity android:name="com.demo.jiuwo.ui.Qidong1Activity"></activity> 
+        <activity android:name="com.demo.jiuwo.ui.Qidong2Activity"></activity> 
+        <activity android:name="com.demo.jiuwo.ui.Qidong3Activity"></activity> 
+        <activity android:name="com.demo.jiuwo.ui.LoadurlActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.ProinfoFragment"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.GoodsListActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.GoodsActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.GoodswebActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.MainLayoutActivity"></activity> 
+	    <activity android:name="com.demo.core.ScanCodeActivity"></activity> 
+	    <activity android:name="com.demo.core.DecodeCodeActivity"></activity> 
+	     <activity android:name="com.demo.update.VersionActivity"></activity> 
+	      <activity android:name="com.demo.jiuwo.ui.LoginActivity"></activity> 
+	       <activity android:name="com.demo.jiuwo.ui.RegisterActivity"></activity> 
+	            <activity
+            android:name="com.codescan.MipcaActivityCapture"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+       
+	    <activity
+            android:name="com.demo.core.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+<!-- push service start -->
+<!-- 用于接收系统消息以保证PushService正常运行 -->
+<receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
+    android:process=":bdservice_v1" >
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+        <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+        <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+        <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+        <action android:name="android.intent.action.MEDIA_MOUNTED" />
+        <action android:name="android.intent.action.USER_PRESENT" />
+        <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+        <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+        
+    </intent-filter>
+</receiver>
+<!-- Push服务接收客户端发送的各种请求-->
+<receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
+    android:process=":bdservice_v1" >
+    <intent-filter>
+        <action android:name="com.baidu.android.pushservice.action.METHOD" />
+        <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+        <data android:scheme="package" />
+    </intent-filter>                   
+</receiver>
+<service android:name="com.baidu.android.pushservice.PushService" android:exported="true" 
+    android:process=":bdservice_v1" >
+    <intent-filter >
+            <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+    </intent-filter>
+</service>
+<!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+<service android:name="com.baidu.android.pushservice.CommandService"
+    android:exported="true" />
+<!-- push结束 -->
+<!-- 此处Receiver名字修改为当前包名路径 -->
+<receiver android:name="com.ex.PushTestReceiver">
+    <intent-filter>
+        <!-- 接收push消息 --> 
+        <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+        <!-- 接收bind、setTags等method的返回结果--> 
+        <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+        <!-- 接收通知点击事件，和通知自定义内容 --> 
+        <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+    </intent-filter>
+</receiver>
+    </application>
+
+</manifest>
