@@ -24,7 +24,7 @@
       android:text="@string/xuangouqu"
       android:textColor="@color/black"
       android:textSize="20sp" />  
-    <GridView   
+    <com.demo.jiuwo.ui.MyGridView  
                       android:id="@+id/gridview_a"  
                       android:listSelector="@drawable/list_item_selector"  
                       android:layout_width="fill_parent"  
@@ -47,7 +47,7 @@
       android:textColor="@color/black"
       android:textSize="20sp" />  
       
-    <GridView   
+    <com.demo.jiuwo.ui.MyGridView   
                       android:id="@+id/gridview_b"  
                       android:listSelector="@drawable/list_item_selector"  
                       android:layout_width="fill_parent"  
@@ -70,7 +70,7 @@
       android:textStyle="bold"
       android:textColor="@color/black"
       android:textSize="20sp" />  
-   <ListView
+   <com.demo.jiuwo.ui.MyListView
        android:id="@+id/goodslist"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
@@ -79,7 +79,7 @@
        android:divider="@color/border"
        android:dividerHeight="1px"
        android:listSelector="@drawable/list_item_selector" >
-</ListView>
+</com.demo.jiuwo.ui.MyListView>
 
        <TextView
            android:id="@+id/loading"

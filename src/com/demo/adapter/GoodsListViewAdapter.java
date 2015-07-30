@@ -106,7 +106,7 @@ public class GoodsListViewAdapter extends MyAdapter {
 	        if (convertView == null) {  
 	            listItemView = new ListItemView();   
 	            //获取list_item布局文件的视图   
-	            convertView = listContainer.inflate(R.layout.goodslist_item, null);  
+	            convertView = listContainer.inflate(R.layout.list_item_search_goodslist, null);  
 	            //获取控件对象     
 	            listItemView.title = (TextView)convertView.findViewById(R.id.titleItem);
 	            listItemView.price = (TextView)convertView.findViewById(R.id.price);

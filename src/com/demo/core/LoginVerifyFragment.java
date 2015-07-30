@@ -33,8 +33,7 @@ public class LoginVerifyFragment extends BaseFragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		//登陆验证
-		 SharedPreferences sharedPre=getActivity().getSharedPreferences("config",0);
-	     userinfo=sharedPre.getString("userinfo", "");
+		userinfo=GLOBAL.getData(getActivity(), "userinfo");
 	     if(TextUtils.isEmpty(userinfo)){
 	    	 loginJump();
 	     }

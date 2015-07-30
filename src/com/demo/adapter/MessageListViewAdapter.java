@@ -1,45 +1,15 @@
 package com.demo.adapter;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.demo.core.AsyncImageLoader;
 import com.demo.jiuwo.R;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.os.Handler;
-import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,9 +20,7 @@ public class MessageListViewAdapter extends MyAdapter {
 	    private LayoutInflater listContainer;           //视图容器   
 	    
 	    public final class ListItemView{                //自定义控件集合          
-	            public TextView title;
-	            public TextView price;
-	            public TextView goodsid;
+	            public TextView title,descr,update_time,messageid;
 	            public ImageView image; 
 	    }    
 	    public void removeAllItem(){
@@ -106,12 +74,13 @@ public class MessageListViewAdapter extends MyAdapter {
 	        if (convertView == null) {  
 	            listItemView = new ListItemView();   
 	            //获取list_item布局文件的视图   
-	            convertView = listContainer.inflate(R.layout.list_item_cart, null);  
+	            convertView = listContainer.inflate(R.layout.list_item_message, null);  
 	            //获取控件对象     
+	            listItemView.update_time= (TextView)convertView.findViewById(R.id.update_time);
 	            listItemView.title = (TextView)convertView.findViewById(R.id.titleItem);
-	            listItemView.price = (TextView)convertView.findViewById(R.id.price);
+	            listItemView.descr = (TextView)convertView.findViewById(R.id.descr);
 	            listItemView.image = (ImageView)convertView.findViewById(R.id.imageItem);
-	            listItemView.goodsid = (TextView)convertView.findViewById(R.id.goodsid);
+	            listItemView.messageid = (TextView)convertView.findViewById(R.id.messageid);
 		        //设置控件集到convertView   
 	            convertView.setTag(listItemView); 
 		                 
@@ -134,12 +103,14 @@ public class MessageListViewAdapter extends MyAdapter {
 	        //设置文字和图片   
 	        String imgurl=(String) listItems.get(position).get("pic");
 	        loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
-	        listItemView.goodsid.setText((String) listItems.get(position)  
-	                .get("goodsid"));  
+	        listItemView.messageid.setText((String) listItems.get(position)  
+	                .get("messageid"));  
+	        listItemView.update_time.setText((String) listItems.get(position)  
+	                .get("update_time"));  
 	        listItemView.title.setText((String) listItems.get(position)  
 	                .get("title"));  
-	        listItemView.price.setText((String) listItems.get(position)  
-	                .get("price"));  
+	        listItemView.descr.setText((String) listItems.get(position)  
+	                .get("descr"));  
 	        return convertView; 
 	    }  
 	 

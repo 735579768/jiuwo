@@ -17,8 +17,7 @@ public class LoginVerifyActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		//登陆验证
-		 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
-	     userinfo=sharedPre.getString("userinfo", "");
+	     userinfo=GLOBAL.getData(this, "userinfo");
 	     if(TextUtils.isEmpty(userinfo)){
 	    	 loginJump();
 	     }

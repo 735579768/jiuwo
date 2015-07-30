@@ -1,5 +1,17 @@
 package com.demo.core;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.demo.jiuwo.R;
@@ -38,12 +50,16 @@ public class MainActivity extends BaseActivity {
 		//取用户是否有登陆信息
 /*		 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
 	     String userinfo=sharedPre.getString("userinfo", "");*/
-	     
+		super.onCreate(savedInstanceState);
+		isFirst();
+		init();
+		}
+	private void isFirst(){
+		//判断是不是第一次登陆
 		SharedPreferences setting = getSharedPreferences("www.59vip.cn", 0);
 		Boolean user_first = setting.getBoolean("FIRST",true);
 		if(user_first){//第一次
 			setting.edit().putBoolean("FIRST", false).commit();
-			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_qidong1);
 			final ImageView imageview=(ImageView)findViewById(R.id.qidongimg1);
 			//两秒后跳转
@@ -74,7 +90,7 @@ public class MainActivity extends BaseActivity {
 
 		 }else{
 			 	this.animsj=1000;
-				super.onCreate(savedInstanceState);
+				
 				setContentView(R.layout.activity_qidong3);
 				final ImageView imageview=(ImageView)findViewById(R.id.qidongimg3);
 				//两秒后跳转
@@ -102,6 +118,12 @@ public class MainActivity extends BaseActivity {
 			});
 
 		}
+	}
+	/**
+	 * 记录设置信息
+	 * */
+	private void init(){
 
-		}
+	}
+
 }

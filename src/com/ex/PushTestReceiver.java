@@ -1,9 +1,20 @@
 package com.ex;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +25,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.demo.core.GLOBAL;
 import com.demo.core.MainActivity;
 import com.demo.jiuwo.R;
 import com.demo.jiuwo.ui.GoodsActivity;
@@ -45,7 +57,7 @@ public class PushTestReceiver extends PushMessageReceiver {
      * @return none
      */
     @Override
-    public void onBind(Context context, int errorCode, String appid,
+    public void onBind(final Context context, int errorCode, String appid,
             String userId, String channelId, String requestId) {
         String responseString = "onBind errorCode=" + errorCode + " appid="
                 + appid + " userId=" + userId + " channelId=" + channelId
@@ -54,6 +66,31 @@ public class PushTestReceiver extends PushMessageReceiver {
 
         if (errorCode == 0) {
             // 绑定成功
+        	GLOBAL.BAIDU_APP_ID=appid;
+        	GLOBAL.BAIDU_USER_ID=userId;
+        	GLOBAL.BAIDU_CHANNEL_ID=channelId;
+        	GLOBAL.BAIDU_REQUEST_ID=requestId;
+        	
+    		//记录设备信息
+    		String str=GLOBAL.getData(context, "SHEBEIINFO");
+    		if(!str.equals("true")){
+				final List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+				params.add(new BasicNameValuePair("appid", appid));
+				params.add(new BasicNameValuePair("userid", userId));
+				params.add(new BasicNameValuePair("channelid", channelId));
+				params.add(new BasicNameValuePair("requestid", requestId));
+    			new Thread(new Runnable(){
+    				@Override
+    				public void run() {
+    					// TODO Auto-generated method stub
+    					String str=postUrl(GLOBAL.SHEBEI_URL,params);
+    					if(str.equals("success")){
+    						GLOBAL.saveData(context, "SHEBEIINFO", "true");
+    					}
+    				}
+    				
+    			}).start();			
+    		}
         }
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
         updateContent(context, responseString);
@@ -283,5 +320,32 @@ public class PushTestReceiver extends PushMessageReceiver {
 
         
     }
+	   /**
+* POST请求
+* 添加参数方法如下
+* List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+* params.add(new BasicNameValuePair("action", "downloadAndroidApp"));
+* */
+protected String postUrl(String uri,List<NameValuePair> params){
+	String reStr="";
+	// 第一步，创建HttpPost对象 
+HttpPost httpPost = new HttpPost(uri); 
+HttpResponse httpResponse = null; 
+try { 
+   // 设置httpPost请求参数 
+   httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8)); 
+   httpResponse = new DefaultHttpClient().execute(httpPost); 
+   //System.out.println(httpResponse.getStatusLine().getStatusCode()); 
+   if (httpResponse.getStatusLine().getStatusCode() == 200) { 
+       // 第三步，使用getEntity方法活得返回结果 
+       reStr= EntityUtils.toString(httpResponse.getEntity()); 
+   } 
+} catch (ClientProtocolException e) { 
+   e.printStackTrace(); 
+} catch (IOException e) { 
+   e.printStackTrace(); 
+} 
+return reStr;
+}
 
 }

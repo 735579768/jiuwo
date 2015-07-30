@@ -51,7 +51,7 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 		mPullRefresh.setfooterEnabled(false);
 		mPullRefresh.setOnPullListener(this);
 		//取要显示到下拉容器中的内容视图
-		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.activity_cart_list_content);
+		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
 	
 		cartlistview= (ListView) cl.findViewById(R.id.cartlist);
 		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 

@@ -67,7 +67,8 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 	private boolean loadover;//全部数据加载完成
 	
 	private ProgressBar mProgressbar;
-	protected ListView goodslistview,categorylistview_xuangou,categorylistview_lipin;
+	protected ListView categorylistview_xuangou,categorylistview_lipin;
+	private MyListView goodslistview;
 	protected TextView loading,category_title,clear_category_title;
 	protected boolean searching=false;//正在搜索中
 	private EditText keywords_edit;
@@ -87,7 +88,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 			mpullScrollView.setfooterEnabled(false);
 			mpullScrollView.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.activity_goods_list_content);
+			LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_search_goods);
 			
 			mSlidingmenu=(SlidingMenu)findViewById(R.id.slidingLayout);
 			category_title= (TextView) findViewById(R.id.category_title);
@@ -102,7 +103,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 
 
 			
-			goodslistview= (ListView) cl.findViewById(R.id.goodslist);
+			goodslistview= (MyListView) cl.findViewById(R.id.goodslist);
 			loading= (TextView)cl.findViewById(R.id.loading);
 			//初始化适配器
 			goodslistviewadapter = new GoodsListViewAdapter(this); //创建适配器 
@@ -148,9 +149,10 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 							categorylistviewadapter_xuangou.addItem(map);
 						}
 		                // 发送消息  
-		                Message msg=handler.obtainMessage();
+/*		                Message msg=handler.obtainMessage();
 		                msg.what=UPDATE_CATEGORY_XUANGOU;
-		                handler.sendMessage(msg);
+		                handler.sendMessage(msg);*/
+		                sendMessage(UPDATE_CATEGORY_XUANGOU);
 						
 						//礼品分类
 						JSONArray jarr2=JSONDecode.getInstance(((JSONObject)jsonarr.opt(1)).getString("child")).toJSONArray();
@@ -167,9 +169,10 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 							categorylistviewadapter_lipin.addItem(map);
 						}
 		                // 发送消息  
-		                Message msg1=handler.obtainMessage();
+/*		                Message msg1=handler.obtainMessage();
 		                msg1.what=UPDATE_CATEGORY_LIPIN;
-		                handler.sendMessage(msg1);
+		                handler.sendMessage(msg1);*/
+		                sendMessage(UPDATE_CATEGORY_LIPIN);
 						} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -180,6 +183,12 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 
 
 		}
+		private void sendMessage(int MESSAGE_TYPE){
+	        // 发送消息  
+	        Message msg=handler.obtainMessage();
+	        msg.what=MESSAGE_TYPE;
+	        handler.sendMessage(msg);
+			}
 		/**
 		 * 加载列表数据
 		 * */
@@ -279,7 +288,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 	                //通知listview更新界面
 	                goodslistviewadapter.notifyDataSetChanged();
 	            	loading.setVisibility(View.GONE);
-	            	setListViewHeightBasedOnChildren(goodslistview);
+	            	//setListViewHeightBasedOnChildren(goodslistview);
 	    			mpullScrollView.setheaderViewReset();//重置头部刷新
 	    			mpullScrollView.setfooterViewReset();
 	            	okload=true;//可以再次加载

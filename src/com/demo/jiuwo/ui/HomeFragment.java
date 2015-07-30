@@ -72,10 +72,10 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 	
 	private boolean okload=true;//标记是否可以加载
 	private boolean loadover=false;//全部数据加载完成
-	protected ListView goodslistview;
+	protected MyListView goodslistview;
 	protected TextView loading,searchbtn;
 	private ImageView scancode,iv_search_btn;//,image_a1,image_a2,image_a3,image_a4;
-	private GridView gridview_a,gridview_b;
+	private MyGridView gridview_a,gridview_b;
 	private GridViewAdapter gridviewadapter_a,gridviewadapter_b; 
 	protected  ArrayList<Map<String, Object>> goodslistItems; //产品列表
 	private HomeGoodsListViewAdapter goodslistviewadapter;   //产品适配器
@@ -102,9 +102,9 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		//取要显示的内容视图
 		contentLayout= (LinearLayout)mpullScrollView.addBodyLayoutFile(getActivity(),R.layout.activity_home);
 		//mpullScrollView.setFooterShow(false);
-		goodslistview = (ListView) contentLayout.findViewById(R.id.goodslist);
-		gridview_a= (GridView) contentLayout.findViewById(R.id.gridview_a);
-		gridview_b= (GridView) contentLayout.findViewById(R.id.gridview_b);
+		goodslistview = (MyListView) contentLayout.findViewById(R.id.goodslist);
+		gridview_a= (MyGridView) contentLayout.findViewById(R.id.gridview_a);
+		gridview_b= (MyGridView) contentLayout.findViewById(R.id.gridview_b);
 		loading= (TextView) contentLayout.findViewById(R.id.loading);
 		
 		
@@ -352,7 +352,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
         		}
                 goodslistviewadapter.notifyDataSetChanged();
             	loading.setVisibility(View.GONE);
-            	setListViewHeightBasedOnChildren(goodslistview);
+            	//setListViewHeightBasedOnChildren(goodslistview);
             	mpullScrollView.setfooterViewReset();
             	okload=true;//可以再次加载
         		break;       		
@@ -364,7 +364,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
                 //通知listview更新界面
                gridviewadapter_a.notifyDataSetChanged();
             	loading.setVisibility(View.GONE);
-            	setListViewHeightBasedOnChildren(gridview_a);
+            	//setListViewHeightBasedOnChildren(gridview_a);
             	mpullScrollView.setheaderViewReset();
             	okload=true;//可以再次加载
         		break;
@@ -372,7 +372,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
                 //通知listview更新界面
                 gridviewadapter_b.notifyDataSetChanged();
             	loading.setVisibility(View.GONE);
-            	setListViewHeightBasedOnChildren(gridview_b);
+            	//setListViewHeightBasedOnChildren(gridview_b);
             	mpullScrollView.setheaderViewReset();
             	okload=true;//可以再次加载
         		break;
@@ -400,7 +400,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
         		break;
         	case SET_GOODSLIST_ADAPTER:
         		goodslistview.setAdapter(goodslistviewadapter);
-        		setListViewHeightBasedOnChildren(goodslistview);
+        		//setListViewHeightBasedOnChildren(goodslistview);
         		break;
         	default:
         		break;

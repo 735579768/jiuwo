@@ -4,12 +4,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:background="#fafafa"
+        android:background="#ededed"
         android:orientation="vertical" >
 <FrameLayout 
         android:layout_width="fill_parent"
         android:background="@color/background"
-    	android:layout_height="fill_parent">
+    	android:layout_height="fill_parent"
         >
 <LinearLayout 
     android:id="@+id/layout"
@@ -36,7 +36,7 @@
             android:background="@drawable/bg_menu_edit"
             android:gravity="left|center_vertical"
             android:paddingLeft="10dp"
-            android:text="个人中心>购物车"
+            android:text="个人中心>消息"
             android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>
@@ -47,7 +47,6 @@
     android:id="@+id/scrollid"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
     android:orientation="vertical" />
 </LinearLayout>
     <ProgressBar 

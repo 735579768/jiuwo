@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.demo.core.AsyncImageLoader;
 import com.demo.core.BaseActivity;
+import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.jiuwo.R;
 import com.ex.Verify;
@@ -126,7 +127,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 						if(status.equals("1")){
 							//登陆成功保存用户名密码
 							String userinfo=JSONDecode.getInstance(reStr).getString("info").toString();
-							saveLoginInfo(this,userinfo);
+							GLOBAL.saveData(this, "userinfo", userinfo);
 							Toast.makeText(this,"登陆成功", 3000).show();
 							//Toast.makeText(this,reStr,3000).show();
 							finish();					

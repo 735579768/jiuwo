@@ -9,7 +9,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<include layout="@layout/top_menu" />
+<include layout="@layout/menu_top" />
 <com.ex.PullRefreshScrollView 
         android:id="@+id/scrollid"
     android:layout_width="fill_parent"

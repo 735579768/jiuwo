@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/update_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center|center_vertical"
+        android:paddingBottom="30dp"
+        android:paddingTop="10dp" />
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+		<TextView 
+		    android:id="@+id/messageid"
+		    android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+		    android:visibility="gone"
+		    />
+
+        <ImageView
+            android:id="@+id/imageItem"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="left"
+            android:scaleType="center" />
+
+    <TextView
+        android:id="@+id/descr"
+        android:lineSpacingExtra="2dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|left"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+<View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="#dddddd" />
+
+      <TextView
+          android:id="@+id/titleItem"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical|left"
+          android:padding="10dp"
+          android:textColor="#FF666666"
+          android:textSize="16sp" />
+  </LinearLayout>
+</LinearLayout>  

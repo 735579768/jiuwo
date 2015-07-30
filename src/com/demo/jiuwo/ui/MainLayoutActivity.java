@@ -66,12 +66,13 @@ public class MainLayoutActivity extends FragmentActivity{
 			ft1.commit();
 		}else if(id==R.id.iv_menu_22 || id== R.id.iv_menu_2){
 			//跳转到搜索界面
-			Intent intent=new Intent();
-			intent.setClass(this,GoodsListActivity.class);
-			startActivity(intent);
 			img1.setSelected(false);
 			img3.setSelected(false);
 			img4.setSelected(false);
+			Intent intent=new Intent();
+			intent.setClass(this,MessageListActivity.class);
+			startActivity(intent);
+
 	/*		FragmentTransaction ft2 = fm.beginTransaction();
 			ft2.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
 	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);

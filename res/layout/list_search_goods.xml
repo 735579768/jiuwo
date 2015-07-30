@@ -3,7 +3,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
-<ListView 
+<com.demo.jiuwo.ui.MyListView 
         android:id="@+id/goodslist"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
@@ -12,7 +12,7 @@
        android:divider="@color/border"
        android:dividerHeight="1px"
        android:listSelector="@drawable/list_item_selector" >  
-    </ListView>
+    </com.demo.jiuwo.ui.MyListView >
 <TextView 
     android:id="@+id/loading"
     android:layout_width="fill_parent"
