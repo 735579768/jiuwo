@@ -29,6 +29,7 @@ public class GLOBAL {
 	//记录设备信息
 	public static String SHEBEI_URL="http://app.0yuanwang.com/Api/shebeijilu/";
 	public static String MESSAGE_URL="http://app.0yuanwang.com/Api/getMessageList/";
+	public static String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
 	/**
      * 使用SharedPreferences保存用户登录信息
      * @param context

@@ -3,6 +3,7 @@ package com.demo.jiuwo.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -10,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,9 +20,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
+
 import com.demo.adapter.MessageListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
@@ -51,6 +57,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			messagelist= (MyListView)cl.findViewById(R.id.messagelist);
 			mMessageadapter=new MessageListViewAdapter(this);
 			messagelist.setAdapter(mMessageadapter);
+			initListener();
 			loaddata();
 	}
 		public boolean onKeyDown(int keyCode, KeyEvent event) { 
@@ -113,7 +120,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	            	//setListViewHeightBasedOnChildren(messagelist);
 	    			mpullScrollView.setheaderViewReset();//重置头部刷新
 	    			mpullScrollView.setfooterViewReset();
-
+	    			mpullScrollView.fullScroll(ScrollView.FOCUS_DOWN);
 	            	int count=mMessageadapter.getCount();
 	            	if(count>=5){
 	            		mpullScrollView.setfooterEnabled(true);
@@ -177,5 +184,21 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			// TODO Auto-generated method stub
 			loaddata();
 
+		}
+		private void initListener(){
+			messagelist.setOnItemClickListener(new OnItemClickListener(){
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					Map<String,Object> obj=(Map<String,Object>)mMessageadapter.getItem(arg2);
+					Intent intent=new Intent();
+					intent.putExtra("message_id",obj.get("message_id").toString());
+					intent.setClass(MessageListActivity.this,MessageDetailActivity.class);
+					startActivity(intent);
+				}
+				
+			});
 		}
 }

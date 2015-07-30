@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/update_time"
+        android:textColor="@color/black"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
@@ -39,13 +40,13 @@
 
     <TextView
         android:id="@+id/descr"
+        android:textColor="@color/black"
         android:lineSpacingExtra="2dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|left"
         android:padding="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textSize="16sp" />
 
 <View
     android:layout_width="fill_parent"
@@ -56,11 +57,11 @@
 
       <TextView
           android:id="@+id/titleItem"
+          android:textColor="@color/black"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:gravity="center_vertical|left"
           android:padding="10dp"
-          android:textColor="#FF666666"
           android:textSize="16sp" />
   </LinearLayout>
 </LinearLayout>  

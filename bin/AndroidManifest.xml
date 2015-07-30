@@ -53,7 +53,8 @@
 	     <activity android:name="com.demo.update.VersionActivity"></activity> 
 	      <activity android:name="com.demo.jiuwo.ui.LoginActivity"></activity> 
 	       <activity android:name="com.demo.jiuwo.ui.RegisterActivity"></activity> 
-	       <activity android:name="com.demo.jiuwo.ui.MessageListActivity"></activity> 
+	       <activity android:name="com.demo.jiuwo.ui.MessageListActivity"></activity>
+	       <activity android:name="com.demo.jiuwo.ui.MessageDetailActivity"></activity>  
 	            <activity
             android:name="com.codescan.MipcaActivityCapture"
             android:configChanges="orientation|keyboardHidden"
