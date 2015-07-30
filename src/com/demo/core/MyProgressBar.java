@@ -1,4 +1,4 @@
-package com.demo.core.jiekou;
+package com.demo.core;
 
 import android.os.Message;
 import android.widget.ProgressBar;

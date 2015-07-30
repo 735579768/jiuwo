@@ -127,8 +127,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 							//登陆成功保存用户名密码
 							String userinfo=JSONDecode.getInstance(reStr).getString("info").toString();
 							saveLoginInfo(this,userinfo);
-							Toast.makeText(this,reStr,3000).show();
-							//finish();					
+							Toast.makeText(this,"登陆成功", 3000).show();
+							//Toast.makeText(this,reStr,3000).show();
+							finish();					
 						}else{
 							Toast.makeText(this,reStr,3000).show();
 						}
@@ -151,7 +152,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
      * @param username
      * @param password
      */
-    public static void saveLoginInfo(Context context,String userinfo){
+    public  void saveLoginInfo(Context context,String userinfo){
         //获取SharedPreferences对象
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         //获取Editor对象

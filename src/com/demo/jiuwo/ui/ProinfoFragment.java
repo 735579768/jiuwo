@@ -1,58 +1,31 @@
 package com.demo.jiuwo.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import com.demo.adapter.GoodsListViewAdapter;
 import com.demo.adapter.MemListViewAdapter;
-import com.demo.core.BaseActivity;
-import com.demo.core.BaseFragment;
-import com.demo.core.MyThread;
+import com.demo.core.LoginVerifyFragment;
 import com.demo.jiuwo.R;
-import com.demo.jsobject.jshome;
 import com.ex.UpdateVersion;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class ProinfoFragment extends BaseFragment{
+public class ProinfoFragment extends  LoginVerifyFragment{
 	protected WebView webview;
 	protected  ProgressBar  progressBar;
 	protected ListView listview;
@@ -65,6 +38,7 @@ public class ProinfoFragment extends BaseFragment{
 	 private MemListViewAdapter memviewadapter;   //菜单适配器
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		View view= inflater.inflate(R.layout.activity_proinfo,
 				container, false);
 		//setContentView(R.layout.activity_proinfo);

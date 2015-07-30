@@ -1,154 +1,131 @@
 package com.demo.jiuwo.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
+import com.demo.adapter.CartListViewAdapter;
 import com.demo.adapter.GoodsListViewAdapter;
 import com.demo.adapter.MemListViewAdapter;
-import com.demo.core.BaseActivity;
-import com.demo.core.BaseFragment;
-import com.demo.core.MyThread;
+import com.demo.core.JSONDecode;
+import com.demo.core.LoginVerifyFragment;
 import com.demo.jiuwo.R;
-import com.demo.jsobject.jshome;
-import com.ex.UpdateVersion;
+import com.ex.PullRefreshScrollView;
+import com.ex.PullRefreshScrollView.OnPullListener;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class CartFragment extends BaseFragment{
-	protected WebView webview;
-	protected  ProgressBar  progressBar;
-	protected ListView listview;
-	protected ListView goodslistview;
-	private TextView login_btn,register_btn;
+public class CartFragment extends LoginVerifyFragment implements OnPullListener{
+	final static int UPDATE_CART = 1;
+	final static int RESET_HEADER = 2;
+	final static int RESET_FOOTER = 3;
+	private PullRefreshScrollView mPullRefresh;
+	protected ListView cartlistview;
 	protected String uri="http://app.0yuanwang.com/Member/info";
-	private Integer[] imageIDs={R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico};
-	String [] menutitle={"我的全部订单","未付款订单","已付款订单","检查更新","退出"};
+
 	 private List<Map<String, Object>> listItems; //菜单列表
-	 private MemListViewAdapter memviewadapter;   //菜单适配器
+	 private CartListViewAdapter cartadapter;   //菜单适配器
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view= inflater.inflate(R.layout.activity_cart,
+		super.onCreateView(inflater, container, savedInstanceState);
+		View view= inflater.inflate(R.layout.activity_cart_list,
 				container, false);
-		//setContentView(R.layout.activity_proinfo);
-		listview= (ListView) view.findViewById(R.id.menulist);	
-		login_btn= (TextView) view.findViewById(R.id.login_btn);	
-		register_btn= (TextView) view.findViewById(R.id.register_btn);	
-		//列表元素添加
-		listItems=getListItems();
-		memviewadapter = new MemListViewAdapter(getActivity(), listItems); //创建适配器   
-	    listview.setAdapter(memviewadapter);  
-	    
-		//设置点击
-	    listview.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			//arg0:就是你的listview   arg2:点击的item的位置。和你的数组的下标相等。arg3:被电击view的id
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-	               // TODO Auto-generated method stub
-				//String titleitem=listItems.get(arg2).get("title").toString();	
-				Intent intent=new Intent();
-				switch(arg2){
-				case 0://全部订单
-
-					break;
-				case 1://未付订单
-					break;
-				case 2://已付订单
-					break;
-				case 3://更新
-					new UpdateVersion(getActivity()).checkVersion("http://app.0yuanwang.com/version.xml",false);
-					break;
-				case 4://退出
-					intent.setClass(getActivity(),MainLayoutActivity.class);
-					startActivity(intent);
-					getActivity().finish();
-					inright();					
-					break;
-				}
-			}
-             
-        });
+		mPullRefresh=(PullRefreshScrollView) view.findViewById(R.id.scrollid);
+		mPullRefresh.setfooterEnabled(false);
+		mPullRefresh.setOnPullListener(this);
+		//取要显示到下拉容器中的内容视图
+		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.activity_cart_list_content);
+	
+		cartlistview= (ListView) cl.findViewById(R.id.cartlist);
+		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 
+		cartlistview.setAdapter(cartadapter);
+		loaddata();
 		return view;
 	}
-	   /** 
-     * 初始化列表信息
-     */  
-    private List<Map<String, Object>> getListItems() {  
-        List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();  
-        for(int i = 0; i < menutitle.length; i++) {  
-            Map<String, Object> map = new HashMap<String, Object>();               //图片资源   
-            map.put("image", imageIDs[i]); 
-            map.put("title", menutitle[i]);              //物品标题   
-            listItems.add(map);  
-        }     
-        return listItems;  
-    }  
+	private void loaddata(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int count=cartadapter.getCount();
+				String strUri="http://app.0yuanwang.com/Cart/index/";
+				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+				  params.add(new BasicNameValuePair("userinfo", userinfo));
+				  params.add(new BasicNameValuePair("num", count+""));
+				String jsonstr=postUrl(strUri,params);
+				try {
+				JSONArray jarr = JSONDecode.getInstance(jsonstr).toJSONArray();		
+					//选购分类
+					//JSONArray jarr1=JSONDecode.getInstance(((JSONObject)jsonarr.opt(0)).getString("child")).toJSONArray();
+					for(int i=0;i<jarr.length();i++){
+						JSONObject obj=(JSONObject)jarr.opt(i);
+						HashMap<String,Object> map = new HashMap<String,Object>();
+						String title=obj.getString("title");
+						title=title.replace(" ",""); 
+						map.put("pic", obj.getString("pic"));
+						map.put("price", obj.getString("price"));
+						map.put("title", title);
+						map.put("category_id",obj.getString("category_id"));
+						map.put("goods_id",obj.getString("goods_id"));
+						cartadapter.addItem(map);
+					}
+	                // 发送消息  
+	                Message msg=handler.obtainMessage();
+	                msg.what=UPDATE_CART;
+	                handler.sendMessage(msg);
+	                
+					} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}					
+			}
+			
+		}).start();
+
+
+	}
     /**
      * 初始化监听器
      * */
     private void initListeren(){
-    	login_btn.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-    		
-    	});
-    	register_btn.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-    		
-    	});
+ 
     }
 	private Handler handler=new Handler(){
 	    public void handleMessage(Message msg) { 
         	switch(msg.what){
-        	case 1:
+        	case UPDATE_CART:
+        		cartadapter.notifyDataSetChanged();
+        		mPullRefresh.setheaderViewReset();
+        		mPullRefresh.setfooterViewReset();
+        		if(cartadapter.getCount()>=5){
+        			mPullRefresh.setfooterEnabled(true);
+        		}else{
+        			mPullRefresh.setfooterEnabled(false);
+        		}
+        		setListViewHeightBasedOnChildren(cartlistview);
+        		break;
+        	case RESET_HEADER:
+        		mPullRefresh.setheaderViewReset();
+        		break;
+        	case RESET_FOOTER:
+        		mPullRefresh.setfooterViewReset();
         		break;
         	default:
         		break;
@@ -156,6 +133,37 @@ public class CartFragment extends BaseFragment{
         	super.handleMessage(msg);  
         };  
 	};
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		cartadapter.removeAllItem();
+		loaddata();
+	}
+	@Override
+	public void loadMore() {
+		loaddata();
+		// TODO Auto-generated method stub
+		
+	}
+	//动态设置listview的高度
+	public void setListViewHeightBasedOnChildren(ListView listView) {     
+        // 获取ListView对应的Adapter     
+		ListAdapter listAdapter = listView.getAdapter();  
+	    if (listAdapter == null) { 
+	        return; 
+	    } 
+	    int totalHeight = 0; 
+	    for (int i = 0; i < listAdapter.getCount(); i++) { 
+	        View listItem = listAdapter.getView(i, null, listView); 
+	        listItem.measure(0, 0); 
+	        totalHeight += listItem.getMeasuredHeight(); 
+	    } 
+
+	    ViewGroup.LayoutParams params = listView.getLayoutParams(); 
+	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()-1)); 
+	    ((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
+	    listView.setLayoutParams(params); 
+    }  
 	
 
 }
