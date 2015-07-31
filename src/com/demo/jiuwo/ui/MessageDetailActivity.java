@@ -13,6 +13,7 @@ import android.text.Html.ImageGetter;
 import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.demo.core.BaseActivity;
@@ -23,17 +24,18 @@ import com.ex.TextViewHtmlParser;
 
 public class MessageDetailActivity extends BaseActivity {
 	final static int SET_CONTENT = 2;
-	private TextView titletv,contenttv;
+	private WebView contenttv;
 	private String message_id,jsonstr;
 	private Context c;
 
 	protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_message_detail);
-			titletv=(TextView)findViewById(R.id.title);
-			contenttv=(TextView)findViewById(R.id.content);
+			//titletv=(TextView)findViewById(R.id.title);
+			contenttv=(WebView)findViewById(R.id.content);
 			message_id=this.getIntent().getExtras().getString("message_id");
-			loaddata();
+			contenttv.loadUrl("http://app.0yuanwang.com/Api/getMessageDetail/message_id/"+message_id+"/");
+			//loaddata();
 			this.c=this;
 			
 	}
@@ -70,24 +72,21 @@ public class MessageDetailActivity extends BaseActivity {
 	        	case SET_CONTENT:
 	                //通知listview更新界面
 					String title;
-					try {
-						title = JSONDecode.getInstance(jsonstr).toJSONObject().getString("title").toString();
+
+/*						title = JSONDecode.getInstance(jsonstr).toJSONObject().getString("title").toString();
 						String content=JSONDecode.getInstance(jsonstr).toJSONObject().getString("content").toString();
-						titletv.setText(title);
+						titletv.setText(title);*/
 				        // 生成一个支持HTML格式的文本
 							//content=new String(content.getBytes("ISO-8859-1"),"UTF-8");
 						
-						contenttv.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动  
+						/*							contenttv.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动  
 						contenttv.setMovementMethod(LinkMovementMethod.getInstance());//设置超链接可以打开网页  
 						contenttv.setText(Html.fromHtml(content, imgGetter, null));  
-/*							new TextViewHtmlParser(c)
+						new TextViewHtmlParser(c)
 							.setUrlPrefix("http://www.0yuanwang.com")
 							.setTextViewHtml(contenttv,content);*/
 
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
 
 	        		break;
 	        	default:
