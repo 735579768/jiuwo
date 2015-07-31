@@ -60,8 +60,8 @@ public class MainLayoutActivity extends FragmentActivity{
 			img3.setSelected(false);
 			img4.setSelected(false);
 			FragmentTransaction ft1 = fm.beginTransaction();
-			ft1.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+/*			ft1.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);*/
 			ft1.replace(R.id.main_container,home );
 			ft1.commit();
 		}else if(id==R.id.iv_menu_22 || id== R.id.iv_menu_2){
@@ -83,8 +83,8 @@ public class MainLayoutActivity extends FragmentActivity{
 			img2.setSelected(false);
 			img4.setSelected(false);
 			FragmentTransaction ft3 = fm.beginTransaction();
-			ft3.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+/*			ft3.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);*/
 			ft3.replace(R.id.main_container,cart);
 			ft3.addToBackStack(null);
 			ft3.commit();
@@ -93,8 +93,8 @@ public class MainLayoutActivity extends FragmentActivity{
 			img2.setSelected(false);
 			img3.setSelected(false);
 			FragmentTransaction ft31 = fm.beginTransaction();
-			ft31.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+/*			ft31.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);*/
 			ft31.replace(R.id.main_container,proinfo);
 			ft31.addToBackStack(null);
 			ft31.commit();

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.demo.adapter.MemListViewAdapter;
+import com.demo.core.GLOBAL;
 import com.demo.core.LoginVerifyFragment;
 import com.demo.jiuwo.R;
 import com.ex.UpdateVersion;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,21 +23,23 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProinfoFragment extends  LoginVerifyFragment{
 	protected WebView webview;
 	protected  ProgressBar  progressBar;
-	protected ListView listview;
-	protected ListView goodslistview;
+	protected ListView listview,goodslistview;
+	private LinearLayout login_reg_block;
 	private TextView login_btn,register_btn;
 	protected String uri="http://app.0yuanwang.com/Member/info";
 	private Integer[] imageIDs={R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico};
-	String [] menutitle={"我的全部订单","未付款订单","已付款订单","检查更新","退出"};
-	 private List<Map<String, Object>> listItems; //菜单列表
-	 private MemListViewAdapter memviewadapter;   //菜单适配器
+	String [] menutitle={"我的全部订单","未付款订单","已付款订单","检查更新","注销账户"};
+	private List<Map<String, Object>> listItems; //菜单列表
+	private MemListViewAdapter memviewadapter;   //菜单适配器
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -45,6 +49,11 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 		listview= (ListView) view.findViewById(R.id.menulist);	
 		login_btn= (TextView) view.findViewById(R.id.login_btn);	
 		register_btn= (TextView) view.findViewById(R.id.register_btn);	
+		login_reg_block= (LinearLayout) view.findViewById(R.id.login_reg_block);	
+		
+		if(!TextUtils.isEmpty(userinfo)){
+			login_reg_block.setVisibility(view.GONE);
+		}
 		//列表元素添加
 		listItems=getListItems();
 		memviewadapter = new MemListViewAdapter(getActivity(), listItems); //创建适配器   
@@ -112,7 +121,9 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 				case 3://更新
 					new UpdateVersion(getActivity()).checkVersion("http://app.0yuanwang.com/version.xml",false);
 					break;
-				case 4://退出
+				case 4://注销账户
+					GLOBAL.saveData(getActivity(),"userinfo","");
+					Toast.makeText(getActivity(),"账户注销成功", 3000).show();
 					intent.setClass(getActivity(),MainLayoutActivity.class);
 					startActivity(intent);
 					getActivity().finish();

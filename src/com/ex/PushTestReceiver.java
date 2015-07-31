@@ -75,26 +75,27 @@ public class PushTestReceiver extends PushMessageReceiver {
         	GLOBAL.BAIDU_REQUEST_ID=requestId;
         	
     		//记录设备信息
-    		String str=GLOBAL.getData(context, "SHEBEIINFO");
-    		if(!str.equals("true")){
+    		//String str=GLOBAL.getData(context, "SHEBEIINFO");
+    	//	if(!str.equals("true")){
 				final List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 				params.add(new BasicNameValuePair("appid", appid));
 				params.add(new BasicNameValuePair("userid", userId));
 				params.add(new BasicNameValuePair("channelid", channelId));
 				params.add(new BasicNameValuePair("requestid", requestId));
+				params.add(new BasicNameValuePair("userinfo", GLOBAL.getData(context, "userinfo")));
     			new Thread(new Runnable(){
     				@Override
     				public void run() {
     					// TODO Auto-generated method stub
     					String str=postUrl(GLOBAL.SHEBEI_URL,params);
     					if(str.equals("success")){
-    						GLOBAL.saveData(context, "SHEBEIINFO", "true");
+    	//					GLOBAL.saveData(context, "SHEBEIINFO", "true");
     					}
     				}
     				
     			}).start();			
     		}
-        }
+     //   }
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
         updateContent(context, responseString);
     }

@@ -129,7 +129,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 							String userinfo=JSONDecode.getInstance(reStr).getString("info").toString();
 							GLOBAL.saveData(this, "userinfo", userinfo);
 							Toast.makeText(this,"登陆成功", 3000).show();
+							intent=new Intent();
+							intent.setClass(this, MainLayoutActivity.class);
 							//Toast.makeText(this,reStr,3000).show();
+							//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
+							startActivity(intent);
 							finish();					
 						}else{
 							Toast.makeText(this,reStr,3000).show();
