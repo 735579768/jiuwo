@@ -29,12 +29,15 @@ import com.demo.core.GLOBAL;
 import com.demo.core.MainActivity;
 import com.demo.jiuwo.R;
 import com.demo.jiuwo.ui.GoodsActivity;
+import com.demo.jiuwo.ui.MessageDetailActivity;
 import com.demo.jiuwo.ui.Qidong1Activity;
 
 
 public class PushTestReceiver extends PushMessageReceiver {
+	public static final int MESSAGE_TYPE=1;//通知信息类型
+	public static final int GOODS_TYPE=2;//通知信息类型
 	   /** TAG to Log */
-    public static final String TAG = PushMessageReceiver .class
+    public static final String TAG = PushMessageReceiver.class
             .getSimpleName();
 
     /**
@@ -160,7 +163,28 @@ public class PushTestReceiver extends PushMessageReceiver {
                 if (!customJson.isNull("goods_id")) {
                     myvalue = customJson.getString("goods_id");
                     goodsid=myvalue;
+                } 
+                int type=Integer.parseInt(customJson.getString("type").toString());
+                Intent intent=new Intent();
+                switch(type){
+                case MESSAGE_TYPE :
+                	//通知信息
+                	String message_id=customJson.getString("message_id");
+                	intent.putExtra("message_id", message_id);
+                	intent.setClass(context.getApplicationContext(), MessageDetailActivity.class);
+                	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                	context.getApplicationContext().startActivity(intent);
+                	break;
+                case GOODS_TYPE:
+                	//产品信息
+                	String goods_id=customJson.getString("goods_id");
+                	intent.putExtra("goods_id", goods_id);
+                	intent.setClass(context.getApplicationContext(), GoodsActivity.class);
+                	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                	context.getApplicationContext().startActivity(intent);
+                	break;
                 }
+                
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -168,13 +192,13 @@ public class PushTestReceiver extends PushMessageReceiver {
         }
 
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        Intent intent = new Intent();
+/*        Intent intent = new Intent();
         Bundle bundle=new Bundle();
         bundle.putString("goods_id",goodsid);
         intent.setClass(context.getApplicationContext(), GoodsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(bundle);
-        context.getApplicationContext().startActivity(intent);
+        context.getApplicationContext().startActivity(intent);*/
     }
 
     /**

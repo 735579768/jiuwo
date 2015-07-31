@@ -120,7 +120,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	            	//setListViewHeightBasedOnChildren(messagelist);
 	    			mpullScrollView.setheaderViewReset();//重置头部刷新
 	    			mpullScrollView.setfooterViewReset();
-	    			mpullScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+	    			//mpullScrollView.fullScroll(ScrollView.FOCUS_DOWN);
 	            	int count=mMessageadapter.getCount();
 	            	if(count>=5){
 	            		mpullScrollView.setfooterEnabled(true);

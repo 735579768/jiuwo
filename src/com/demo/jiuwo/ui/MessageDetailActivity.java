@@ -1,37 +1,24 @@
 package com.demo.jiuwo.ui;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.net.URL;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.text.Html;
+import android.text.Html.ImageGetter;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.demo.adapter.MessageListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.jiuwo.R;
-import com.ex.PullRefreshScrollView;
-import com.ex.PullRefreshScrollView.OnPullListener;
 import com.ex.TextViewHtmlParser;
 
 public class MessageDetailActivity extends BaseActivity {
@@ -89,9 +76,13 @@ public class MessageDetailActivity extends BaseActivity {
 						titletv.setText(title);
 				        // 生成一个支持HTML格式的文本
 							//content=new String(content.getBytes("ISO-8859-1"),"UTF-8");
-							new TextViewHtmlParser(c)
+						
+						contenttv.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动  
+						contenttv.setMovementMethod(LinkMovementMethod.getInstance());//设置超链接可以打开网页  
+						contenttv.setText(Html.fromHtml(content, imgGetter, null));  
+/*							new TextViewHtmlParser(c)
 							.setUrlPrefix("http://www.0yuanwang.com")
-							.setTextViewHtml(contenttv,content);
+							.setTextViewHtml(contenttv,content);*/
 
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -105,6 +96,25 @@ public class MessageDetailActivity extends BaseActivity {
 	        	//super.handleMessage(msg);  
 	        };  
 	    };  	
-
+	    //这里面的resource就是fromhtml函数的第一个参数里面的含有的url  
+	    ImageGetter imgGetter = new Html.ImageGetter() {  
+	        public Drawable getDrawable(String source) {  
+	           // Log.i("RG", "source---?>>>" + source);  
+	            Drawable drawable = null;  
+	            URL url;  
+	            try {  
+	                url = new URL("http://app.0yuanwang.com"+source);  
+	                //Log.i("RG", "url---?>>>" + url);  
+	                drawable = Drawable.createFromStream(url.openStream(), ""); // 获取网路图片  
+	            } catch (Exception e) {  
+	                e.printStackTrace();  
+	                return null;  
+	            }  
+	            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),  
+	                    drawable.getIntrinsicHeight());  
+	           // Log.i("RG", "url---?>>>" + url);  
+	            return drawable;  
+	        }  
+	    };  
 
 }
