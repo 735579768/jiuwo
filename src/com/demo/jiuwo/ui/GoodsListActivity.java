@@ -2,7 +2,6 @@ package com.demo.jiuwo.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -40,12 +37,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.demo.adapter.CategoryListViewAdapter;
 import com.demo.adapter.GoodsListViewAdapter;
-import com.demo.adapter.HomeGoodsListViewAdapter;
-import com.demo.adapter.MemListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.JSONDecode;
 import com.demo.core.MyProgressBar;
-import com.demo.core.ScanCodeActivity;
 import com.demo.jiuwo.R;
 import com.ex.PullRefreshScrollView;
 import com.ex.SlidingMenu;

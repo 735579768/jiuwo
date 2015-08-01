@@ -1,10 +1,7 @@
 package com.demo.jsobject;
 
-import com.demo.jiuwo.ui.CustomProgressDialog;
 import com.demo.jiuwo.ui.GoodsListActivity;
 import com.demo.jiuwo.ui.LoadurlActivity;
-import com.demo.jiuwo.ui.ProinfoFragment;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

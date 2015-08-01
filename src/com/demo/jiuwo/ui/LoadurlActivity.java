@@ -2,11 +2,7 @@ package com.demo.jiuwo.ui;
 
 import com.demo.core.BaseActivity;
 import com.demo.jiuwo.R;
-import com.demo.jiuwo.R.id;
-import com.demo.jiuwo.R.layout;
 import com.demo.jsobject.jsgoods;
-import com.demo.jsobject.jshome;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;

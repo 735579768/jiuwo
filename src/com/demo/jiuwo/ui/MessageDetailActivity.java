@@ -2,7 +2,6 @@ package com.demo.jiuwo.ui;
 
 import java.net.URL;
 
-import org.json.JSONException;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,17 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.text.Html.ImageGetter;
-import android.text.method.LinkMovementMethod;
-import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.webkit.WebView;
-import android.widget.TextView;
-
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
-import com.demo.core.JSONDecode;
 import com.demo.jiuwo.R;
-import com.ex.TextViewHtmlParser;
 
 public class MessageDetailActivity extends BaseActivity {
 	final static int SET_CONTENT = 2;

@@ -1,42 +1,17 @@
 package com.demo.jiuwo.ui;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.view.ViewPager.LayoutParams;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.demo.core.AsyncImageLoader;
 import com.demo.core.BaseActivity;
 import com.demo.jiuwo.R;
 import com.ex.Verify;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener{
 	private Button regster_btn;

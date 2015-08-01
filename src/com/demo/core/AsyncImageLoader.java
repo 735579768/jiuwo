@@ -7,9 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;  
 import android.support.v4.util.LruCache;  
-import android.support.v4.view.ViewPager.LayoutParams;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
 import android.widget.ImageView;  
    
   

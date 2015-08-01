@@ -41,7 +41,6 @@ public class UpdateVersion{
 	private final int DOWN_ERROR = 4;
 	private Context mContext;
 	private boolean jsCheck=false;//是否有一次更新查询
-	private Button getVersion;
 	private boolean jingmo;
 	private String updateUrl;//更新版本的地址
 	private UpdataInfo info;

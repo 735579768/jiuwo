@@ -12,8 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.demo.adapter.CartListViewAdapter;
-import com.demo.adapter.GoodsListViewAdapter;
-import com.demo.adapter.MemListViewAdapter;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.LoginVerifyFragment;
@@ -27,11 +25,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 	final static int UPDATE_CART = 1;

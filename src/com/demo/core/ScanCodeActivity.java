@@ -12,16 +12,8 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
-import java.io.File;
-import java.io.OutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 
 public class ScanCodeActivity extends MipcaActivityCapture {
 	public void onCreate(Bundle savedInstanceState) {

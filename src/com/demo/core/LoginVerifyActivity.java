@@ -3,7 +3,6 @@ package com.demo.core;
 import com.demo.jiuwo.ui.LoginActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 

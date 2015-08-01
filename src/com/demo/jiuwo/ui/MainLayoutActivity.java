@@ -1,11 +1,8 @@
 package com.demo.jiuwo.ui;
 
-import com.demo.core.BaseActivity;
 import com.demo.jiuwo.R;
-import com.demo.jiuwo.R.layout;
 import com.ex.UpdateVersion;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 

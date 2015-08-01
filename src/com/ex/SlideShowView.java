@@ -37,8 +37,6 @@ import android.view.View;
 import android.widget.ImageView;  
 import android.widget.ImageView.ScaleType;  
 import android.widget.LinearLayout;  
-import android.widget.Toast;
-
 import com.demo.jiuwo.R;
 import com.demo.jiuwo.ui.GoodsActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
