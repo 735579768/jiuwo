@@ -72,7 +72,7 @@ public class MyAdapter extends BaseAdapter {
     	        .bitmapConfig(Bitmap.Config.ARGB_8888) // default
     	      //  .decodingOptions(null)
     	        .displayer(new SimpleBitmapDisplayer()) // default
-    	        .displayer(new RoundedBitmapDisplayer(20))//是否设置为圆角，弧度为多少  
+    	        .displayer(new RoundedBitmapDisplayer(0))//是否设置为圆角，弧度为多少  
     	        //.displayer(new FadeInBitmapDisplayer(100))//是否图片加载好后渐入的动画时间  
     	        .handler(new Handler()) // default
     	        .build();

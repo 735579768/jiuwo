@@ -16,6 +16,9 @@ import org.apache.http.util.EntityUtils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.Toast;
 
 public class GLOBAL {
 	//百度云推送信息
@@ -36,6 +39,8 @@ public class GLOBAL {
 	public static String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
 	public static String PRO_INFO="http://app.0yuanwang.com/Member/info";
 	public static String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
+	public static String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
+	
 	/**
      * 使用SharedPreferences保存用户登录信息
      * @param context
@@ -78,12 +83,21 @@ public class GLOBAL {
 	            return "Error Response: "+ httpResponse.getStatusLine().toString();
 	        }
 	    } catch (ClientProtocolException e) {
+			Message msg = new Message();
+			msg.what = 1;
+			handler.sendMessage(msg);
 	        e.printStackTrace();
 	        return e.getMessage().toString();          
 	    } catch (IOException e) {
+			Message msg = new Message();
+			msg.what = 1;
+			handler.sendMessage(msg);
 	        e.printStackTrace();
 	        return e.getMessage().toString();      
 	    } catch (Exception e) {
+			Message msg = new Message();
+			msg.what = 1;
+			handler.sendMessage(msg);
 	        e.printStackTrace();
 	        return e.getMessage().toString();
 	    }
@@ -110,10 +124,27 @@ public static String postUrl(String uri,List<NameValuePair> params){
           reStr= EntityUtils.toString(httpResponse.getEntity()); 
       } 
   } catch (ClientProtocolException e) { 
+		Message msg = new Message();
+		msg.what = 1;
+		handler.sendMessage(msg);
       e.printStackTrace(); 
   } catch (IOException e) { 
+		Message msg = new Message();
+		msg.what = 1;
+		handler.sendMessage(msg);
       e.printStackTrace(); 
   } 
   return reStr;
 }
+
+public static Handler handler = new Handler(){
+	@Override
+	public void handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		super.handleMessage(msg);
+		//switch (msg.what) {
+		Toast.makeText(MYApplication.mContext, "连接服务器失败",3000).show();
+		//}
+		}
+};
 }

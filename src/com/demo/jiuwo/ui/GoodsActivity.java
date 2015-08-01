@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.demo.core.AsyncImageLoader;
 import com.demo.core.BaseActivity;
+import com.demo.core.GLOBAL;
 import com.demo.jiuwo.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +60,7 @@ public class GoodsActivity extends BaseActivity {
 /*		}else{
 		goods_id=bundle.getString("goodsid");
 		}*/
-		String jsongoods=getUrlPage("http://app.0yuanwang.com/Api/getGoodsInfo/goods_id/"+goods_id);
+		String jsongoods=getUrlPage(GLOBAL.GET_GOODSINFO_URL+"goods_id/"+goods_id);
 		try{
 		JSONObject info=new JSONObject(jsongoods);
 		title.setText(info.getString("title"));

@@ -274,9 +274,9 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 				}
 			}).start();
 			}else{
-				loading.setVisibility(View.VISIBLE);
+				//loading.setVisibility(View.VISIBLE);
 				mpullScrollView.setheaderViewReset();//重置头部刷新
-				loading.setText("加载完成");
+				//loading.setText("加载完成");
 				mpullScrollView.setfooterLoadOverText("加载完成,共"+goodslistviewadapter.getCount()+"个");
 			}
 
@@ -311,10 +311,10 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 	        		categorylistviewadapter_lipin.notifyDataSetChanged();
 	        		break;
 	        	case SHOW_LOADING:
-	        		loading.setVisibility(View.VISIBLE);
+	        	//	loading.setVisibility(View.VISIBLE);
 	        		break;
 	        	case GONE_LOADING:
-	        		loading.setVisibility(View.GONE);
+	        	//	loading.setVisibility(View.GONE);
 	        		break;
 /*	        	case SET_GOODSLIST_ADAPTER:
 	        		goodslistview.setAdapter(goodslistviewadapter);

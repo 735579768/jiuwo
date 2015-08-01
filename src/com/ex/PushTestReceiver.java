@@ -87,7 +87,7 @@ public class PushTestReceiver extends PushMessageReceiver {
     				@Override
     				public void run() {
     					// TODO Auto-generated method stub
-    					String str=postUrl(GLOBAL.SHEBEI_URL,params);
+    					String str=GLOBAL.postUrl(GLOBAL.SHEBEI_URL,params);
     					if(str.equals("success")){
     	//					GLOBAL.saveData(context, "SHEBEIINFO", "true");
     					}

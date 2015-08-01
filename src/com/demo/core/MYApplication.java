@@ -18,13 +18,14 @@ import android.app.Application;
 import android.content.Context;
 
 public class MYApplication extends Application {
+	public static Context mContext;
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"TfscjiUBW9nvrMr0Xr9mQpSz");
 		initImageLoader(getApplicationContext());
+		MYApplication.mContext = getApplicationContext(); 
 	}
-
 	public static void initImageLoader(Context context) {
     	File cacheDir = StorageUtils.getCacheDirectory(context);
     	ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)

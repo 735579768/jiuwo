@@ -149,7 +149,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 				    //后台请求产品列表
 						// TODO Auto-generated method stub
 				       
-			           	String jsonstr=getUrlPage(GLOBAL.GOODS_LISTS_URL+"page/"+count+"/num/6");
+			           	String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_LISTS_URL+"page/"+count+"/num/6");
 			           //	Log.v("jsonstr","data-->"+jsonstr);
 			           	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 			            try{
@@ -420,7 +420,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
                 // 发送消息  
               showProgressBar();
 				// TODO Auto-generated method stub
-		      	String jsonstr=getUrlPage(GLOBAL.GOODS_A_LISTS_URL);
+		      	String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_A_LISTS_URL);
 		       	Log.v("jsonstr","data-->"+jsonstr);
 		       	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 		        try{
@@ -466,7 +466,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
     		public void run() {
     			 showProgressBar();
     			// TODO Auto-generated method stub
-       	String jsonstr=getUrlPage(GLOBAL.GOODS_B_LISTS_URL);
+       	String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_B_LISTS_URL);
        	Log.v("jsonstr","data-->"+jsonstr);
        	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
         try{
