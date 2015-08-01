@@ -50,11 +50,12 @@
 	    <activity android:name="com.demo.jiuwo.ui.MainLayoutActivity"></activity> 
 	    <activity android:name="com.demo.core.ScanCodeActivity"></activity> 
 	    <activity android:name="com.demo.core.DecodeCodeActivity"></activity> 
-	     <activity android:name="com.demo.update.VersionActivity"></activity> 
-	      <activity android:name="com.demo.jiuwo.ui.LoginActivity"></activity> 
-	       <activity android:name="com.demo.jiuwo.ui.RegisterActivity"></activity> 
-	       <activity android:name="com.demo.jiuwo.ui.MessageListActivity"></activity>
-	       <activity android:name="com.demo.jiuwo.ui.MessageDetailActivity"></activity>  
+	    <activity android:name="com.demo.jiuwo.ui.CartActivity"></activity> 
+		<activity android:name="com.demo.update.VersionActivity"></activity> 
+		 <activity android:name="com.demo.jiuwo.ui.LoginActivity"></activity> 
+		  <activity android:name="com.demo.jiuwo.ui.RegisterActivity"></activity> 
+		  <activity android:name="com.demo.jiuwo.ui.MessageListActivity"></activity>
+		  <activity android:name="com.demo.jiuwo.ui.MessageDetailActivity"></activity>  
 	            <activity
             android:name="com.codescan.MipcaActivityCapture"
             android:configChanges="orientation|keyboardHidden"

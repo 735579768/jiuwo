@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class CartFragment extends LoginVerifyFragment implements OnPullListener{
+public class MiaoShaFragment extends LoginVerifyFragment implements OnPullListener{
 	final static int UPDATE_CART = 1;
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;

@@ -82,16 +82,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.login_btn:
 			login_btn.setEnabled(false);
-			if(!Verify.getInstance().checkVerify(verify.getText().toString())){
+/*			if(!Verify.getInstance().checkVerify(verify.getText().toString())){
 				Toast.makeText(this,"验证码不正确",3000).show();
-			}else{
+			}else{*/
 				String uStr=username.getText().toString();
 				String pStr=password.getText().toString();
 			     List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 			     params.add(new BasicNameValuePair("username", uStr));
 			     params.add(new BasicNameValuePair("password", pStr));
-				String uri="http://app.0yuanwang.com/Public/login.html";
-				String reStr=postUrl(uri,params);
+				String reStr=GLOBAL.postUrl(GLOBAL.USER_LOGIN,params);
 				login_btn.setEnabled(true);
 				if(!TextUtils.isEmpty(reStr)){
 				try {
@@ -123,7 +122,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					}
 				}
 
-			}
+			//}
 			break;
 		case R.id.verifty_img:
 			verifty_img.setImageBitmap(Verify.getInstance().createBitmap());

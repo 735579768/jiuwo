@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 public class LoginVerifyActivity extends BaseActivity{
-	private String userinfo;
+	protected String userinfo;
 	/* (non-Javadoc)
 	 * @see com.demo.core.BaseActivity#onCreate(android.os.Bundle)
 	 */

@@ -1,5 +1,13 @@
 package com.demo.jiuwo.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.demo.core.BaseActivity;
+import com.demo.core.GLOBAL;
+import com.demo.core.JSONDecode;
 import com.demo.jiuwo.R;
 import com.ex.Verify;
 
@@ -59,19 +69,40 @@ public class RegisterActivity extends BaseActivity implements OnClickListener{
 				//imageLoader.displayImage("http://app.0yuanwang.com/Public/verify/random/"+Math.random()+".html",verifty_img);
 				break;
 			case R.id.register_btn:
-				if(!Verify.getInstance().checkVerify(verify.getText().toString())){
+/*				if(!Verify.getInstance().checkVerify(verify.getText().toString())){
 					Toast.makeText(this,"验证码不正确",3000).show();
-				}else{
+				}else{*/
 					String uStr=username.getText().toString();
 					String pStr=password.getText().toString();
 					String repStr=repassword.getText().toString();
 					if(pStr.equals(repStr)){
-					String uri="http://www.0yuanwang.com/Public/login/username/"+uStr+"/password/"+pStr+"/";
-					String reStr=getUrlPage(uri);
+					 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+					 params.add(new BasicNameValuePair("username", uStr));
+					 params.add(new BasicNameValuePair("password",pStr));
+					String reStr=GLOBAL.postUrl(GLOBAL.USER_REGISTER, params);
+					String status;
+					try {
+						status = JSONDecode.getInstance(reStr).getString("status").toString();
+						if(status.equals("1")){
+							//注册成功
+						}else{
+							Toast.makeText(this,reStr,3000).show();
+							//跳转到登陆界面
+							Intent intent=new Intent();
+							intent.setClass(this,LoginActivity.class);
+							startActivity(intent);
+							finish();
+							inleft();
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 					}else{
 						Toast.makeText(this,"两次输入密码不一致",3000).show();
 					}
-				}
+				//}
 				break;
 		}
 	}  

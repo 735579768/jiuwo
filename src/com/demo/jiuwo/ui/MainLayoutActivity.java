@@ -40,7 +40,7 @@ public class MainLayoutActivity extends FragmentActivity{
 		fm = getSupportFragmentManager();
 		home = new HomeFragment();
 		proinfo = new ProinfoFragment();
-		cart = new CartFragment();
+		//cart = new CartActivity();
 		//初始化的时候需要显示一个fragment，假设我们显示第二个fragment
 		//向容器中添加或者替换fragment时必须  开启事务  操作完成后   提交事务
 		FragmentTransaction ft = fm.beginTransaction();
@@ -75,7 +75,15 @@ public class MainLayoutActivity extends FragmentActivity{
 			ft2.replace(R.id.main_container,home);
 			ft2.commit();		*/
 		}else if(id==R.id.iv_menu_33 || id== R.id.iv_menu_3){//购物车
-			img1.setSelected(false);
+			//跳转到秒杀界面
+/*			img1.setSelected(false);
+			img3.setSelected(false);
+			img4.setSelected(false);
+			Intent intent=new Intent();
+			intent.setClass(this,CartActivity.class);
+			startActivity(intent);*/
+			
+/*			img1.setSelected(false);
 			img2.setSelected(false);
 			img4.setSelected(false);
 			FragmentTransaction ft3 = fm.beginTransaction();
@@ -83,7 +91,7 @@ public class MainLayoutActivity extends FragmentActivity{
 					R.anim.in_from_right, R.anim.out_to_left);
 			ft3.replace(R.id.main_container,cart);
 			ft3.addToBackStack(null);
-			ft3.commit();
+			ft3.commit();*/
 		}else if(id==R.id.iv_menu_44 || id== R.id.iv_menu_4){//个人中心
 			img1.setSelected(false);
 			img2.setSelected(false);

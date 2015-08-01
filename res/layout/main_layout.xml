@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="购物车"
+                android:text="秒杀"
                 android:textSize="11sp" />
         </LinearLayout>
 

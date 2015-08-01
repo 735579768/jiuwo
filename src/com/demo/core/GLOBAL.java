@@ -40,6 +40,9 @@ public class GLOBAL {
 	public static String PRO_INFO="http://app.0yuanwang.com/Member/info";
 	public static String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
 	public static String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
+	//注册登陆
+	public static String USER_LOGIN="http://app.0yuanwang.com/Public/login/";
+	public static String USER_REGISTER="http://app.0yuanwang.com/Public/register/";
 	
 	/**
      * 使用SharedPreferences保存用户登录信息

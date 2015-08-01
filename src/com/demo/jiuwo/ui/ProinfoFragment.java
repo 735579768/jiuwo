@@ -36,8 +36,8 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 	private LinearLayout login_reg_block;
 	private TextView login_btn,register_btn;
 	protected String uri="http://app.0yuanwang.com/Member/info";
-	private Integer[] imageIDs={R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico};
-	String [] menutitle={"我的全部订单","未付款订单","已付款订单","检查更新","注销账户"};
+	private Integer[] imageIDs={R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico};
+	String [] menutitle={"购物车","全部订单","未付款订单","已付款订单","检查更新","注销账户"};
 	private List<Map<String, Object>> listItems; //菜单列表
 	private MemListViewAdapter memviewadapter;   //菜单适配器
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,17 +111,22 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 				//String titleitem=listItems.get(arg2).get("title").toString();	
 				Intent intent=new Intent();
 				switch(arg2){
-				case 0://全部订单
+				case 0://购物车
+					intent.setClass(getActivity(),CartActivity.class);
+					startActivity(intent);
+					inright();						
+					break;
+				case 1://全部订单
 
 					break;
-				case 1://未付订单
+				case 2://未付订单
 					break;
-				case 2://已付订单
+				case 3://已付订单
 					break;
-				case 3://更新
+				case 4://更新
 					new UpdateVersion(getActivity()).checkVersion("http://app.0yuanwang.com/version.xml",false);
 					break;
-				case 4://注销账户
+				case 5://注销账户
 					GLOBAL.saveData(getActivity(),"userinfo","");
 					Toast.makeText(getActivity(),"账户注销成功", 3000).show();
 					intent.setClass(getActivity(),MainLayoutActivity.class);
