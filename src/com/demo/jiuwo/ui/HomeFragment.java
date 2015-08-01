@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import com.demo.adapter.GridViewAdapter;
 import com.demo.adapter.HomeGoodsListViewAdapter;
 import com.demo.core.BaseFragment;
+import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.MyProgressBar;
 import com.demo.core.ScanCodeActivity;
@@ -66,9 +67,8 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 	private CustomProgressDialog progressDialog;
 	private int threadnum=0;//进入的线程计数 
 
-	//商品选购和礼品赠送区地址
-	private String uri_a="http://app.0yuanwang.com/Api/getXuangouList/";
-	private String uri_b="http://app.0yuanwang.com/Api/getLipinList/";
+
+
 	
 	private boolean okload=true;//标记是否可以加载
 	private boolean loadover=false;//全部数据加载完成
@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 				container, false);
 		//取下拉刷新对象
 		mpullScrollView= (PullRefreshScrollView) view.findViewById(R.id.scrollid);
-		 //slidingLayout.setScrollEvent(mpullScrollView);
+		mpullScrollView.setfooterEnabled(false);
 		 
 		searchbtn = (TextView) view.findViewById(R.id.tv_top_title);
 		scancode = (ImageView) view.findViewById(R.id.scancode);
@@ -117,6 +117,8 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		gridview_a.setAdapter(gridviewadapter_a);
 		gridviewadapter_b=new GridViewAdapter(getActivity());
 		gridview_b.setAdapter(gridviewadapter_b);
+		goodslistviewadapter = new HomeGoodsListViewAdapter(getActivity());
+		goodslistview.setAdapter(goodslistviewadapter);
 
 		initListener();
 	    //后台请求产品列表
@@ -133,22 +135,21 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 			public void run() {
 				 //showProgressBar();
 	                // 发送消息  
-	                Message msg=handler.obtainMessage();
-	                msg.what=SHOW_LOADING;
-	                handler.sendMessage(msg);
+	                sendMessage(SHOW_LOADING);
+	                
 				try{
-					boolean firstload=false;
-					int count=0;
-					if(goodslistviewadapter == null){
+					//boolean firstload=false;
+					int count=goodslistviewadapter.getCount(); ;
+/*					if(goodslistviewadapter == null){
 						firstload=true;
 						 goodslistviewadapter = new HomeGoodsListViewAdapter(getActivity()); //创建适配器 
 					}else{
 						 count = goodslistviewadapter.getCount(); 
-					}
+					}*/
 				    //后台请求产品列表
 						// TODO Auto-generated method stub
 				       
-			           	String jsonstr=getUrlPage("http://app.0yuanwang.com/Api/getgoodslist/page/"+count+"/num/6");
+			           	String jsonstr=getUrlPage(GLOBAL.GOODS_LISTS_URL+"page/"+count+"/num/6");
 			           //	Log.v("jsonstr","data-->"+jsonstr);
 			           	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 			            try{
@@ -170,17 +171,13 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 			    				}
 			                   
 			                }
-			                if(firstload){
-			                	Message msg2=handler.obtainMessage();;
-			                	msg2.what=SET_GOODSLIST_ADAPTER;
-			                	handler.sendMessage(msg2);
-			                }else{
+			          
+			                	 //sendMessage(SET_GOODSLIST_ADAPTER);
+		
 			                	
 				                // 发送消息  
-				                Message msg1=handler.obtainMessage();;
-				                msg1.what=UPDATE_GOODSLISTVIEW;
-				                handler.sendMessage(msg1);			  
-				                }
+				                sendMessage(UPDATE_GOODSLISTVIEW);
+				     
 
 			            }catch(JSONException e){
 			            	Log.v("json_err",e.getMessage());
@@ -194,9 +191,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 					}catch(Exception e){
 						Log.v("json_err",e.getMessage());
 					}	
-	            Message msg1=handler.obtainMessage();
-	            msg1.what=GONE_LOADING;
-	            handler.sendMessage(msg1);
+	            sendMessage(GONE_LOADING);
 	            okload=true;
 			}
 
@@ -209,25 +204,6 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 
 	}
 	
-	//动态设置listview的高度
-	public void setListViewHeightBasedOnChildren(ListView listView) {     
-        // 获取ListView对应的Adapter     
-		ListAdapter listAdapter = listView.getAdapter();  
-	    if (listAdapter == null) { 
-	        return; 
-	    } 
-	    int totalHeight = 0; 
-	    for (int i = 0; i < listAdapter.getCount(); i++) { 
-	        View listItem = listAdapter.getView(i, null, listView); 
-	        listItem.measure(0, 0); 
-	        totalHeight += listItem.getMeasuredHeight(); 
-	    } 
-
-	    ViewGroup.LayoutParams params = listView.getLayoutParams(); 
-	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()-1)); 
-	    ((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
-	    listView.setLayoutParams(params); 
-    }  
 	/**
 	 * 初始化事件绑定
 	 **/
@@ -332,7 +308,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 					bundle.putString("goodsid",titleitem);
 					intent.putExtras(bundle);*/
 					intent.putExtra("goods_id", titleitem);
-					intent.setClass(getActivity(),GoodswebActivity.class);
+					intent.setClass(getActivity(),GoodsActivity.class);
 					startActivity(intent);
 					inright();
 				}catch(Exception e){
@@ -354,6 +330,11 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
             	loading.setVisibility(View.GONE);
             	//setListViewHeightBasedOnChildren(goodslistview);
             	mpullScrollView.setfooterViewReset();
+            	if(goodslistviewadapter.getCount()>5){
+            		mpullScrollView.setfooterEnabled(true);
+            	}else{
+            		mpullScrollView.setfooterEnabled(false);
+            	}
             	okload=true;//可以再次加载
         		break;       		
         	case UPDATE_GRIDVIEW_A:
@@ -398,10 +379,10 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
         		mProgressbar.setVisibility(View.GONE);
         		}
         		break;
-        	case SET_GOODSLIST_ADAPTER:
+/*        	case SET_GOODSLIST_ADAPTER:
         		goodslistview.setAdapter(goodslistviewadapter);
         		//setListViewHeightBasedOnChildren(goodslistview);
-        		break;
+        		break;*/
         	default:
         		break;
         	}
@@ -439,7 +420,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
                 // 发送消息  
               showProgressBar();
 				// TODO Auto-generated method stub
-		      	String jsonstr=getUrlPage(uri_a);
+		      	String jsonstr=getUrlPage(GLOBAL.GOODS_A_LISTS_URL);
 		       	Log.v("jsonstr","data-->"+jsonstr);
 		       	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 		        try{
@@ -465,9 +446,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		               
 		            }
 		                // 发送消息  
-		                Message msg3=handler.obtainMessage();;
-		                msg3.what=UPDATE_GRIDVIEW_A;
-		                handler.sendMessage(msg3);	
+		                sendMessage(UPDATE_GRIDVIEW_A);
 		                
 		        }catch(JSONException e){
 		        	Log.v("json_err",e.getMessage());
@@ -487,7 +466,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
     		public void run() {
     			 showProgressBar();
     			// TODO Auto-generated method stub
-       	String jsonstr=getUrlPage(uri_b);
+       	String jsonstr=getUrlPage(GLOBAL.GOODS_B_LISTS_URL);
        	Log.v("jsonstr","data-->"+jsonstr);
        	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
         try{
@@ -512,9 +491,8 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 
             	
                 // 发送消息  
-                Message msg2=handler.obtainMessage();;
-                msg2.what=UPDATE_GRIDVIEW_B;
-                handler.sendMessage(msg2);	
+                sendMessage(UPDATE_GRIDVIEW_B);
+              	
                 
 
         }catch(JSONException e){
@@ -527,34 +505,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		}
 		}).start();
     }
-    public static void setListViewHeightBasedOnChildren(GridView listView) {  
-        // 获取listview的adapter  
-           ListAdapter listAdapter = listView.getAdapter();  
-           if (listAdapter == null) {  
-               return;  
-           }  
-           // 固定列宽，有多少列  
-           int col = 2;// listView.getNumColumns();  
-           int totalHeight = 0;  
-           // i每次加4，相当于listAdapter.getCount()小于等于4时 循环一次，计算一次item的高度，  
-           // listAdapter.getCount()小于等于8时计算两次高度相加  
-           for (int i = 0; i < listAdapter.getCount(); i += col) {  
-            // 获取listview的每一个item  
-               View listItem = listAdapter.getView(i, null, listView);  
-               listItem.measure(0, 0);  
-               // 获取item的高度和  
-               totalHeight += listItem.getMeasuredHeight()+40;  //添加40顶边距等
-           }  
-      
-           // 获取listview的布局参数  
-           ViewGroup.LayoutParams params = listView.getLayoutParams();  
-           // 设置高度  
-           params.height = totalHeight;  
-           // 设置margin  
-           ((MarginLayoutParams) params).setMargins(10, 10, 10, 10);  
-           // 设置参数  
-           listView.setLayoutParams(params);  
-       } 
+
     //显示进度条
     @Override
     public void showProgressBar(){
@@ -584,6 +535,11 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		loaddata();
 		// TODO Auto-generated method stub
 		
+	}
+	public void sendMessage(int msg_type){
+        Message msg1=handler.obtainMessage();
+        msg1.what=msg_type;
+        handler.sendMessage(msg1);
 	}
 }
 

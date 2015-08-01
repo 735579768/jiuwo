@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import com.demo.adapter.CartListViewAdapter;
 import com.demo.adapter.GoodsListViewAdapter;
 import com.demo.adapter.MemListViewAdapter;
+import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.LoginVerifyFragment;
 import com.demo.jiuwo.R;
@@ -37,8 +38,8 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
 	private PullRefreshScrollView mPullRefresh;
-	protected ListView cartlistview;
-	protected String uri="http://app.0yuanwang.com/Member/info";
+	protected MyListView cartlistview;
+	protected String uri=GLOBAL.PRO_INFO;
 
 	 private List<Map<String, Object>> listItems; //菜单列表
 	 private CartListViewAdapter cartadapter;   //菜单适配器
@@ -53,7 +54,7 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 		//取要显示到下拉容器中的内容视图
 		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
 	
-		cartlistview= (ListView) cl.findViewById(R.id.cartlist);
+		cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
 		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 
 		cartlistview.setAdapter(cartadapter);
 		loaddata();
@@ -65,7 +66,7 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 			public void run() {
 				// TODO Auto-generated method stub
 				int count=cartadapter.getCount();
-				String strUri="http://app.0yuanwang.com/Cart/index/";
+				String strUri=GLOBAL.CART_INDEX_LIST;
 				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 				  params.add(new BasicNameValuePair("userinfo", userinfo));
 				  params.add(new BasicNameValuePair("num", count+""));
@@ -119,7 +120,6 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
         		}else{
         			mPullRefresh.setfooterEnabled(false);
         		}
-        		setListViewHeightBasedOnChildren(cartlistview);
         		break;
         	case RESET_HEADER:
         		mPullRefresh.setheaderViewReset();
@@ -144,26 +144,7 @@ public class CartFragment extends LoginVerifyFragment implements OnPullListener{
 		loaddata();
 		// TODO Auto-generated method stub
 		
-	}
-	//动态设置listview的高度
-	public void setListViewHeightBasedOnChildren(ListView listView) {     
-        // 获取ListView对应的Adapter     
-		ListAdapter listAdapter = listView.getAdapter();  
-	    if (listAdapter == null) { 
-	        return; 
-	    } 
-	    int totalHeight = 0; 
-	    for (int i = 0; i < listAdapter.getCount(); i++) { 
-	        View listItem = listAdapter.getView(i, null, listView); 
-	        listItem.measure(0, 0); 
-	        totalHeight += listItem.getMeasuredHeight(); 
-	    } 
-
-	    ViewGroup.LayoutParams params = listView.getLayoutParams(); 
-	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()-1)); 
-	    ((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
-	    listView.setLayoutParams(params); 
-    }  
+	} 
 	
 
 }

@@ -30,6 +30,12 @@ public class GLOBAL {
 	public static String SHEBEI_URL="http://app.0yuanwang.com/Api/shebeijilu/";
 	public static String MESSAGE_URL="http://app.0yuanwang.com/Api/getMessageList/";
 	public static String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
+	public static String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist/";
+	//商品选购和礼品赠送区地址
+	public static String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
+	public static String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
+	public static String PRO_INFO="http://app.0yuanwang.com/Member/info";
+	public static String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
 	/**
      * 使用SharedPreferences保存用户登录信息
      * @param context
