@@ -11,11 +11,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.demo.adapter.CartListViewAdapter;
+import com.demo.adapter.MiaoshaListViewAdapter;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.LoginVerifyActivity;
 import com.demo.core.LoginVerifyFragment;
+import com.demo.core.MSG_TYPE;
 import com.demo.jiuwo.R;
 import com.ex.PullRefreshScrollView;
 import com.ex.PullRefreshScrollView.OnPullListener;
@@ -30,63 +31,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class CartActivity extends LoginVerifyActivity implements OnPullListener{
-	final static int UPDATE_CART = 1;
+public class MiaoshaActivity extends LoginVerifyActivity implements OnPullListener{
+	final static int UPDATE_miaosha = 1;
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
 	private PullRefreshScrollView mPullRefresh;
-	protected MyListView cartlistview;
+	protected MyListView miaoshalistview;
 	protected String uri=GLOBAL.PRO_INFO;
 
-	 private CartListViewAdapter cartadapter;   //菜单适配器
+	 private List<Map<String, Object>> listItems; //菜单列表
+	 private MiaoshaListViewAdapter miaoshaadapter;   //菜单适配器
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_cart_list);
+			setContentView(R.layout.activity_miaosha_list);
 			mPullRefresh=(PullRefreshScrollView)findViewById(R.id.scrollid);
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_cart);
+			LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_miaosha);
 		
-			cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
-			cartadapter = new CartListViewAdapter(this); //创建适配器 
-			cartlistview.setAdapter(cartadapter);
+			miaoshalistview= (MyListView) cl.findViewById(R.id.miaoshalist);
+			miaoshaadapter = new MiaoshaListViewAdapter(this); //创建适配器 
+			miaoshalistview.setAdapter(miaoshaadapter);
 			loaddata();
 		}
-/*	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
-		View view= inflater.inflate(R.layout.activity_cart_list,
-				container, false);
-		mPullRefresh=(PullRefreshScrollView) view.findViewById(R.id.scrollid);
-		mPullRefresh.setfooterEnabled(false);
-		mPullRefresh.setOnPullListener(this);
-		//取要显示到下拉容器中的内容视图
-		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
-	
-		cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
-		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 
-		cartlistview.setAdapter(cartadapter);
-		loaddata();
-		return view;
-	}*/
 	private void loaddata(){
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				int count=cartadapter.getCount();
+				int count=miaoshaadapter.getCount();
 				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 				  params.add(new BasicNameValuePair("userinfo", userinfo));
 				  params.add(new BasicNameValuePair("num", count+""));
-				String jsonstr=GLOBAL.postUrl(GLOBAL.CART_INDEX_LIST,params);
+				String jsonstr=GLOBAL.postUrl(GLOBAL.GOODS_MIAOSHA_LISTS_URL,params);
 				try {
 				JSONArray jarr = JSONDecode.getInstance(jsonstr).toJSONArray();		
 					//选购分类
 					//JSONArray jarr1=JSONDecode.getInstance(((JSONObject)jsonarr.opt(0)).getString("child")).toJSONArray();
-					for(int i=0;i<jarr.length();i++){
+				if(jarr.length()!=0){
+				for(int i=0;i<jarr.length();i++){
 						JSONObject obj=(JSONObject)jarr.opt(i);
 						HashMap<String,Object> map = new HashMap<String,Object>();
 						String title=obj.getString("title");
@@ -96,15 +82,17 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 						map.put("title", title);
 						map.put("category_id",obj.getString("category_id"));
 						map.put("goods_id",obj.getString("goods_id"));
-						cartadapter.addItem(map);
+						miaoshaadapter.addItem(map);
 					}
 	                // 发送消息  
-	                Message msg=handler.obtainMessage();
-	                msg.what=UPDATE_CART;
-	                handler.sendMessage(msg);
+	                sendMessage(UPDATE_miaosha);
+				}else{
+					sendMessage(MSG_TYPE.MSG_LOADOVER_MIAOSHA);
+				}
 	                
 					} catch (JSONException e) {
 					// TODO Auto-generated catch block
+						sendMessage(MSG_TYPE.MSG_LOADOVER_MIAOSHA);
 					e.printStackTrace();
 				}					
 			}
@@ -113,15 +101,19 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 
 
 	}
-
+	private void sendMessage(int msg_type){
+        Message msg=handler.obtainMessage();
+        msg.what=msg_type;
+        handler.sendMessage(msg);
+	}
 	private Handler handler=new Handler(){
 	    public void handleMessage(Message msg) { 
         	switch(msg.what){
-        	case UPDATE_CART:
-        		cartadapter.notifyDataSetChanged();
+        	case UPDATE_miaosha:
+        		miaoshaadapter.notifyDataSetChanged();
         		mPullRefresh.setheaderViewReset();
         		mPullRefresh.setfooterViewReset();
-        		if(cartadapter.getCount()>=5){
+        		if(miaoshaadapter.getCount()>=5){
         			mPullRefresh.setfooterEnabled(true);
         		}else{
         			mPullRefresh.setfooterEnabled(false);
@@ -133,6 +125,8 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
         	case RESET_FOOTER:
         		mPullRefresh.setfooterViewReset();
         		break;
+        	case MSG_TYPE.MSG_LOADOVER_MIAOSHA :
+        		mPullRefresh.setfooterLoadOverText("加载完毕,共"+miaoshaadapter.getCount()+"个");
         	default:
         		break;
         	}
@@ -142,7 +136,7 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
-		cartadapter.removeAllItem();
+		miaoshaadapter.removeAllItem();
 		loaddata();
 	}
 	@Override

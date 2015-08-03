@@ -76,9 +76,13 @@ public class MainLayoutActivity extends FragmentActivity{
 			ft2.commit();		*/
 		}else if(id==R.id.iv_menu_33 || id== R.id.iv_menu_3){//购物车
 			//跳转到秒杀界面
-/*			img1.setSelected(false);
+			img1.setSelected(false);
 			img3.setSelected(false);
 			img4.setSelected(false);
+			Intent intent=new Intent();
+			intent.setClass(this,MiaoshaActivity.class);
+			startActivity(intent);
+/*			
 			Intent intent=new Intent();
 			intent.setClass(this,CartActivity.class);
 			startActivity(intent);*/
