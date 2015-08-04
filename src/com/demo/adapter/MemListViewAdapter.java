@@ -71,15 +71,16 @@ public class MemListViewAdapter extends MyAdapter {
 	            });  
 	            //设置控件集到convertView   
 	            convertView.setTag(listItemView);  
+		          
+		        //设置文字和图片   
+		        listItemView.image.setBackgroundResource((Integer) listItems.get(  
+		                position).get("image"));  
+		        listItemView.title.setText((String) listItems.get(position)  
+		                .get("title")); 
 	        }else {  
 	            listItemView = (ListItemView)convertView.getTag();  
 	        }  
-	          
-	        //设置文字和图片   
-	        listItemView.image.setBackgroundResource((Integer) listItems.get(  
-	                position).get("image"));  
-	        listItemView.title.setText((String) listItems.get(position)  
-	                .get("title"));  
+ 
 	        return convertView;  
 	    }  
 

@@ -77,19 +77,6 @@ public class CategoryListViewAdapter extends MyAdapter {
 	            listItemView.title = (TextView)convertView.findViewById(R.id.titleItem);
 		        //设置控件集到convertView   
 	            convertView.setTag(listItemView); 
-		                 
-	            //注册按钮点击时间爱你   
-/*	            listItemView.title.setOnClickListener(new View.OnClickListener() {  
-	                @Override  
-	                public void onClick(View v) {  
-	                    //显示物品详情   
-	                  //  showDetailInfo(selectID);  
-	                }  
-	            });  */
- 
-
-	          
-
 	        }else{
 	        	listItemView = (ListItemView)convertView.getTag(); 	 
 	        }	        

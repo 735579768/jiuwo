@@ -12,27 +12,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.demo.adapter.MiaoshaListViewAdapter;
+import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
-import com.demo.core.LoginVerifyActivity;
-import com.demo.core.LoginVerifyFragment;
 import com.demo.core.MSG_TYPE;
 import com.demo.jiuwo.R;
 import com.ex.PullRefreshScrollView;
 import com.ex.PullRefreshScrollView.OnPullListener;
 
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class MiaoshaActivity extends LoginVerifyActivity implements OnPullListener{
-	final static int UPDATE_miaosha = 1;
+public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
 	private PullRefreshScrollView mPullRefresh;
@@ -58,20 +54,22 @@ public class MiaoshaActivity extends LoginVerifyActivity implements OnPullListen
 			loaddata();
 		}
 	private void loaddata(){
+	//	GLSurfaceView.queueEvent(new Runnable(){});
+		//GLSurfaceView.queueEvent(Runnable r);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				int count=miaoshaadapter.getCount();
 				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
-				  params.add(new BasicNameValuePair("userinfo", userinfo));
+				  //params.add(new BasicNameValuePair("userinfo", userinfo));
 				  params.add(new BasicNameValuePair("num", count+""));
 				String jsonstr=GLOBAL.postUrl(GLOBAL.GOODS_MIAOSHA_LISTS_URL,params);
 				try {
 				JSONArray jarr = JSONDecode.getInstance(jsonstr).toJSONArray();		
 					//选购分类
 					//JSONArray jarr1=JSONDecode.getInstance(((JSONObject)jsonarr.opt(0)).getString("child")).toJSONArray();
-				if(jarr.length()!=0){
+				if(!TextUtils.isEmpty(jsonstr)){
 				for(int i=0;i<jarr.length();i++){
 						JSONObject obj=(JSONObject)jarr.opt(i);
 						HashMap<String,Object> map = new HashMap<String,Object>();
@@ -85,7 +83,7 @@ public class MiaoshaActivity extends LoginVerifyActivity implements OnPullListen
 						miaoshaadapter.addItem(map);
 					}
 	                // 发送消息  
-	                sendMessage(UPDATE_miaosha);
+	                sendMessage(MSG_TYPE.MSG_UPDATE_MIAOSHA);
 				}else{
 					sendMessage(MSG_TYPE.MSG_LOADOVER_MIAOSHA);
 				}
@@ -109,7 +107,7 @@ public class MiaoshaActivity extends LoginVerifyActivity implements OnPullListen
 	private Handler handler=new Handler(){
 	    public void handleMessage(Message msg) { 
         	switch(msg.what){
-        	case UPDATE_miaosha:
+        	case MSG_TYPE.MSG_UPDATE_MIAOSHA:
         		miaoshaadapter.notifyDataSetChanged();
         		mPullRefresh.setheaderViewReset();
         		mPullRefresh.setfooterViewReset();

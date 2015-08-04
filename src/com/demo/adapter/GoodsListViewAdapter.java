@@ -84,32 +84,30 @@ public class GoodsListViewAdapter extends MyAdapter {
 	            listItemView.goodsid = (TextView)convertView.findViewById(R.id.goodsid);
 		        //设置控件集到convertView   
 	            convertView.setTag(listItemView); 
-		                 
-	            //注册按钮点击时间爱你   
-/*	            listItemView.title.setOnClickListener(new View.OnClickListener() {  
-	                @Override  
-	                public void onClick(View v) {  
-	                    //显示物品详情   
-	                  //  showDetailInfo(selectID);  
-	                }  
-	            });  */
- 
-
-	          
-
 	        }else{
 	        	listItemView = (ListItemView)convertView.getTag(); 	 
 	        }
-	        
-	        //设置文字和图片   
+		        //设置文字和图片   
 	        String imgurl=(String) listItems.get(position).get("pic");
-	        loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
-	        listItemView.goodsid.setText((String) listItems.get(position)  
-	                .get("goodsid"));  
-	        listItemView.title.setText((String) listItems.get(position)  
-	                .get("title"));  
-	        listItemView.price.setText((String) listItems.get(position)  
-	                .get("price"));  
+	        //防止图片重新加载闪烁的情况
+	        if(listItemView.image.getTag(R.id.tag_first)!=null){
+		        if(listItemView.image.getTag(R.id.tag_first).toString()!=imgurl){
+		        	//设置一个标记
+		            listItemView.image.setTag(R.id.tag_first,imgurl);
+		            loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
+		        }
+	        }else{
+	            listItemView.image.setTag(R.id.tag_first,imgurl);
+	            loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
+	        }
+		        loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
+		        listItemView.goodsid.setText((String) listItems.get(position)  
+		                .get("goodsid"));  
+		        listItemView.title.setText((String) listItems.get(position)  
+		                .get("title"));  
+		        listItemView.price.setText((String) listItems.get(position)  
+		                .get("price")); 
+
 	        return convertView; 
 	    }  
 	 

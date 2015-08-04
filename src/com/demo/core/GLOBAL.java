@@ -30,26 +30,37 @@ public class GLOBAL {
 	//数据请求地址
 	/**记录设备信息地址**/
 	public static String SHEBEI_URL="http://app.0yuanwang.com/Api/shebeijilu/";
+	
 	/**取最新消息列表地址**/
 	public static String MESSAGE_URL="http://app.0yuanwang.com/Api/getMessageList/";
+	
 	/**取单个消息地址**/
 	public static String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
+	
 	/**搜索产品列表地址**/
 	public static String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist/";
+	
 	/**商品选购和礼品赠送区地址**/
 	public static String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
+	
 	/**秒杀列表地址**/
 	public static String GOODS_MIAOSHA_LISTS_URL="http://app.0yuanwang.com/Api/getMiaoshaList/";
+	
 	/**首页礼品列表地址**/
 	public static String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
+	
 	/**会员信息地址**/
 	public static String PRO_INFO="http://app.0yuanwang.com/Member/info";
+	
 	/**购物车列表地址**/
 	public static String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
+	
 	/**单个产品信息地址**/
 	public static String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
+	
 	/**会员登陆地址**/
 	public static String USER_LOGIN="http://app.0yuanwang.com/Public/login/";
+	
 	/**会员注册地址**/
 	public static String USER_REGISTER="http://app.0yuanwang.com/Public/register/";
 	

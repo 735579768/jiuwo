@@ -83,34 +83,25 @@ public class MessageListViewAdapter extends MyAdapter {
 	            listItemView.messageid = (TextView)convertView.findViewById(R.id.messageid);
 		        //设置控件集到convertView   
 	            convertView.setTag(listItemView); 
-		                 
-	            //注册按钮点击时间爱你   
-/*	            listItemView.title.setOnClickListener(new View.OnClickListener() {  
-	                @Override  
-	                public void onClick(View v) {  
-	                    //显示物品详情   
-	                  //  showDetailInfo(selectID);  
-	                }  
-	            });  */
  
 
-	          
+		        
+		        //设置文字和图片   
+		        String imgurl=(String) listItems.get(position).get("pic");
+		        loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
+		        listItemView.messageid.setText((String) listItems.get(position)  
+		                .get("messageid"));  
+		        listItemView.update_time.setText((String) listItems.get(position)  
+		                .get("update_time"));  
+		        listItemView.title.setText((String) listItems.get(position)  
+		                .get("title"));  
+		        listItemView.descr.setText((String) listItems.get(position)  
+		                .get("descr"));  
 
 	        }else{
 	        	listItemView = (ListItemView)convertView.getTag(); 	 
 	        }
-	        
-	        //设置文字和图片   
-	        String imgurl=(String) listItems.get(position).get("pic");
-	        loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
-	        listItemView.messageid.setText((String) listItems.get(position)  
-	                .get("messageid"));  
-	        listItemView.update_time.setText((String) listItems.get(position)  
-	                .get("update_time"));  
-	        listItemView.title.setText((String) listItems.get(position)  
-	                .get("title"));  
-	        listItemView.descr.setText((String) listItems.get(position)  
-	                .get("descr"));  
+
 	        return convertView; 
 	    }  
 	 
