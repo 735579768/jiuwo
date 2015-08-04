@@ -49,8 +49,8 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			mpullScrollView.setfooterEnabled(false);
 			mpullScrollView.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_message);
-			messagelist= (MyListView)cl.findViewById(R.id.messagelist);
+			//LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_message);
+			messagelist= (MyListView)findViewById(R.id.messagelist);
 			mMessageadapter=new MessageListViewAdapter(this);
 			messagelist.setAdapter(mMessageadapter);
 			initListener();

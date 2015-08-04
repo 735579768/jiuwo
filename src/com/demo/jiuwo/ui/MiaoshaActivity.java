@@ -46,9 +46,9 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_miaosha);
+			//LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_miaosha);
 		
-			miaoshalistview= (MyListView) cl.findViewById(R.id.miaoshalist);
+			miaoshalistview= (MyListView)findViewById(R.id.miaoshalist);
 			miaoshaadapter = new MiaoshaListViewAdapter(this); //创建适配器 
 			miaoshalistview.setAdapter(miaoshaadapter);
 			loaddata();

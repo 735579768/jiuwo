@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view= inflater.inflate(R.layout.container_pullscrollview,
+		View view= inflater.inflate(R.layout.activity_home,
 				container, false);
 		//取下拉刷新对象
 		mpullScrollView= (PullRefreshScrollView) view.findViewById(R.id.scrollid);
@@ -87,12 +87,12 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		loading= (TextView)view.findViewById(R.id.loading);
 	
 		//取要显示的内容视图
-		contentLayout= (LinearLayout)mpullScrollView.addBodyLayoutFile(getActivity(),R.layout.activity_home);
+		//contentLayout= (LinearLayout)mpullScrollView.addBodyLayoutFile(getActivity(),R.layout.activity_home);
 		//mpullScrollView.setFooterShow(false);
-		goodslistview = (MyListView) contentLayout.findViewById(R.id.goodslist);
-		gridview_a= (MyGridView) contentLayout.findViewById(R.id.gridview_a);
-		gridview_b= (MyGridView) contentLayout.findViewById(R.id.gridview_b);
-		loading= (TextView) contentLayout.findViewById(R.id.loading);
+		goodslistview = (MyListView)view.findViewById(R.id.goodslist);
+		gridview_a= (MyGridView)view.findViewById(R.id.gridview_a);
+		gridview_b= (MyGridView)view.findViewById(R.id.gridview_b);
+		loading= (TextView)view.findViewById(R.id.loading);
 		
 		
 		//取要显示的内容视图

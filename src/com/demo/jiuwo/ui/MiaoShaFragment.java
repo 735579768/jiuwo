@@ -46,9 +46,9 @@ public class MiaoShaFragment extends LoginVerifyFragment implements OnPullListen
 		mPullRefresh.setfooterEnabled(false);
 		mPullRefresh.setOnPullListener(this);
 		//取要显示到下拉容器中的内容视图
-		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
+		//LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
 	
-		cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
+		cartlistview= (MyListView) view.findViewById(R.id.cartlist);
 		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 
 		cartlistview.setAdapter(cartadapter);
 		loaddata();

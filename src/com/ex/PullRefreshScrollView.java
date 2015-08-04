@@ -90,66 +90,24 @@ public class PullRefreshScrollView extends ScrollView {
 	private boolean 			isfooter=true;
 	//是否在线程中设置滚动条位置
 	private boolean 			isSetScrolling=false;
-
-	public PullRefreshScrollView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
-
+	private ViewGroup childView;//原有的子视图
+	private boolean isInitUi=false;//是否已经初始化啦scrollview，防止重复添加布局	
 	public PullRefreshScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public PullRefreshScrollView(Context context) {
-		super(context);
-		init(context);
-	}
-
 	private void init(Context context) {
 		this.mContext = context;
-		// ScrollView 可以滑动必须有且只有一个子View - ScrollView 内装的View都将放在 innerLayout 里面
-		// ScrollView 设置为上下滚动 LinearLayout.VERTICAL
-		innerLayout = new LinearLayout(context);
+		innerLayout = new LinearLayout(mContext);
 		innerLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT));
 		innerLayout.setOrientation(LinearLayout.VERTICAL);
-
-		addheaderView();
-
-		// 设置 bodyLayout 区域
-		bodyLayout = new LinearLayout(context);
+		bodyLayout = new LinearLayout(mContext);
 		bodyLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT));
 		bodyLayout.setOrientation(LinearLayout.VERTICAL);
-		innerLayout.addView(bodyLayout);
-
-		pullscrollView=this;
-
-		// 初始化刷新、加载状态
-		pullState = DONE;
-	}
-
-	/**
-	 * 添加 headerView
-	 */
-	private void addheaderView() {
-		headerView = new HeaderView(mContext);
-		measureView(headerView);
-
-		headContentHeight = headerView.getMeasuredHeight();
-		Log.v("TouthY","headerview高度"+headContentHeight);
-		// 初始化 headerView 位置（不可见）
-		headerView.setPadding(0,-1 * headContentHeight,0,0);
-		headerView.invalidate();
-
-		innerLayout.addView(headerView);
-		addView(innerLayout);
-	}
-
-	/**
-	 * 添加 footerView
-	 */
-	private void addfooterView() {
+		
 		footerView = new FooterView(mContext);
 		measureView(footerView);
 		footContentHeight = footerView.getMeasuredHeight();
@@ -160,15 +118,49 @@ public class PullRefreshScrollView extends ScrollView {
 	    mHideAnimation.setDuration(0);
 	    mHideAnimation.setFillAfter( true );
 	    footerView.startAnimation( mHideAnimation );
-	    
-		innerLayout.addView(footerView);
+		
+		headerView = new HeaderView(mContext);
+		measureView(headerView);
+		headContentHeight = headerView.getMeasuredHeight();
+		Log.v("TouthY","headerview高度"+headContentHeight);
+		// 初始化 headerView 位置（不可见）
+		headerView.setPadding(0,-1 * headContentHeight,0,0);
+		headerView.invalidate();
+		
+		
+		//childView=(ViewGroup)this.getChildAt(0);
+		
+		pullscrollView=this;
+		// 初始化刷新、加载状态
+		pullState = DONE;
 	}
 
-	/**
-	 * 添加 BodyView : 滑动内容区域
+	/* (non-Javadoc)
+	 * @see android.widget.ScrollView#onLayout(boolean, int, int, int, int)
 	 */
-	private void addBodyView(View view) {
-		bodyLayout.addView(view);
+	@Override
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+		// TODO Auto-generated method stub
+		super.onLayout(changed, l, t, r, b);
+		if(changed){
+			if(childView==null && !isInitUi){
+				childView=(ViewGroup)this.getChildAt(0);
+				this.removeAllViews();
+				if(childView!=null){
+				bodyLayout.addView(childView,0);
+				}
+				innerLayout.addView(headerView,0);
+				innerLayout.addView(bodyLayout);
+				innerLayout.addView(footerView,-1);
+				if(isfooter){
+					footerView.show();			
+				}else{
+					footerView.hide();			
+				}
+				this.addView(innerLayout);
+				isInitUi=true;
+			}
+		}
 	}
 	/**
 	 * 添加布局文件 : 滑动内容区域
@@ -177,16 +169,8 @@ public class PullRefreshScrollView extends ScrollView {
 	public View addBodyLayoutFile(Context context,int res){
 		LayoutInflater inflater=LayoutInflater.from(context);
 		View view=(LinearLayout)inflater.inflate(res, null);
-		addBodyView(view);
+		bodyLayout.addView(view,-1);
 		return view;
-	}
-	/**
-	 * footer view 在此添加保证添加到 innerLayout 中的最后
-	 */
-	@Override
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		if(isfooter)addfooterView();
 	}
 
 	/**
@@ -901,4 +885,3 @@ class FooterView extends LinearLayout {
 		}
 
 }
-

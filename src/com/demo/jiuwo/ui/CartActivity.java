@@ -48,9 +48,9 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_cart);
+			//LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_cart);
 		
-			cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
+			cartlistview= (MyListView) findViewById(R.id.cartlist);
 			cartadapter = new CartListViewAdapter(this); //创建适配器 
 			cartlistview.setAdapter(cartadapter);
 			loaddata();

@@ -82,7 +82,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 			mpullScrollView.setfooterEnabled(false);
 			mpullScrollView.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
-			LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_search_goods);
+			//LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_search_goods);
 			
 			mSlidingmenu=(SlidingMenu)findViewById(R.id.slidingLayout);
 			category_title= (TextView) findViewById(R.id.category_title);
@@ -97,8 +97,8 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 
 
 			
-			goodslistview= (MyListView) cl.findViewById(R.id.goodslist);
-			loading= (TextView)cl.findViewById(R.id.loading);
+			goodslistview= (MyListView) findViewById(R.id.goodslist);
+			loading= (TextView)findViewById(R.id.loading);
 			//初始化适配器
 			goodslistviewadapter = new GoodsListViewAdapter(this); //创建适配器 
 			categorylistviewadapter_xuangou=new CategoryListViewAdapter(this);
