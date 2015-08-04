@@ -58,6 +58,9 @@ public class GLOBAL {
 	/**单个产品信息地址**/
 	public static String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
 	
+	/**单个抢购产品信息地址**/
+	public static String GET_QG_GOODSINFO_URL="http://app.0yuanwang.com/Api/getQGGoodsInfo/";
+	
 	/**会员登陆地址**/
 	public static String USER_LOGIN="http://app.0yuanwang.com/Public/login/";
 	

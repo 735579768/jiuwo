@@ -1,12 +1,16 @@
 package com.demo.adapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.demo.adapter.HomeGoodsListViewAdapter.ListItemView;
 import com.demo.jiuwo.R;
+import com.demo.jiuwo.ui.MiaoshaDetailActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +68,7 @@ public class MiaoshaListViewAdapter extends MyAdapter {
 	    /** 
 	     * ListView Item设置 
 	     */  
-	    public View getView(int position, View convertView, ViewGroup parent) {  
+	    public View getView(final int position, View convertView, ViewGroup parent) {  
 	        // TODO Auto-generated method stub 
 
 
@@ -99,7 +103,23 @@ public class MiaoshaListViewAdapter extends MyAdapter {
             listItemView.image.setTag(R.id.tag_first,imgurl);
             loadBitmap(imgurl,listItemView.image,R.drawable.default_ico);
         }
+        listItemView.qianggou_btn.setOnClickListener(new OnClickListener(){
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//Toast.makeText(context, "索引："+position,1000).show();
+				Map<String,Object> map=listItems.get(position);
+				Object obj=map.get("goods_id");
+				String str=obj.toString();
+				Intent intent=new Intent();
+				intent.putExtra("goods_id",str);
+				intent.setClass(context,MiaoshaDetailActivity.class);
+				context.startActivity(intent);
+				
+			}
+        	
+        });
         listItemView.goodsid.setText((String) listItems.get(position)  
                 .get("goodsid"));  
         listItemView.title.setText((String) listItems.get(position)  
