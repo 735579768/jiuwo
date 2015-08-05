@@ -10,7 +10,12 @@ import android.os.Message;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
 import com.demo.jiuwo.R;
@@ -20,6 +25,8 @@ public class MessageDetailActivity extends BaseActivity {
 	private WebView contenttv;
 	private String message_id,jsonstr;
 	private Context c;
+	protected ImageView goback;
+	private TextView tvTopTitle;
 
 	protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -28,7 +35,15 @@ public class MessageDetailActivity extends BaseActivity {
 			contenttv=(WebView)findViewById(R.id.content);
 			message_id=this.getIntent().getExtras().getString("message_id");
 			contenttv.loadUrl("http://app.0yuanwang.com/Api/getMessageDetail/message_id/"+message_id+"/");
-			//loaddata();
+			goback= (ImageView)findViewById(R.id.goback);
+			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+			tvTopTitle.setText("消息通知");
+			goback.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					finish();
+				}});
 			this.c=this;
 			
 	}

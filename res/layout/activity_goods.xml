@@ -1,13 +1,18 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background"
- >
+    android:orientation="vertical" >
+<include layout="@layout/include_top_title" />
+<ScrollView 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 <LinearLayout
     android:id="@+id/layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background"
     android:orientation="vertical" >
 
@@ -20,8 +25,6 @@
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
         android:scaleType="centerCrop" />
-
-  />
     <TextView
         android:id="@+id/goods_title"
         android:layout_width="fill_parent"
@@ -53,31 +56,7 @@
 	    android:background="@color/white"
 	    android:gravity="center"
 	    android:padding="20dp"/>
-
-
 </LinearLayout>
-
-<RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="@drawable/border"
-    android:padding="10dp" >
-    	<Button
-    	    android:id="@+id/addcart"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="40dp"
-    	    android:layout_gravity="center_vertical"
-    	    android:layout_marginBottom="10dp"
-    	    android:background="#ffC53F4C"
-    	    android:gravity="center_vertical"
-    	    android:padding="10dp"
-    	    android:visibility="gone"
-    	    android:layout_alignParentRight="true"
-    	    android:text="@string/addtocart"
-    	    android:textColor="#ffffffff"
-    	    android:textSize="20sp" />
-
-</RelativeLayout>
-</FrameLayout>
+</ScrollView>
+</LinearLayout>
 

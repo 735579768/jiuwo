@@ -52,6 +52,8 @@ public class MiaoshaDetailActivity extends BaseActivity{
 	private TextView title,price,check_goodsdescr,daojishi;
 	private ImageView goodspic;
 	private String goods_id;
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	Counter counter;
 	Timer timer = new Timer(); 
 	static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
@@ -71,7 +73,15 @@ public class MiaoshaDetailActivity extends BaseActivity{
 			goodspic=(ImageView)findViewById(R.id.goods_pic);
 			daojishi=(TextView)findViewById(R.id.daojishi);
 			
-			
+			goback= (ImageView)findViewById(R.id.goback);
+			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+			tvTopTitle.setText("秒杀产品");
+			goback.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					finish();
+				}});
 
 
 

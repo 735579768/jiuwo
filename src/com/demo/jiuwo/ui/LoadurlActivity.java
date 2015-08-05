@@ -1,20 +1,28 @@
 package com.demo.jiuwo.ui;
 
 import com.demo.core.BaseActivity;
+import com.demo.core.GLOBAL;
 import com.demo.jiuwo.R;
 import com.demo.jsobject.jsgoods;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class LoadurlActivity extends BaseActivity {
 	protected WebView webview;
 	protected  ProgressBar  progressBar;
 	protected String uri;
+	protected ImageView goback;
+	private TextView tvTopTitle;
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -25,8 +33,17 @@ public class LoadurlActivity extends BaseActivity {
 		setContentView(R.layout.activity_web);
 		Intent intent=getIntent();
 		String goods_id=intent.getStringExtra("goods_id").toString();
-		uri="http://app.0yuanwang.com/Api/getGoodsDesc/goods_id/"+goods_id;
+		uri=GLOBAL.GOODS_DESCR_URL+"goods_id/"+goods_id;
 		webview = (WebView) findViewById(R.id.webv);
+		goback= (ImageView)findViewById(R.id.goback);
+		tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+		tvTopTitle.setText("产品详情描述");
+		goback.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+			}});
 		try {  
 		webview.getSettings().setJavaScriptEnabled(true);
 		 webview.addJavascriptInterface(new jsgoods(LoadurlActivity.this),"jw");

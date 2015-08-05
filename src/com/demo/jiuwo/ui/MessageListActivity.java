@@ -19,11 +19,15 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.demo.adapter.MessageListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
@@ -37,7 +41,9 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	final static int SCANNIN_GREQUEST_CODE = 1;
 	final static int UPDATE_MESSAGELISTVIEW = 2;
 	final static int RESET_PULLREFRESH = 3;
-
+	
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	private MyListView messagelist;
 	private PullRefreshScrollView	mpullScrollView;//下拉刷新
 	private MessageListViewAdapter mMessageadapter;   //产品适配器
@@ -53,8 +59,20 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			//取要显示到下拉容器中的内容视图
 			//LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_message);
 			messagelist= (MyListView)findViewById(R.id.messagelist);
+			
+
 			mMessageadapter=new MessageListViewAdapter(this);
 			messagelist.setAdapter(mMessageadapter);
+			
+			goback= (ImageView)findViewById(R.id.goback);
+			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+			tvTopTitle.setText("九沃动态");
+			goback.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					finish();
+				}});
 			initListener();
 			loaddata();
 	}

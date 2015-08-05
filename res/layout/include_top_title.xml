@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="@drawable/border_top_title"
+         android:padding="10dp" >
+
+		<include layout="@layout/include_goback"/>
+
+        <TextView
+            android:id="@+id/tv_top_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="九沃商城"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+</RelativeLayout>

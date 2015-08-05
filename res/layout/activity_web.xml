@@ -1,16 +1,21 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<FrameLayout
+    android:layout_height="fill_parent"
+    >
+<LinearLayout 
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
+<include layout="@layout/include_top_title" />
     <WebView
         android:id="@+id/webv"
+        android:layout_weight="1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="0dp" />
+</LinearLayout>
     <ProgressBar 
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -20,4 +25,3 @@
         android:padding="20dp"
         style="@style/CustomProgressStyle"/>
 </FrameLayout>
-</LinearLayout>

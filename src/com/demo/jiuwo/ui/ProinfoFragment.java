@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,6 +34,8 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 	protected WebView webview;
 	protected  ProgressBar  progressBar;
 	protected ListView listview,goodslistview;
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	private LinearLayout login_reg_block;
 	private TextView login_btn,register_btn;
 	protected String uri="http://app.0yuanwang.com/Member/info";
@@ -50,7 +53,15 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 		login_btn= (TextView) view.findViewById(R.id.login_btn);	
 		register_btn= (TextView) view.findViewById(R.id.register_btn);	
 		login_reg_block= (LinearLayout) view.findViewById(R.id.login_reg_block);	
-		
+		goback= (ImageView)view.findViewById(R.id.goback);
+		tvTopTitle= (TextView)view.findViewById(R.id.tv_top_title);
+		tvTopTitle.setText("个人中心");
+		goback.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				getActivity().finish();
+			}});
 		if(!TextUtils.isEmpty(userinfo)){
 			login_reg_block.setVisibility(view.GONE);
 		}

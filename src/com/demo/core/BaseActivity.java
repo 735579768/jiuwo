@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class BaseActivity extends Activity {
 	boolean isExit;
 	protected int animsj=3000;//启动动画跳转时间
 	public BaseActivity(){
-
+		
 	}
 	//左进右出
 	protected void inleft(){

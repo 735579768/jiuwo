@@ -26,11 +26,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	private PullRefreshScrollView mPullRefresh;
 	protected MyListView miaoshalistview;
 	protected String uri=GLOBAL.PRO_INFO;
@@ -49,8 +55,19 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 			//LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_miaosha);
 		
 			miaoshalistview= (MyListView)findViewById(R.id.miaoshalist);
+			goback= (ImageView)findViewById(R.id.goback);
 			miaoshaadapter = new MiaoshaListViewAdapter(this); //创建适配器 
 			miaoshalistview.setAdapter(miaoshaadapter);
+			
+			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+			tvTopTitle.setText("秒杀专区");
+			goback.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					finish();
+				}});
 			loaddata();
 		}
 	private void loaddata(){

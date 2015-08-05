@@ -13,11 +13,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import com.demo.jiuwo.R;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GLOBAL {
@@ -39,6 +44,9 @@ public class GLOBAL {
 	
 	/**搜索产品列表地址**/
 	public static String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist/";
+	
+	/**产品详情描述列表地址**/
+	public static String GOODS_DESCR_URL="http://app.0yuanwang.com/Api/getGoodsDesc/";
 	
 	/**商品选购和礼品赠送区地址**/
 	public static String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
@@ -162,7 +170,6 @@ public static String postUrl(String uri,List<NameValuePair> params){
   } 
   return reStr;
 }
-
 public static Handler handler = new Handler(){
 	@Override
 	public void handleMessage(Message msg) {

@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demo.core.BaseActivity;
@@ -38,7 +39,8 @@ import com.ex.Verify;
 public class LoginActivity extends BaseActivity implements OnClickListener{
 	private Button login_btn,regster_btn;
 	private ImageView verifty_img;
-
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	private EditText username,password,verify;
 
 	/* (non-Javadoc)
@@ -62,6 +64,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		
 		verifty_img.setImageBitmap(Verify.getInstance().createBitmap());
 		verifty_img.setOnClickListener(this);
+		
+		goback= (ImageView)findViewById(R.id.goback);
+		tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+		tvTopTitle.setText("用户登陆");
+		goback.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+			}});
 		}
 	public boolean onKeyDown(int keyCode, KeyEvent event) { 
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {       

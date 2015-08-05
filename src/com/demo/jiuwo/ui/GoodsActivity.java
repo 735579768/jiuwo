@@ -39,6 +39,8 @@ public class GoodsActivity extends BaseActivity {
 	private TextView title,price,check_goodsdescr;
 	private ImageView goodspic;
 	private String goods_id;
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
 
 	/* (non-Javadoc)
@@ -53,6 +55,16 @@ public class GoodsActivity extends BaseActivity {
 		price=(TextView)findViewById(R.id.goods_price);
 		check_goodsdescr=(TextView)findViewById(R.id.check_goodsdescr);
 		goodspic=(ImageView)findViewById(R.id.goods_pic);
+		
+		goback= (ImageView)findViewById(R.id.goback);
+		tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+		tvTopTitle.setText("产品详情");
+		goback.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+			}});
 		
 		Bundle bundle=this.getIntent().getExtras();
 //		if(bundle==null){
