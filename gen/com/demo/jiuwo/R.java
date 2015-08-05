@@ -307,14 +307,15 @@ public final class R {
         public static final int btnreload=0x7f0a0005;
         public static final int btnreturn=0x7f0a0004;
         public static final int btnset=0x7f0a0001;
-        public static final int checkdesc=0x7f0a0010;
+        public static final int checkdesc=0x7f0a0011;
         public static final int down_refresh=0x7f0a000a;
         public static final int last_refresh_time=0x7f0a000b;
         public static final int lipinqu=0x7f0a000d;
         public static final int loading=0x7f0a0008;
         public static final int newgoods=0x7f0a000e;
+        public static final int qianggou=0x7f0a0010;
         public static final int scan_text=0x7f0a0009;
-        public static final int url_server=0x7f0a0011;
+        public static final int url_server=0x7f0a0012;
         /** 首页标题 
          */
         public static final int xuangouqu=0x7f0a000c;

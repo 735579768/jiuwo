@@ -111,9 +111,8 @@
     	    android:background="#ffC53F4C"
     	    android:gravity="center_vertical"
     	    android:padding="10dp"
-    	    android:visibility="gone"
     	    android:layout_alignParentRight="true"
-    	    android:text="@string/addtocart"
+    	    android:text="@string/qianggou"
     	    android:textColor="#ffffffff"
     	    android:textSize="20sp" />
 

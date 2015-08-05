@@ -7,6 +7,8 @@ public class MSG_TYPE{
 	public static final int MSG_UPDATE_MIAOSHA=MSG_BASE+1;	//更新秒杀列表
 	/**秒杀加载完毕**/
 	public static final int MSG_LOADOVER_MIAOSHA=MSG_BASE+2;	
+	/**数据加载完毕**/
+	public static final int MSG_DATA_LOADOVER=MSG_BASE+3;	
 }
 
 

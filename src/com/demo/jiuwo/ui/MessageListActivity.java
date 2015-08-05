@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.demo.adapter.MessageListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
+import com.demo.core.MSG_TYPE;
 import com.demo.jiuwo.R;
 import com.ex.PullRefreshScrollView;
 import com.ex.PullRefreshScrollView.OnPullListener;
@@ -46,7 +48,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			
 			//取下拉刷新对象
 			mpullScrollView= (PullRefreshScrollView)findViewById(R.id.scrollid);
-			mpullScrollView.setfooterEnabled(false);
+			//mpullScrollView.setfooterEnabled(false);
 			mpullScrollView.setOnPullListener(this);
 			//取要显示到下拉容器中的内容视图
 			//LinearLayout cl= (LinearLayout)mpullScrollView.addBodyLayoutFile(this,R.layout.list_message);
@@ -74,29 +76,33 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 					 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 					 params.add(new BasicNameValuePair("num", mMessageadapter.getCount()+""));
 					String jsonstr=GLOBAL.postUrl(strUri,params);
-					JSONArray jarr;
-					try {
-						jarr = JSONDecode.getInstance(jsonstr).toJSONArray();
-	
-					//选购分类
-					//JSONArray jarr1=JSONDecode.getInstance(((JSONObject)jsonarr.opt(0)).getString("child")).toJSONArray();
-					for(int i=0;i<jarr.length();i++){
-						JSONObject obj=(JSONObject)jarr.opt(i);
-						HashMap<String,Object> map = new HashMap<String,Object>();
-						String title=obj.getString("title");
-						title=title.replace(" ",""); 
-						map.put("update_time", obj.getString("update_time"));
-						map.put("pic", obj.getString("pic"));
-						map.put("descr", obj.getString("descr"));
-						map.put("title", title);
-						map.put("message_id",obj.getString("message_id"));
-						mMessageadapter.addItem(map);
+					if(!TextUtils.isEmpty(jsonstr)){
+						JSONArray jarr;
+						try {
+							jarr = JSONDecode.getInstance(jsonstr).toJSONArray();
+		
+						//选购分类
+						//JSONArray jarr1=JSONDecode.getInstance(((JSONObject)jsonarr.opt(0)).getString("child")).toJSONArray();
+						for(int i=0;i<jarr.length();i++){
+							JSONObject obj=(JSONObject)jarr.opt(i);
+							HashMap<String,Object> map = new HashMap<String,Object>();
+							String title=obj.getString("title");
+							title=title.replace(" ",""); 
+							map.put("update_time", obj.getString("update_time"));
+							map.put("pic", obj.getString("pic"));
+							map.put("descr", obj.getString("descr"));
+							map.put("title", title);
+							map.put("message_id",obj.getString("message_id"));
+							mMessageadapter.addItem(map);
+						}
+						sendMessage(UPDATE_MESSAGELISTVIEW);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}	
+					}else{
+						sendMessage(MSG_TYPE.MSG_DATA_LOADOVER);
 					}
-					sendMessage(UPDATE_MESSAGELISTVIEW);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
 				}
 				
 			}).start();
@@ -113,32 +119,32 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	        	case UPDATE_MESSAGELISTVIEW:
 	                //通知listview更新界面
 	                mMessageadapter.notifyDataSetChanged();
-	            	//setListViewHeightBasedOnChildren(messagelist);
 	    			mpullScrollView.setheaderViewReset();//重置头部刷新
 	    			mpullScrollView.setfooterViewReset();
-	    			//mpullScrollView.fullScroll(ScrollView.FOCUS_DOWN);
 	            	int count=mMessageadapter.getCount();
-	            	if(count>=5){
+	            	if(count>=2){
 	            		mpullScrollView.setfooterEnabled(true);
 	            		
 	            	}else if(count==0){
-	            		mpullScrollView.setfooterLoadOverText("没有数据");
+	            		mpullScrollView.setfooterLoadOverText("请下拉刷新");
 	            	}else{
 	            		mpullScrollView.setfooterEnabled(false);
 	            	}
 	        		break;
-	        	case RESET_PULLREFRESH:
+	        	case MSG_TYPE.MSG_DATA_LOADOVER:
+	        		 mpullScrollView.setfooterLoadOverText("加载完毕，共"+mMessageadapter.getCount()+"个");
+/*	        	case RESET_PULLREFRESH:
 	        		mpullScrollView.setheaderViewReset();
 	        		mpullScrollView.setfooterViewReset();
 	        		mpullScrollView.setfooterEnabled(true);
-	        		break;
+	        		break;*/
 	        	default:
 	        		break;
 	        	}
 	        	//super.handleMessage(msg);  
 	        };  
 	    };  	
-		//动态设置listview的高度
+/*		//动态设置listview的高度
 		public void setListViewHeightBasedOnChildren(ListView listView) {     
 	        // 获取ListView对应的Adapter     
 			ListAdapter listAdapter = listView.getAdapter();  
@@ -157,7 +163,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 		    params.height=params.height+listView.getPaddingTop()+listView.getPaddingBottom()+300;
 		    //((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
 		    listView.setLayoutParams(params); 
-	    }  
+	    }  */
 
 	    //重置头部下拉刷新
 	    public void resetRefresh(){

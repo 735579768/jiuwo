@@ -1,26 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     	xmlns:android="http://schemas.android.com/apk/res/android"
     	android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
         android:background="#ededed"
         android:orientation="vertical" >
-<FrameLayout 
-        android:layout_width="fill_parent"
-        android:background="@color/background"
-    	android:layout_height="fill_parent"
-        >
-<LinearLayout 
-    android:id="@+id/layout"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-       <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white" >
+<RelativeLayout
+	 android:layout_width="fill_parent"
+	 android:layout_height="wrap_content"
+	 android:background="@color/white" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,31 +31,30 @@
     </LinearLayout>
 
 </RelativeLayout>
-<!-- 下拉刷新容器 -->
+      <!-- 下拉刷新容器 -->
 <com.ex.PullRefreshScrollView 
     android:id="@+id/scrollid"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-<com.demo.jiuwo.ui.MyListView 
-        android:id="@+id/messagelist"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
-       android:padding="10dp"
-       android:background="#ededed"
-       android:cacheColorHint="@android:color/transparent"
-       android:divider="#ededed"
-       android:dividerHeight="0dp"
-       android:listSelector="@drawable/list_item_message_selector" >  
-</com.demo.jiuwo.ui.MyListView>
-
+     <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:orientation="vertical" >
+		<com.demo.jiuwo.ui.MyListView 
+		        android:id="@+id/messagelist"
+		       android:layout_width="fill_parent"
+		       android:layout_height="wrap_content"
+		       android:background="#ededed"
+		       android:padding="20dp"
+		       android:cacheColorHint="@android:color/transparent"
+		       android:divider="#ededed"
+		       android:dividerHeight="0dp"
+		       android:listSelector="@drawable/list_item_message_selector">  
+		</com.demo.jiuwo.ui.MyListView>
 </LinearLayout>
-    </com.ex.PullRefreshScrollView>
-</LinearLayout>
+</com.ex.PullRefreshScrollView>
+ 
     <ProgressBar 
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -75,5 +63,4 @@
         android:visibility="gone"
         android:padding="20dp"
         style="@style/CustomProgressStyle"/>
-</FrameLayout>
 </LinearLayout>

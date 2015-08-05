@@ -19,6 +19,7 @@
 <string name="lipinqu">礼品赠送</string>
 <string name="newgoods">最新产品</string>
 <string name="addtocart">加入购物车</string>
+<string name="qianggou">立即抢购</string>
 <string name="checkdesc">查看商品详情>></string>
 <string name="url_server">http://app.0yuanwang.com/version.xml</string>
 </resources>
