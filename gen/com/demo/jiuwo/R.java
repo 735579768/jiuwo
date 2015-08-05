@@ -147,7 +147,7 @@ public final class R {
         public static final int auto_focus=0x7f090000;
         public static final int btn_getVersion=0x7f090034;
         public static final int button_back=0x7f090030;
-        public static final int cartlist=0x7f09001a;
+        public static final int cartlist=0x7f090019;
         public static final int category_btn=0x7f090054;
         public static final int category_title=0x7f090057;
         public static final int categorylist_lipin=0x7f090052;
@@ -190,7 +190,7 @@ public final class R {
         public static final int last=0x7f090069;
         public static final int later=0x7f090068;
         public static final int launch_product_query=0x7f090006;
-        public static final int layout=0x7f090018;
+        public static final int layout=0x7f09001b;
         public static final int loading=0x7f090022;
         public static final int loadingImageView=0x7f090032;
         public static final int login_btn=0x7f09002b;
@@ -209,7 +209,7 @@ public final class R {
         public static final int passwrod=0x7f090063;
         public static final int preview_view=0x7f090012;
         public static final int price=0x7f09003d;
-        public static final int progressBar=0x7f09001b;
+        public static final int progressBar=0x7f09001a;
         public static final int pull_to_load_image=0x7f09005d;
         public static final int pull_to_load_progress=0x7f09005c;
         public static final int pull_to_load_text=0x7f09005e;
@@ -228,7 +228,7 @@ public final class R {
         public static final int restart_preview=0x7f090008;
         public static final int return_scan_result=0x7f090009;
         public static final int scancode=0x7f090059;
-        public static final int scrollid=0x7f090019;
+        public static final int scrollid=0x7f090018;
         public static final int search_book_contents_failed=0x7f09000a;
         public static final int search_book_contents_succeeded=0x7f09000b;
         public static final int search_btn=0x7f090056;

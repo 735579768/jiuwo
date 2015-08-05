@@ -28,7 +28,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	final static int UPDATE_CART = 1;
@@ -37,7 +40,8 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	private PullRefreshScrollView mPullRefresh;
 	protected MyListView cartlistview;
 	protected String uri=GLOBAL.PRO_INFO;
-
+	protected ImageView goback;
+	private TextView tvTopTitle;
 	 private CartListViewAdapter cartadapter;   //菜单适配器
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,15 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 			mPullRefresh=(PullRefreshScrollView)findViewById(R.id.scrollid);
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
-			//取要显示到下拉容器中的内容视图
-			//LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(this,R.layout.list_cart);
+			goback= (ImageView)findViewById(R.id.goback);
+			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
+			tvTopTitle.setText("购物车");
+			goback.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					finish();
+				}});
 		
 			cartlistview= (MyListView) findViewById(R.id.cartlist);
 			cartadapter = new CartListViewAdapter(this); //创建适配器 

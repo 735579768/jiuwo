@@ -1,5 +1,6 @@
 package com.demo.jiuwo.ui;
 
+import com.demo.core.GLOBAL;
 import com.demo.jiuwo.R;
 import com.ex.UpdateVersion;
 
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -97,15 +99,24 @@ public class MainLayoutActivity extends FragmentActivity{
 			ft3.addToBackStack(null);
 			ft3.commit();*/
 		}else if(id==R.id.iv_menu_44 || id== R.id.iv_menu_4){//个人中心
-			img1.setSelected(false);
-			img2.setSelected(false);
-			img3.setSelected(false);
-			FragmentTransaction ft31 = fm.beginTransaction();
-			ft31.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left,
-					R.anim.in_from_right, R.anim.out_to_left);
-			ft31.replace(R.id.main_container,proinfo);
-			ft31.addToBackStack(null);
-			ft31.commit();
+			//登陆验证
+			String userinfo=GLOBAL.getData(this, "userinfo");
+		     if(TextUtils.isEmpty(userinfo)){
+		 		Intent intent=new Intent();
+				intent.setClass(this,LoginActivity.class);
+				startActivity(intent);
+		     }else{		
+				img1.setSelected(false);
+				img2.setSelected(false);
+				img3.setSelected(false);
+				FragmentTransaction ft31 = fm.beginTransaction();
+				ft31.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left,
+						R.anim.in_from_right, R.anim.out_to_left);
+				ft31.replace(R.id.main_container,proinfo);
+				ft31.addToBackStack(null);
+				ft31.commit();		    	  
+		     }
+
 		}
 	}
 	@Override

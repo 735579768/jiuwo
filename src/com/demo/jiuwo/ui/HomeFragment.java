@@ -39,14 +39,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullListener {
+public class HomeFragment extends BaseFragment implements OnPullListener {
 	final static int SCANNIN_GREQUEST_CODE = 1;
 	final static int UPDATE_GOODSLISTVIEW = 12;
 	final static int UPDATE_GRIDVIEW_A = 2;
 	final static int UPDATE_GRIDVIEW_B = 11;
+	final static int SHOW_PROGRESSBAR=1314;
+	final static int HIDE_PROGRESSBAR=1315;
 	final static int UPDATE_A_GOODS = 3;
-	final static int SHOW_LOADING = 4;
-	final static int GONE_LOADING = 5;
 	private PullRefreshScrollView	mpullScrollView;
 	private LinearLayout	contentLayout;
 	final static int SET_GOODSLIST_ADAPTER=10;//设置产品列表适配器
@@ -60,7 +60,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 	private boolean okload=true;//标记是否可以加载
 	private boolean loadover=false;//全部数据加载完成
 	protected MyListView goodslistview;
-	protected TextView loading,searchbtn;
+	protected TextView searchbtn;
 	private ImageView scancode,iv_search_btn;//,image_a1,image_a2,image_a3,image_a4;
 	private MyGridView gridview_a,gridview_b;
 	private GridViewAdapter gridviewadapter_a,gridviewadapter_b; 
@@ -84,7 +84,6 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		scancode = (ImageView) view.findViewById(R.id.scancode);
 		iv_search_btn = (ImageView) view.findViewById(R.id.iv_search_btn);
 		mProgressbar = (ProgressBar) view.findViewById(R.id.progressBar);
-		loading= (TextView)view.findViewById(R.id.loading);
 	
 		//取要显示的内容视图
 		//contentLayout= (LinearLayout)mpullScrollView.addBodyLayoutFile(getActivity(),R.layout.activity_home);
@@ -92,8 +91,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		goodslistview = (MyListView)view.findViewById(R.id.goodslist);
 		gridview_a= (MyGridView)view.findViewById(R.id.gridview_a);
 		gridview_b= (MyGridView)view.findViewById(R.id.gridview_b);
-		loading= (TextView)view.findViewById(R.id.loading);
-		
+		initListener();
 		
 		//取要显示的内容视图
 
@@ -107,7 +105,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		goodslistviewadapter = new HomeGoodsListViewAdapter(getActivity());
 		goodslistview.setAdapter(goodslistviewadapter);
 
-		initListener();
+		
 	    //后台请求产品列表
 		initgrid_a();
 		initgrid_b();
@@ -122,17 +120,11 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 			public void run() {
 				 //showProgressBar();
 	                // 发送消息  
-	                sendMessage(SHOW_LOADING);
+				sendMessage(SHOW_PROGRESSBAR);
 	                
 				try{
 					//boolean firstload=false;
 					int count=goodslistviewadapter.getCount(); ;
-/*					if(goodslistviewadapter == null){
-						firstload=true;
-						 goodslistviewadapter = new HomeGoodsListViewAdapter(getActivity()); //创建适配器 
-					}else{
-						 count = goodslistviewadapter.getCount(); 
-					}*/
 				    //后台请求产品列表
 						// TODO Auto-generated method stub
 				       
@@ -171,22 +163,20 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 			            }
 			           	}else{
 			           		loadover=true;
-			           	 hideProgressBar();
+			           		sendMessage(HIDE_PROGRESSBAR);
 					    	Toast.makeText(getActivity(), "已经没有内容啦！",
 										Toast.LENGTH_SHORT).show();
 			           	}
 					}catch(Exception e){
 						Log.v("json_err",e.getMessage());
 					}	
-	            sendMessage(GONE_LOADING);
+				sendMessage(HIDE_PROGRESSBAR);
 	            okload=true;
 			}
 
 		}).start();
 		}else{
-			mpullScrollView.setfooterLoadOverText(null);
-			loading.setVisibility(View.VISIBLE);
-			loading.setText("加载完成,共"+goodslistviewadapter.getCount()+"个");
+			mpullScrollView.setfooterLoadOverText("加载完成,共"+goodslistviewadapter.getCount()+"个");
 		}
 
 	}
@@ -314,7 +304,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
         			goodslistview.setAdapter(goodslistviewadapter);
         		}
                 goodslistviewadapter.notifyDataSetChanged();
-            	loading.setVisibility(View.GONE);
+
             	//setListViewHeightBasedOnChildren(goodslistview);
             	mpullScrollView.setfooterViewReset();
             	if(goodslistviewadapter.getCount()>5){
@@ -331,23 +321,20 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
                 } 
                 //通知listview更新界面
                gridviewadapter_a.notifyDataSetChanged();
-            	loading.setVisibility(View.GONE);
-            	//setListViewHeightBasedOnChildren(gridview_a);
+
             	mpullScrollView.setheaderViewReset();
             	okload=true;//可以再次加载
         		break;
         	case UPDATE_GRIDVIEW_B:
                 //通知listview更新界面
                 gridviewadapter_b.notifyDataSetChanged();
-            	loading.setVisibility(View.GONE);
-            	//setListViewHeightBasedOnChildren(gridview_b);
             	mpullScrollView.setheaderViewReset();
             	okload=true;//可以再次加载
         		break;
         	case UPDATE_A_GOODS:
         		
         		break;
-        	case SHOW_LOADING:
+/*        	case SHOW_LOADING:
         		loading.setVisibility(View.VISIBLE);
         		break;
         	case GONE_LOADING:
@@ -355,7 +342,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
         		loading.setVisibility(View.GONE);
         		mpullScrollView.setheaderViewReset();
         		}
-        		break;
+        		break;*/
         	case SHOW_PROGRESSBAR:
         		threadnum++;
         		mProgressbar.setVisibility(View.VISIBLE);
@@ -405,13 +392,11 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 			@Override
 			public void run() {
                 // 发送消息  
-              showProgressBar();
+              sendMessage(SHOW_PROGRESSBAR);
 				// TODO Auto-generated method stub
 		      	String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_A_LISTS_URL);
-		       	Log.v("jsonstr","data-->"+jsonstr);
 		       	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 		        try{
-		        	
 		    		JSONArray jsonarr=JSONDecode.getInstance(jsonstr)
 							    				.getString("goods_list")
 							    				.toJSONArray();   
@@ -441,7 +426,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
 		       	}
 /*		       	setListViewHeightBasedOnChildren(gridview_a);
 		       	gridviewadapter_a.notifyDataSetChanged();*/		
-		        hideProgressBar();
+		       	sendMessage(HIDE_PROGRESSBAR);
 			}
     		
     	}).start();
@@ -451,7 +436,7 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
     	new Thread(new Runnable() {
     		@Override
     		public void run() {
-    			 showProgressBar();
+    			sendMessage(SHOW_PROGRESSBAR);
     			// TODO Auto-generated method stub
        	String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_B_LISTS_URL);
        	Log.v("jsonstr","data-->"+jsonstr);
@@ -488,24 +473,9 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
        	}
 /*       	setListViewHeightBasedOnChildren(gridview_b);
        	gridviewadapter_b.notifyDataSetChanged();*/
-        hideProgressBar();
+       	sendMessage(HIDE_PROGRESSBAR);
 		}
 		}).start();
-    }
-
-    //显示进度条
-    @Override
-    public void showProgressBar(){
-        Message msg1=handler.obtainMessage();;
-        msg1.what=SHOW_PROGRESSBAR;
-        handler.sendMessage(msg1);	
-    }
-    //隐藏进度条
-    @Override
-    public void hideProgressBar(){
-        Message msg1=handler.obtainMessage();;
-        msg1.what=HIDE_PROGRESSBAR;
-        handler.sendMessage(msg1);	
     }
 	@Override
 	public void refresh() {
@@ -513,8 +483,11 @@ public class HomeFragment extends BaseFragment implements MyProgressBar,OnPullLi
      	initgrid_a();
     	initgrid_b();
     	gridviewadapter_a.removeAllItem();
+    	gridviewadapter_a.notifyDataSetChanged();
     	gridviewadapter_b.removeAllItem();
+    	gridviewadapter_b.notifyDataSetChanged();
     	goodslistviewadapter.removeAllItem();
+    	goodslistviewadapter.notifyDataSetChanged();
     	loaddata();
 	}
 	@Override

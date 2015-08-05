@@ -1,5 +1,7 @@
 package com.demo.core;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.demo.jiuwo.R;
 import com.demo.jiuwo.ui.Qidong1Activity;
 import com.demo.jiuwo.ui.Qidong3Activity;
@@ -24,6 +26,7 @@ public class MainActivity extends BaseActivity {
 /*		 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
 	     String userinfo=sharedPre.getString("userinfo", "");*/
 		super.onCreate(savedInstanceState);
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"TfscjiUBW9nvrMr0Xr9mQpSz");
 		isFirst();
 		init();
 		}

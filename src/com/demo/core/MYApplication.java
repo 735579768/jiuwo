@@ -22,10 +22,9 @@ public class MYApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"TfscjiUBW9nvrMr0Xr9mQpSz");
-		initImageLoader(getApplicationContext());
 		MYApplication.mContext = getApplicationContext(); 
-	}
+		initImageLoader(getApplicationContext());
+		}
 	public static void initImageLoader(Context context) {
     	File cacheDir = StorageUtils.getCacheDirectory(context);
     	ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)

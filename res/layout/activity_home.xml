@@ -97,15 +97,7 @@
        android:listSelector="@drawable/list_item_selector" >
 </com.demo.jiuwo.ui.MyListView>
 
-       <TextView
-           android:id="@+id/loading"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center_vertical|center"
-           android:background="@color/white"
-           android:textColor="@color/black"
-           android:text="@string/loading"
-           android:visibility="gone" />
+
 
 </LinearLayout>
 </com.ex.PullRefreshScrollView>
