@@ -57,7 +57,7 @@ public class MemListViewAdapter extends MyAdapter {
 	        if (convertView == null) {  
 	            listItemView = new ListItemView();   
 	            //获取list_item布局文件的视图   
-	            convertView = listContainer.inflate(R.layout.memlist_item, null);  
+	            convertView = listContainer.inflate(R.layout.list_item_member, null);  
 	            //获取控件对象     
 	            listItemView.title = (TextView)convertView.findViewById(R.id.titleItem);
 	            listItemView.image = (ImageView)convertView.findViewById(R.id.imageItem);

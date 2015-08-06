@@ -36,50 +36,63 @@ public class GLOBAL {
 	public static  String BAIDU_REQUEST_ID;
 	
 	//数据请求地址
+	/**登陆用户的JSON加密信息**/
+	public static String USERINFO="";
+	
+	/**更新版本地址**/
+	public static final String UPDATE_VERSION_URL="http://app.0yuanwang.com/version.xml";
+	
+	/**取用户信息地址**/
+	public static final String GET_MEMBERINFO_URL="http://app.0yuanwang.com/Api/getUserinfo/";
+	
 	/**记录设备信息地址**/
-	public static String SHEBEI_URL="http://app.0yuanwang.com/Api/shebeijilu/";
+	public static final String SHEBEI_URL="http://app.0yuanwang.com/Api/shebeijilu/";
 	
 	/**取最新消息列表地址**/
-	public static String MESSAGE_URL="http://app.0yuanwang.com/Api/getMessageList/";
+	public static final String MESSAGE_URL="http://app.0yuanwang.com/Api/getMessageList/";
 	
 	/**取单个消息地址**/
-	public static String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
+	public static final String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
 	
 	/**搜索产品列表地址**/
-	public static String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist/";
+	public static final String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist";
+	
+	/**取分类列表地址**/
+	public static final String GOODS_CATEGORY_LISTS_URL="http://app.0yuanwang.com/Api/getcategorylist/";
+	
 	
 	/**产品详情描述列表地址**/
-	public static String GOODS_DESCR_URL="http://app.0yuanwang.com/Api/getGoodsDesc/";
+	public static final String GOODS_DESCR_URL="http://app.0yuanwang.com/Api/getGoodsDesc/";
 	
 	/**商品选购和礼品赠送区地址**/
-	public static String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
+	public static final String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
 	
 	/**秒杀列表地址**/
-	public static String GOODS_MIAOSHA_LISTS_URL="http://app.0yuanwang.com/Api/getMiaoshaList/";
+	public static final String GOODS_MIAOSHA_LISTS_URL="http://app.0yuanwang.com/Api/getMiaoshaList/";
 	
 	/**首页礼品列表地址**/
-	public static String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
+	public static final String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
 	
 	/**会员信息地址**/
-	public static String PRO_INFO="http://app.0yuanwang.com/Member/info";
+	public static final String PRO_INFO="http://app.0yuanwang.com/Member/info";
 	
 	/**购物车列表地址**/
-	public static String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
+	public static final String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
 	
 	/**单个产品信息地址**/
-	public static String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
+	public static final String GET_GOODSINFO_URL="http://app.0yuanwang.com/Api/getGoodsInfo/";
 	
 	/**单个抢购产品信息地址**/
-	public static String GET_QG_GOODSINFO_URL="http://app.0yuanwang.com/Api/getQGGoodsInfo/";
+	public static final String GET_QG_GOODSINFO_URL="http://app.0yuanwang.com/Api/getQGGoodsInfo/";
 	
 	/**会员登陆地址**/
-	public static String USER_LOGIN="http://app.0yuanwang.com/Public/login/";
+	public static final String USER_LOGIN="http://app.0yuanwang.com/Public/login/";
 	
 	/**会员注册地址**/
-	public static String USER_REGISTER="http://app.0yuanwang.com/Public/register/";
+	public static final String USER_REGISTER="http://app.0yuanwang.com/Public/register/";
 	
 	/**提交秒杀订单地址**/
-	public static String ADD_MIAOSHA_ORDER="http://app.0yuanwang.com/Api/addMiaoshaOrder/";
+	public static final String ADD_MIAOSHA_ORDER="http://app.0yuanwang.com/Api/addMiaoshaOrder/";
 	
 	/**
      * 使用SharedPreferences保存用户登录信息

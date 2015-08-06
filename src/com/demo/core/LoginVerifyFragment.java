@@ -19,8 +19,7 @@ public class LoginVerifyFragment extends BaseFragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		//登陆验证
-		userinfo=GLOBAL.getData(getActivity(), "userinfo");
-	     if(TextUtils.isEmpty(userinfo)){
+	     if(TextUtils.isEmpty(GLOBAL.USERINFO)){
 	    	 loginJump();
 	     }
 		return super.onCreateView(inflater, container, savedInstanceState);

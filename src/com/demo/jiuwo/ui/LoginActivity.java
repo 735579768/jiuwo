@@ -94,9 +94,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.login_btn:
 			login_btn.setEnabled(false);
-/*			if(!Verify.getInstance().checkVerify(verify.getText().toString())){
-				Toast.makeText(this,"验证码不正确",3000).show();
-			}else{*/
 				String uStr=username.getText().toString();
 				String pStr=password.getText().toString();
 			     List<NameValuePair> params = new ArrayList<NameValuePair>(); 
@@ -117,8 +114,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 						if(status.equals("1")){
 							//登陆成功保存用户名密码
 							String userinfo=JSONDecode.getInstance(reStr).getString("info").toString();
+							GLOBAL.USERINFO=userinfo;
 							GLOBAL.saveData(this, "userinfo", userinfo);
-							Toast.makeText(this,"登陆成功", 3000).show();
+							GLOBAL.msg(this,"登陆成功");
 							intent=new Intent();
 							intent.setClass(this, MainLayoutActivity.class);
 							//Toast.makeText(this,reStr,3000).show();
@@ -126,7 +124,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 							startActivity(intent);
 							finish();					
 						}else{
-							Toast.makeText(this,reStr,3000).show();
+							GLOBAL.msg(this,JSONDecode.getInstance(reStr).getString("info").toString());
 						}
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -134,7 +132,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					}
 				}
 
-			//}
+				login_btn.setEnabled(true);
 			break;
 		case R.id.verifty_img:
 			verifty_img.setImageBitmap(Verify.getInstance().createBitmap());

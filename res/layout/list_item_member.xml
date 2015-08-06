@@ -5,7 +5,10 @@
     android:layout_gravity="center_vertical|center"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:paddingBottom="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="15dp" >
 
     <TextView
         android:id="@+id/titleItem"
@@ -14,12 +17,13 @@
         android:layout_alignParentLeft="true"
         android:gravity="center_vertical|left"
         android:textColor="#FF666666"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/imageItem"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-         android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:src="@drawable/rico" />
   
 </RelativeLayout>  

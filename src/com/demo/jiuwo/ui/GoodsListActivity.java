@@ -2,8 +2,11 @@ package com.demo.jiuwo.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +41,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.demo.adapter.CategoryListViewAdapter;
 import com.demo.adapter.GoodsListViewAdapter;
 import com.demo.core.BaseActivity;
+import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.MyProgressBar;
 import com.demo.jiuwo.R;
@@ -72,7 +76,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 	protected  ArrayList<Map<String, Object>> goodslistItems; //产品列表
 	private GoodsListViewAdapter goodslistviewadapter;   //产品适配器
 	private CategoryListViewAdapter categorylistviewadapter_xuangou,categorylistviewadapter_lipin;   //分类适配器
-	private String searuri="http://app.0yuanwang.com/Api/getgoodslist";//搜索产品地址
+	private String searuri=GLOBAL.GOODS_LISTS_URL;//搜索产品地址
 
 	protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -125,7 +129,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					String jsonstr=getUrlPage("http://app.0yuanwang.com/Api/getcategorylist/");
+					String jsonstr=GLOBAL.getUrlPage(GLOBAL.GOODS_CATEGORY_LISTS_URL);
 					try {
 					JSONArray jsonarr = JSONDecode.getInstance(jsonstr).toJSONArray();		
 						//选购分类
@@ -210,15 +214,15 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 					        	goodslistviewadapter.add(String.valueOf(i + 1)); 
 					        }	*/
 				        String jsonstr="";
-				        baseuri+="/page/"+count;
+				        List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+				        params.add(new BasicNameValuePair("page", count+"")); 
 			           	if(!TextUtils.isEmpty(keywords)){
-			           		baseuri+="/keywords/"+keywords;
+			           		params.add(new BasicNameValuePair("keywords",keywords));
 			           	}
 			           	if(!TextUtils.isEmpty(category_id)){
-			           		baseuri+="/category_id/"+category_id;
+			           		params.add(new BasicNameValuePair("category_id",category_id));
 			           	}
-			           	
-			           		jsonstr=getUrlPage(baseuri);
+			           		jsonstr=GLOBAL.postUrl(baseuri, params);
 				           	Log.v("jsonstr","data-->"+jsonstr);
 				           	if(jsonstr!=null && !TextUtils.isEmpty(jsonstr)){
 				            try{

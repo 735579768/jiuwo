@@ -2,6 +2,8 @@ package com.demo.jiuwo.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -76,32 +78,55 @@ public class RegisterActivity extends BaseActivity implements OnClickListener{
 					String pStr=password.getText().toString();
 					String repStr=repassword.getText().toString();
 					if(pStr.equals(repStr)){
-					 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
-					 params.add(new BasicNameValuePair("username", uStr));
-					 params.add(new BasicNameValuePair("password",pStr));
-					String reStr=GLOBAL.postUrl(GLOBAL.USER_REGISTER, params);
-					String status;
-					try {
-						status = JSONDecode.getInstance(reStr).getString("status").toString();
-						if(status.equals("1")){
-							//注册成功
-						}else{
-							Toast.makeText(this,reStr,3000).show();
-							//跳转到登陆界面
-							Intent intent=new Intent();
-							intent.setClass(this,LoginActivity.class);
-							startActivity(intent);
-							finish();
-							inleft();
+						boolean a =false,b = false;
+						try{
+						//验证账号是不是合法
+						String regEx = "^(1[0-9]{10})|([a-zA-Z0-9]{1,15}@[a-zA-Z0-9]{1,5}\\.[a-zA-Z0-9]{1,5})$";  
+					    Pattern pattern = Pattern.compile(regEx);  
+					    Matcher matcher = pattern.matcher(uStr);  
+					    a = matcher.matches();
+					    //验证密码是不是合法6到10位
+						regEx = "^.{6,10}$";  
+						pattern = Pattern.compile(regEx);  
+						matcher= pattern.matcher(pStr);  
+					    b = matcher.matches();
+						}catch(Exception e){
+							e.printStackTrace();
 						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+					    if(!a){
+					    	GLOBAL.msg(this,"用户名请输入手机号或邮箱！");
+					    }else if(!b){
+					    	GLOBAL.msg(this,"请输入6至10位的密码！");
+					    }else{   
+							 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
+							 params.add(new BasicNameValuePair("rusername", uStr));
+							 params.add(new BasicNameValuePair("rpassword",pStr));
+							String reStr=GLOBAL.postUrl(GLOBAL.USER_REGISTER, params);
+							String status;
+							try {
+								status = JSONDecode.getInstance(reStr).getString("status").toString();
+								if(status.equals("1")){
+									//注册成功
+									GLOBAL.msg(this,"恭喜您注册成功");
+									//跳转到登陆界面
+									Intent intent=new Intent();
+									intent.setClass(this,LoginActivity.class);
+									startActivity(intent);
+									finish();
+									inleft();
+								}else{
+									//注册失败提示信息
+									GLOBAL.msg(this,JSONDecode.getInstance(reStr).getString("info").toString());
+								}
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					    }
 					}else{
-						Toast.makeText(this,"两次输入密码不一致",3000).show();
+						GLOBAL.msg(this,"两次输入密码不一致");
 					}
+					
 				//}
 				break;
 		}

@@ -100,8 +100,8 @@ public class MainLayoutActivity extends FragmentActivity{
 			ft3.commit();*/
 		}else if(id==R.id.iv_menu_44 || id== R.id.iv_menu_4){//个人中心
 			//登陆验证
-			String userinfo=GLOBAL.getData(this, "userinfo");
-		     if(TextUtils.isEmpty(userinfo)){
+
+		     if(TextUtils.isEmpty(GLOBAL.USERINFO)){
 		 		Intent intent=new Intent();
 				intent.setClass(this,LoginActivity.class);
 				startActivity(intent);

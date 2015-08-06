@@ -26,6 +26,8 @@ public class MainActivity extends BaseActivity {
 /*		 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
 	     String userinfo=sharedPre.getString("userinfo", "");*/
 		super.onCreate(savedInstanceState);
+		//取用户登陆加密字符串
+		GLOBAL.USERINFO=GLOBAL.getData(this, "userinfo");
 		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"TfscjiUBW9nvrMr0Xr9mQpSz");
 		isFirst();
 		init();

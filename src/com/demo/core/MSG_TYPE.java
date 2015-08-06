@@ -13,6 +13,8 @@ public class MSG_TYPE{
 	public static final int MSG_SHOW_PROGRESSBAR=MSG_BASE+5;	//更新秒杀列表
 	/**隐藏进度条**/
 	public static final int MSG_HIDE_PROGRESSBAR=MSG_BASE+6;	//更新秒杀列表
+	/**隐藏进度条**/
+	public static final int MSG_UPDATE_PROINFO=MSG_BASE+7;	//更新用户界面信息
 }
 
 
