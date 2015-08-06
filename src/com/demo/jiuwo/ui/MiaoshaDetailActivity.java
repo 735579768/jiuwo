@@ -175,11 +175,7 @@ public class MiaoshaDetailActivity extends BaseActivity{
 	                // 图片淡入效果  
 	                FadeInBitmapDisplayer.animate(imageView, 800);  
 	                displayedImages.add(imageUri);  
-	                
-	/*        	    ViewGroup.LayoutParams params = imageView.getLayoutParams(); 
-	        	    params.height =loadedImage.getHeight(); 
-	        	    ((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
-	        	    imageView.setLayoutParams(params);*/ 
+	               
 	            } 
 	        } 
 	    	}catch(Exception e){

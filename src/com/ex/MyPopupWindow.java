@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -38,6 +39,7 @@ public class MyPopupWindow extends PopupWindow {
 		mContext=context;
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|PopupWindow.INPUT_METHOD_NEEDED);
 		mMenuView = inflater.inflate(R.layout.alert_dialog, null);
 		
 		order_name=(EditText)mMenuView.findViewById(R.id.order_name);
