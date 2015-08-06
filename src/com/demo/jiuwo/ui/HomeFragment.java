@@ -482,6 +482,7 @@ public class HomeFragment extends BaseFragment implements OnPullListener {
 		// TODO Auto-generated method stub
      	initgrid_a();
     	initgrid_b();
+    	mpullScrollView.setfooterEnabled(false);
     	gridviewadapter_a.removeAllItem();
     	gridviewadapter_a.notifyDataSetChanged();
     	gridviewadapter_b.removeAllItem();

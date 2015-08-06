@@ -153,7 +153,9 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
+		mPullRefresh.setfooterEnabled(false);
 		cartadapter.removeAllItem();
+		cartadapter.notifyDataSetChanged();
 		loaddata();
 	}
 	@Override

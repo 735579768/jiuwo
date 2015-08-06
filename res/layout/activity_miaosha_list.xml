@@ -1,4 +1,4 @@
-<LinearLayout
+<FrameLayout
     	xmlns:android="http://schemas.android.com/apk/res/android"
     	android:id="@+id/content"
         android:layout_width="fill_parent"
@@ -46,4 +46,4 @@
         android:visibility="gone"
         android:padding="20dp"
         style="@style/CustomProgressStyle"/>
-</LinearLayout>
+</FrameLayout>

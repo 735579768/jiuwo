@@ -32,11 +32,12 @@
    <!-- A区产品 -->
 
   <TextView
-      android:background="@color/background"
+      android:background="@color/white"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:padding="10dp"
       android:textStyle="bold"
+      android:layout_gravity="left|center_vertical"
       android:text="@string/xuangouqu"
       android:textColor="@color/black"
       android:textSize="20sp" />  
@@ -45,18 +46,19 @@
                       android:listSelector="@drawable/list_item_selector"  
                       android:layout_width="fill_parent"  
                       android:layout_height="wrap_content"  
-                      android:padding="0dip"  
+                      android:padding="5dip"  
                       android:layout_margin="0dip"  
                       android:numColumns="2"  
-                      android:horizontalSpacing="3dip"  
-                      android:verticalSpacing="3dip"  
+                      android:horizontalSpacing="5dip"  
+                      android:verticalSpacing="5dip"  
                       android:stretchMode="columnWidth"  
                       android:gravity="fill"/>
     
       <TextView
-      android:background="@color/background"
+      android:background="@color/white"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_gravity="left|center_vertical"
       android:padding="10dp"
       android:text="@string/lipinqu"
       android:textStyle="bold"
@@ -68,19 +70,20 @@
                       android:listSelector="@drawable/list_item_selector"  
                       android:layout_width="fill_parent"  
                       android:layout_height="wrap_content"  
-                      android:padding="0dip"  
+                      android:padding="5dip"  
                       android:layout_margin="0dip"  
                       android:numColumns="2"  
-                      android:horizontalSpacing="3dip"  
-                      android:verticalSpacing="3dip"  
+                      android:horizontalSpacing="5dip"  
+                      android:verticalSpacing="5dip"  
                       android:stretchMode="columnWidth"  
                       android:gravity="fill"/>
     
    <!--产品列表  -->
       <TextView
-      android:background="@color/background"
+      android:background="@color/white"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
       android:padding="10dp"
       android:text="@string/newgoods"
       android:textStyle="bold"

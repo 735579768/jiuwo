@@ -535,6 +535,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 		@Override
 		public void refresh() {
 			// TODO Auto-generated method stub
+			mpullScrollView.setfooterEnabled(false);
 			goodslistviewadapter.removeAllItem();
 			goodslistviewadapter.notifyDataSetChanged();
 			loaddata();

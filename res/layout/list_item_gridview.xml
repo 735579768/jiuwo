@@ -3,14 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@drawable/border_grid"
     android:padding="10dp" >
-		<TextView 
+
+		<TextView
 		    android:id="@+id/goodsid"
 		    android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-		    android:visibility="gone"
-		    />
+		    android:layout_height="wrap_content"
+		    android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imageItem"

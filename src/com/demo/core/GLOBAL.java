@@ -20,8 +20,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +77,9 @@ public class GLOBAL {
 	
 	/**会员注册地址**/
 	public static String USER_REGISTER="http://app.0yuanwang.com/Public/register/";
+	
+	/**提交秒杀订单地址**/
+	public static String ADD_MIAOSHA_ORDER="http://app.0yuanwang.com/Api/addMiaoshaOrder/";
 	
 	/**
      * 使用SharedPreferences保存用户登录信息
@@ -170,13 +176,24 @@ public static String postUrl(String uri,List<NameValuePair> params){
   } 
   return reStr;
 }
+public static void msg(Context c,String str){
+	Toast toast = Toast.makeText(c,
+		     str, Toast.LENGTH_SHORT);
+		   toast.setGravity(Gravity.CENTER, 0, 0);
+		   LinearLayout view = (LinearLayout)toast.getView();
+		   view.setPadding(100, 50, 100, 50);
+		   TextView tv = (TextView)view.getChildAt(0);
+		   tv.setTextSize(20);
+		   toast.setView(view);
+		   toast.show();
+}
 public static Handler handler = new Handler(){
 	@Override
 	public void handleMessage(Message msg) {
 		// TODO Auto-generated method stub
 		super.handleMessage(msg);
 		//switch (msg.what) {
-		Toast.makeText(MYApplication.mContext, "连接服务器失败",3000).show();
+		GLOBAL.msg(MYApplication.mContext,"连接服务器失败");
 		//}
 		}
 };

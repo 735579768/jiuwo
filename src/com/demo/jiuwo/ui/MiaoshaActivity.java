@@ -28,13 +28,18 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
+	private ProgressBar progressBar;
+
 	protected ImageView goback;
 	private TextView tvTopTitle;
 	private PullRefreshScrollView mPullRefresh;
@@ -48,6 +53,9 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_miaosha_list);
+			progressBar=(ProgressBar)findViewById(R.id.progressBar);
+			
+			
 			mPullRefresh=(PullRefreshScrollView)findViewById(R.id.scrollid);
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
@@ -76,6 +84,7 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				sendMessage(MSG_TYPE.MSG_SHOW_PROGRESSBAR);
 				// TODO Auto-generated method stub
 				int count=miaoshaadapter.getCount();
 				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
@@ -108,6 +117,7 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 					} catch (JSONException e) {
 					// TODO Auto-generated catch block
 						sendMessage(MSG_TYPE.MSG_LOADOVER_MIAOSHA);
+						sendMessage(MSG_TYPE.MSG_HIDE_PROGRESSBAR);
 					e.printStackTrace();
 				}					
 			}
@@ -133,6 +143,7 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
         		}else{
         			mPullRefresh.setfooterEnabled(false);
         		}
+        		progressBar.setVisibility(View.GONE);
         		break;
         	case RESET_HEADER:
         		mPullRefresh.setheaderViewReset();
@@ -142,6 +153,12 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
         		break;
         	case MSG_TYPE.MSG_LOADOVER_MIAOSHA :
         		mPullRefresh.setfooterLoadOverText("加载完毕,共"+miaoshaadapter.getCount()+"个");
+        	case MSG_TYPE.MSG_SHOW_PROGRESSBAR:
+        		progressBar.setVisibility(View.VISIBLE);
+        		break;
+        	case MSG_TYPE.MSG_HIDE_PROGRESSBAR:
+        		progressBar.setVisibility(View.GONE);
+        		break;
         	default:
         		break;
         	}
@@ -151,7 +168,9 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
+		mPullRefresh.setfooterEnabled(false);
 		miaoshaadapter.removeAllItem();
+		miaoshaadapter.notifyDataSetChanged();
 		loaddata();
 	}
 	@Override

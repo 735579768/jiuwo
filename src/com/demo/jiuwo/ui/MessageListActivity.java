@@ -196,7 +196,9 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 		@Override
 		public void refresh() {
 			// TODO Auto-generated method stub
+			mpullScrollView.setfooterEnabled(false);
 			mMessageadapter.removeAllItem();
+			mMessageadapter.notifyDataSetChanged();
 			loaddata();
 		}
 		@Override

@@ -9,6 +9,10 @@ public class MSG_TYPE{
 	public static final int MSG_LOADOVER_MIAOSHA=MSG_BASE+2;	
 	/**数据加载完毕**/
 	public static final int MSG_DATA_LOADOVER=MSG_BASE+3;	
+	/**显示进度条**/
+	public static final int MSG_SHOW_PROGRESSBAR=MSG_BASE+5;	//更新秒杀列表
+	/**隐藏进度条**/
+	public static final int MSG_HIDE_PROGRESSBAR=MSG_BASE+6;	//更新秒杀列表
 }
 
 

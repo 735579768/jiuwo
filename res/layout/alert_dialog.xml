@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    >
+
+<LinearLayout
+    android:id="@+id/pop_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/order_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="请输姓名"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/order_mobile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="请输入电话"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/order_address"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="请输入详细地址"
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/btn_addorder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:background="@color/tool_bg"
+        android:padding="10dp"
+        android:text="提交订单"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="15dip"
+        android:background="@color/bg_Gray"
+        android:padding="10dp"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</RelativeLayout>

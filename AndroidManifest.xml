@@ -3,7 +3,12 @@
     package="com.demo.jiuwo"
     android:versionCode="1"
     android:versionName="1.0">
-
+<supports-screens  
+            android:smallScreens="true"  
+            android:normalScreens="true"  
+            android:largeScreens="true"  
+            android:resizeable="true"  
+            android:anyDensity="true"/>  
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="8" />
@@ -57,7 +62,8 @@
 	    <activity android:name="com.demo.core.DecodeCodeActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.CartActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.MiaoshaActivity"></activity> 
-	    <activity android:name="com.demo.jiuwo.ui.MiaoshaDetailActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.MiaoshaDetailActivity"
+	        android:windowSoftInputMode="adjustResize|adjustPan"></activity> 
 		<activity android:name="com.demo.update.VersionActivity"></activity> 
 		 <activity android:name="com.demo.jiuwo.ui.LoginActivity"></activity> 
 		  <activity android:name="com.demo.jiuwo.ui.RegisterActivity"></activity> 

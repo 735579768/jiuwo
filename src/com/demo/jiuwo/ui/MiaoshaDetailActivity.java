@@ -1,30 +1,19 @@
 package com.demo.jiuwo.ui;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.demo.adapter.MiaoshaListViewAdapter;
 import com.demo.core.BaseActivity;
 import com.demo.core.Counter;
 import com.demo.core.GLOBAL;
-import com.demo.core.JSONDecode;
-import com.demo.core.MSG_TYPE;
 import com.demo.jiuwo.R;
 import com.ex.Daojishi;
-import com.ex.PullRefreshScrollView;
-import com.ex.PullRefreshScrollView.OnPullListener;
+import com.ex.MyPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -35,25 +24,22 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MiaoshaDetailActivity extends BaseActivity{
-	private TextView title,price,check_goodsdescr,daojishi;
-	private ImageView goodspic;
+	private TextView title,price,check_goodsdescr,daojishi,order_btn,tvTopTitle;
+	private MyPopupWindow menuWindow;
+
+	private ImageView goodspic,goback;
 	private String goods_id;
-	protected ImageView goback;
-	private TextView tvTopTitle;
 	Counter counter;
 	Timer timer = new Timer(); 
 	static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
@@ -67,8 +53,10 @@ public class MiaoshaDetailActivity extends BaseActivity{
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_miaosha);
+			goods_id=getIntent().getStringExtra("goods_id").toString();
 			title=(TextView)findViewById(R.id.goods_title);
 			price=(TextView)findViewById(R.id.goods_price);
+			order_btn=(TextView)findViewById(R.id.order_btn);
 			check_goodsdescr=(TextView)findViewById(R.id.check_goodsdescr);
 			goodspic=(ImageView)findViewById(R.id.goods_pic);
 			daojishi=(TextView)findViewById(R.id.daojishi);
@@ -82,15 +70,22 @@ public class MiaoshaDetailActivity extends BaseActivity{
 					// TODO Auto-generated method stub
 					finish();
 				}});
+			order_btn.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					//实例化弹出窗口
+					menuWindow = new MyPopupWindow(MiaoshaDetailActivity.this,goods_id);
+					//显示窗口
+					menuWindow.showAtLocation(MiaoshaDetailActivity.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+
+				}});
 
 
 
-			Bundle bundle=this.getIntent().getExtras();
-//			if(bundle==null){
-				goods_id=getIntent().getStringExtra("goods_id").toString();
-	/*		}else{
-			goods_id=bundle.getString("goodsid");
-			}*/
+			this.getIntent().getExtras();
+				
+
 			String jsongoods=getUrlPage(GLOBAL.GET_QG_GOODSINFO_URL+"goods_id/"+goods_id);
 			try{
 			JSONObject info=new JSONObject(jsongoods);
