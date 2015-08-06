@@ -55,7 +55,7 @@ public class GLOBAL {
 	public static final String MESSAGE_DETAIL_URL="http://app.0yuanwang.com/Api/getMessageInfo/";
 	
 	/**搜索产品列表地址**/
-	public static final String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist";
+	public static final String GOODS_LISTS_URL="http://app.0yuanwang.com/Api/getgoodslist/";
 	
 	/**取分类列表地址**/
 	public static final String GOODS_CATEGORY_LISTS_URL="http://app.0yuanwang.com/Api/getcategorylist/";
