@@ -1,14 +1,12 @@
 package com.ex;
-
 import java.text.SimpleDateFormat;
 
 import com.demo.jiuwo.R;
 
 
-
-
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -64,7 +62,7 @@ public class PullRefreshScrollView extends ScrollView {
 	// 设置滚动条到下面
 	public static final int	SET_SCROLL_DOWN		= 9;
 	// 实际的padding的距离与界面上偏移距离的比例
-	private final static int	RATIO				= 4;
+	private final static int	RATIO				= 2;
 	private LinearLayout		innerLayout;
 	private LinearLayout		bodyLayout;
 
@@ -85,13 +83,49 @@ public class PullRefreshScrollView extends ScrollView {
 
 	// 刷新、加载更多 接口
 	private OnPullListener		onPullListener;
-	
+	//自动加载更多时滑动到距离底边的高度(到多少高度时就加载)
+	private int preHeight=200;
+	//记录滚动条正在滚动时的距离
+	private int 				lastScrollY=0;
 	//是否要底部加载更多
 	private boolean 			isfooter=true;
+	//是否要底部加载更多
+	private boolean 			isautoload=false;
 	//是否在线程中设置滚动条位置
 	private boolean 			isSetScrolling=false;
 	private ViewGroup childView;//原有的子视图
-	private boolean isInitUi=false;//是否已经初始化啦scrollview，防止重复添加布局	
+	private boolean isInitUi=false;//是否已经初始化啦scrollview，防止重复添加布局
+	
+	 /** 
+     * 用于用户手指离开MyScrollView的时候获取MyScrollView滚动的Y距离，然后回调给onScroll方法中 
+     */  
+    private Handler handler = new Handler() {  
+  
+        public void handleMessage(android.os.Message msg) {  
+        	int scrY =getScrollY(); 
+            //此时的距离和记录下的距离不相等说明没有停止，在隔5毫秒给handler发送消息  
+            if(lastScrollY!= scrY){  
+                lastScrollY = scrY;  
+                handler.sendMessageDelayed(handler.obtainMessage(), 5);    
+            }else{
+        		//如果开启啦自动加载滚动条到下面时直接自动加载
+            	int aa=getScrollY() + getHeight()+preHeight;
+            	int bb=getChildAt(0).getMeasuredHeight();
+        		if(aa>=bb){
+        			pullState = footerView.setLoading();
+
+        			footerView.show();
+        			footerView.setPaddingButtom(0);
+        			if(onPullListener!=null)onPullListener.loadMore();
+        		}           	
+            }
+            /* if(onScrollListener != null){  
+                onScrollListener.onScroll(scrollY);  
+            }  */
+              
+        };  
+  
+    };   
 	public PullRefreshScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
@@ -111,7 +145,7 @@ public class PullRefreshScrollView extends ScrollView {
 		footerView = new FooterView(mContext);
 		measureView(footerView);
 		footContentHeight = footerView.getMeasuredHeight();
-		footerView.setPaddingButtom();
+		if(isfooter)footerView.setPadding(0,0,0,-1 * footContentHeight);
 		footerView.invalidate();
 		//先把页脚隐藏
 	    mHideAnimation = new AlphaAnimation(1.0f, 0.3f);
@@ -152,7 +186,7 @@ public class PullRefreshScrollView extends ScrollView {
 				innerLayout.addView(headerView,0);
 				innerLayout.addView(bodyLayout);
 				innerLayout.addView(footerView,-1);
-				if(isfooter){
+				if(isfooter||isautoload){
 					footerView.show();			
 				}else{
 					footerView.hide();			
@@ -197,13 +231,12 @@ public class PullRefreshScrollView extends ScrollView {
 		onTouchEvent(event);
 		return super.onInterceptTouchEvent(event);
 	}
-
 	/**
 	 * 监听上下拉首饰操作
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-
+		 
 		if (isLoadable()) {
 			switch (event.getAction()) {
 
@@ -213,7 +246,7 @@ public class PullRefreshScrollView extends ScrollView {
 					break;
 
 				case MotionEvent.ACTION_MOVE:
-
+					
 					int tempY = (int) event.getY() - startY;
 					
 					// 如果 ScrollViwe 滑到最顶端，且有下拉刷新手势，则激活下拉刷新动作
@@ -223,22 +256,30 @@ public class PullRefreshScrollView extends ScrollView {
 					}
 					
 					// 如果 ScrollViwe 滑倒最底端，且有上拉刷加载更多手势，则激活上拉加载更多动作
-					else if (tempY < 0 && isfooter) { // 上拉加载更多
+					
+					else if (tempY<0 && isfooter) { // 上拉加载更多
 						changefooterViewHeight(tempY);
 					}
 					break;
 
 				case MotionEvent.ACTION_UP:
+					if(isautoload){
+					//当用户抬起手我们隔5毫秒给handler发送消息，在handler处理 
+					if(!footerView.isloadover)handler.sendMessageDelayed(handler.obtainMessage(), 5);  
+					}
 					//重置 headerView、footerView ,激化监听
+					this.setFocusable(true);
 					resetPullStateForActionUp();
+					
 					break;
 			}
 		}
-		if(pullState==DONE){
+		this.setVerticalScrollBarEnabled(true);
+/*		if(pullState==DONE){
 			this.setVerticalScrollBarEnabled(true);
 		}else{
 			this.setVerticalScrollBarEnabled(false);
-		}
+		}*/
 		
 		//下拉和释放状态屏蔽滚动条
 		if(pullState==PULL_DOWN_STATE||pullState==RELEASE_TO_REFRESH){
@@ -269,8 +310,10 @@ public class PullRefreshScrollView extends ScrollView {
 		if (pullState == PULL_DOWN_STATE || pullState == RELEASE_TO_REFRESH) {
 			
 			int pdtop=0;
+			
 			pdtop=-1 * headContentHeight + tempY / RATIO;
 			Log.v("TouthY", pdtop+"");
+			//if(pdtop<-1 * headContentHeight)pdtop=-1 * headContentHeight;
 			pullState = headerView.setPadding(headContentHeight,pdtop);
 		}
 	}
@@ -292,7 +335,9 @@ public class PullRefreshScrollView extends ScrollView {
 		//如果状态是向上拉动或松手加载更多就进行下面操作
 		if (pullState == PULL_UP_STATE || pullState == RELEASE_TO_LOADING) {
 			int pb=0;
-			pb=(Math.abs(-tempY) / RATIO);
+			if(isfooter){
+				pb=-1 * footContentHeight+(Math.abs(-tempY) / RATIO);
+			}
 			Log.v("bottom",pb+"");
 			pullState = footerView.setPadding(footContentHeight,pb);
 		}
@@ -308,23 +353,28 @@ public class PullRefreshScrollView extends ScrollView {
 			if (pullState == RELEASE_TO_REFRESH) {
 				pullState = headerView.setRefreshing();
 				headerView.setPaddingTop(0);
-				//松手刷新等于重新加载，直接把下面加载更多的状态重置
-				footerView.resetloadOver();
 				footerView.setStartLoad();
+				
 				if(onPullListener!=null)onPullListener.refresh();
 			}
 			// 松开手加载更多
-			else if (pullState == RELEASE_TO_LOADING) {
-				footerView.setPaddingButtom();
+			else if (pullState == RELEASE_TO_LOADING && !isautoload) {
 				pullState = footerView.setLoading();
-				if(onPullListener!=null)onPullListener.loadMore();
+				footerView.setPaddingButtom(0);
+				if(isfooter){
+					if(onPullListener!=null)onPullListener.loadMore();
+				}
 				//setShowAnimation(footerView,300);
 			}
 			// 重置到最初状态
 			else {
 				headerView.setPaddingTop(-1 * headContentHeight);
-				//这个地方判断内容是不是满屏(等待实现)
-				footerView.setPaddingButtom();
+				if(isautoload){
+					footerView.setPaddingButtom(0);
+				}else{
+					footerView.setPaddingButtom(-1 * footContentHeight);
+				}
+				
 				pullState = DONE;
 			}
 		}
@@ -359,8 +409,26 @@ public class PullRefreshScrollView extends ScrollView {
 		if(b){
 			footerView.show();			
 		}else{
-			footerView.hide();			
+			footerView.hide();	
+			isautoload=false;
 		}
+	}
+	/**
+	 * 设置页脚到底部时自动加载
+	 */
+	public void setfooterAutoLoad(boolean b){
+		isautoload=b;
+		if(b){
+			footerView.setPadding(0,0,0,0);
+			footerView.show();
+			this.isfooter=true;
+		}
+	}
+	/**
+	 * 设置页脚自动加载时的预加载高度
+	 */
+	public void setfooterAutoLoadPreHeight(int preHeight){
+		this.preHeight=preHeight;
 	}
 	/**
 	 * 设置页脚文本加载完成时状态
@@ -376,6 +444,11 @@ public class PullRefreshScrollView extends ScrollView {
 	public void setfooterViewReset() {
 		footerView.resetloadOver();
 		footerView.setStartLoad();
+		if(!isautoload){
+			footerView.setPaddingButtom(-1 * footContentHeight);
+		}else{
+			footerView.setPaddingButtom(0);
+		}
 		pullState = DONE;
 	}
 
@@ -494,7 +567,7 @@ public class PullRefreshScrollView extends ScrollView {
 		// TODO Auto-generated method stub
 		
 	}
-}
+
 
 /**
 * 
@@ -608,6 +681,7 @@ class HeaderView extends LinearLayout {
 	 */
 	public int setPadding(int presetHeight, int currentHeight) {
 		//sudu=5;
+		//if(currentHeight<headContentHeight)currentHeight=presetHeight;
 		//移动过程中设置顶部
 		this.setPadding(0, currentHeight, 0, 0);
 		//if(TextUtils.isEmpty(refreshDate))refreshDate="未刷新过";
@@ -628,9 +702,13 @@ class HeaderView extends LinearLayout {
 	 * 初始化 HeadView PaddingTop
 	 */
 	public void setPaddingTop(int paddingTop) {
+		Log.v("paddingtop","手松开时的内边距:"+headerView.getPaddingTop()+",要滚动到"+paddingTop);
+		
 		//this.setPadding(0, paddingTop, 0, 0);
 		curtop=headerView.getPaddingTop();
-		new ScrollTask().execute(paddingTop);
+		if(curtop!=paddingTop){
+			new ScrollTask().execute(paddingTop);
+		}
 	}
 	   class ScrollTask extends AsyncTask<Integer, Integer, Integer> {
 		   
@@ -798,10 +876,12 @@ class FooterView extends LinearLayout {
 	/**
 	 * 初始化 FootView PaddingButtom
 	 */
-	public void setPaddingButtom() {
+	public void setPaddingButtom(int paddingbottom) {
 		//this.setPadding(0, 0, 0, 0);
 		curbottom=footerView.getPaddingBottom();
-		new ScrollTask().execute(0);
+		if(curbottom!=paddingbottom){
+		 new ScrollTask().execute(paddingbottom);
+		}
 		arrows.clearAnimation();
 	}
 
@@ -883,5 +963,8 @@ class FooterView extends LinearLayout {
 			// TODO Auto-generated method stub
 			
 		}
+
+}
+
 
 }
