@@ -42,6 +42,9 @@ public class GLOBAL {
 	/**更新版本地址**/
 	public static final String UPDATE_VERSION_URL="http://app.0yuanwang.com/version.xml";
 	
+	/**取秒杀订单列表地址**/
+	public static final String GET_MIAOSHA_ORDER_URL="http://app.0yuanwang.com/Api/getMiaoshaOrderList/";
+	
 	/**取用户信息地址**/
 	public static final String GET_MEMBERINFO_URL="http://app.0yuanwang.com/Api/getUserinfo/";
 	
@@ -74,7 +77,7 @@ public class GLOBAL {
 	public static final String GOODS_B_LISTS_URL="http://app.0yuanwang.com/Api/getLipinList/";
 	
 	/**会员信息地址**/
-	public static final String PRO_INFO="http://app.0yuanwang.com/Member/info";
+	//public static final String PRO_INFO="http://app.0yuanwang.com/Member/info";
 	
 	/**购物车列表地址**/
 	public static final String CART_INDEX_LIST="http://app.0yuanwang.com/Cart/index/";
@@ -196,7 +199,7 @@ public static void msg(Context c,String str){
 		   LinearLayout view = (LinearLayout)toast.getView();
 		   view.setPadding(100, 50, 100, 50);
 		   TextView tv = (TextView)view.getChildAt(0);
-		   tv.setTextSize(20);
+		   tv.setTextSize(16);
 		   toast.setView(view);
 		   toast.show();
 }

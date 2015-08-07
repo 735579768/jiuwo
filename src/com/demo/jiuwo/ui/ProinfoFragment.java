@@ -45,7 +45,7 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 	private TextView tvTopTitle,account;
 	private LinearLayout login_reg_block;
 	private Integer[] imageIDs={R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico,R.drawable.rico};
-	String [] menutitle={"购物车","全部订单","未付款订单","已付款订单","检查更新","注销账户"};
+	String [] menutitle={"秒杀订单","全部订单","未付款订单","已付款订单","检查更新","注销账户"};
 	private List<Map<String, Object>> listItems; //菜单列表
 	private MemListViewAdapter memviewadapter;   //菜单适配器
 	
@@ -104,17 +104,22 @@ public class ProinfoFragment extends  LoginVerifyFragment{
 				//String titleitem=listItems.get(arg2).get("title").toString();	
 				Intent intent=new Intent();
 				switch(arg2){
-				case 0://购物车
-					intent.setClass(getActivity(),CartActivity.class);
+				case 0://秒杀订单
+/*					if(TextUtils.isEmpty(GLOBAL.USERINFO)){
+						
+					}*/
+					intent.setClass(getActivity(),MiaoshaOrderActivity.class);
 					startActivity(intent);
 					inright();						
 					break;
 				case 1://全部订单
-
+					GLOBAL.msg(getActivity(), "没有订单");
 					break;
 				case 2://未付订单
+					GLOBAL.msg(getActivity(), "没有订单");
 					break;
 				case 3://已付订单
+					GLOBAL.msg(getActivity(), "没有订单");
 					break;
 				case 4://更新
 					new UpdateVersion(getActivity()).checkVersion(GLOBAL.UPDATE_VERSION_URL,false);

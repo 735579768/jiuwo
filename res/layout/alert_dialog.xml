@@ -11,15 +11,63 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="#ffffff"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="30dp" >
 
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="20dp"
+	        android:paddingRight="20dp"
+	        android:paddingTop="10dp"
+	        android:text="购买数量："
+	        android:textSize="14sp" />
+	    	    <TextView
+	    	android:id="@+id/jiannum"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="20dp"
+	        android:paddingRight="20dp"
+	        android:paddingTop="10dp"
+	        android:text="-"
+	        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/order_num"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/bg_edittext"
+        android:gravity="center_vertical|center"
+        android:padding="10dp"
+        android:text="1" />
+
+	    <TextView
+	        android:id="@+id/addnum"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="20dp"
+	        android:paddingRight="20dp"
+	        android:paddingTop="10dp"
+	        android:text="+"
+	        android:textSize="30sp" />
+
+	</LinearLayout>
     <EditText
         android:id="@+id/order_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/bg_edittext"
-        android:hint="请输姓名"
+        android:hint="请输收货人姓名"
         android:padding="10dp" />
 
     <EditText
@@ -28,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/bg_edittext"
-        android:hint="请输入电话"
+        android:hint="请输入收货人手机号"
         android:padding="10dp" />
 
     <EditText
@@ -37,7 +85,9 @@
         android:layout_height="100dp"
         android:layout_margin="10dp"
         android:background="@drawable/bg_edittext"
-        android:hint="请输入详细地址"
+        android:gravity="left|top"
+        android:hint="请输入详细收货地址"
+        android:inputType="textMultiLine"
         android:padding="10dp" />
 
     <Button

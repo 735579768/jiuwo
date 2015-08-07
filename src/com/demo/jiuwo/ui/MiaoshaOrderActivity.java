@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.demo.adapter.CartListViewAdapter;
+import com.demo.adapter.MiaoshaOrderViewAdapter;
 import com.demo.core.GLOBAL;
 import com.demo.core.JSONDecode;
 import com.demo.core.LoginVerifyActivity;
@@ -33,7 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CartActivity extends LoginVerifyActivity implements OnPullListener{
+public class MiaoshaOrderActivity extends LoginVerifyActivity implements OnPullListener{
 	final static int UPDATE_CART = 1;
 	final static int RESET_HEADER = 2;
 	final static int RESET_FOOTER = 3;
@@ -42,18 +43,18 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	//protected String uri=GLOBAL.PRO_INFO;
 	protected ImageView goback;
 	private TextView tvTopTitle;
-	 private CartListViewAdapter cartadapter;   //菜单适配器
+	 private MiaoshaOrderViewAdapter msadapter;   //菜单适配器
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_cart_list);
+			setContentView(R.layout.activity_miaosha_order);
 			mPullRefresh=(PullRefreshScrollView)findViewById(R.id.scrollid);
 			mPullRefresh.setfooterEnabled(false);
 			mPullRefresh.setOnPullListener(this);
 			goback= (ImageView)findViewById(R.id.goback);
 			tvTopTitle= (TextView)findViewById(R.id.tv_top_title);
-			tvTopTitle.setText("购物车");
+			tvTopTitle.setText("秒杀订单列表");
 			goback.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View arg0) {
@@ -62,37 +63,21 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 				}});
 		
 			cartlistview= (MyListView) findViewById(R.id.cartlist);
-			cartadapter = new CartListViewAdapter(this); //创建适配器 
-			cartlistview.setAdapter(cartadapter);
+			msadapter = new MiaoshaOrderViewAdapter(this); //创建适配器 
+			cartlistview.setAdapter(msadapter);
 			loaddata();
 		}
-/*	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
-		View view= inflater.inflate(R.layout.activity_cart_list,
-				container, false);
-		mPullRefresh=(PullRefreshScrollView) view.findViewById(R.id.scrollid);
-		mPullRefresh.setfooterEnabled(false);
-		mPullRefresh.setOnPullListener(this);
-		//取要显示到下拉容器中的内容视图
-		LinearLayout cl= (LinearLayout)mPullRefresh.addBodyLayoutFile(getActivity(),R.layout.list_cart);
-	
-		cartlistview= (MyListView) cl.findViewById(R.id.cartlist);
-		cartadapter = new CartListViewAdapter(getActivity()); //创建适配器 
-		cartlistview.setAdapter(cartadapter);
-		loaddata();
-		return view;
-	}*/
+
 	private void loaddata(){
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				int count=cartadapter.getCount();
+				int count=msadapter.getCount();
 				 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
-				  params.add(new BasicNameValuePair("userinfo", userinfo));
+				  params.add(new BasicNameValuePair("userinfo", GLOBAL.USERINFO));
 				  params.add(new BasicNameValuePair("num", count+""));
-				String jsonstr=GLOBAL.postUrl(GLOBAL.CART_INDEX_LIST,params);
+				String jsonstr=GLOBAL.postUrl(GLOBAL.GET_MIAOSHA_ORDER_URL,params);
 				try {
 				JSONArray jarr = JSONDecode.getInstance(jsonstr).toJSONArray();		
 					//选购分类
@@ -104,10 +89,10 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 						title=title.replace(" ",""); 
 						map.put("pic", obj.getString("pic"));
 						map.put("price", obj.getString("price"));
+						map.put("ordertime", obj.getString("ordertime"));
 						map.put("title", title);
-						map.put("category_id",obj.getString("category_id"));
 						map.put("goods_id",obj.getString("goods_id"));
-						cartadapter.addItem(map);
+						msadapter.addItem(map);
 					}
 	                // 发送消息  
 	                Message msg=handler.obtainMessage();
@@ -129,10 +114,10 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	    public void handleMessage(Message msg) { 
         	switch(msg.what){
         	case UPDATE_CART:
-        		cartadapter.notifyDataSetChanged();
+        		msadapter.notifyDataSetChanged();
         		mPullRefresh.setheaderViewReset();
         		mPullRefresh.setfooterViewReset();
-        		if(cartadapter.getCount()>=5){
+        		if(msadapter.getCount()>=5){
         			mPullRefresh.setfooterEnabled(true);
         		}else{
         			mPullRefresh.setfooterEnabled(false);
@@ -154,8 +139,8 @@ public class CartActivity extends LoginVerifyActivity implements OnPullListener{
 	public void refresh() {
 		// TODO Auto-generated method stub
 		mPullRefresh.setfooterEnabled(false);
-		cartadapter.removeAllItem();
-		cartadapter.notifyDataSetChanged();
+		msadapter.removeAllItem();
+		msadapter.notifyDataSetChanged();
 		loaddata();
 	}
 	@Override

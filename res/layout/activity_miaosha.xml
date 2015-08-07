@@ -108,6 +108,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="5dp" >
+
        <TextView
            android:id="@+id/order_btn"
            android:layout_width="wrap_content"
@@ -115,14 +116,12 @@
            android:layout_alignParentRight="true"
            android:background="#FFC53F4C"
            android:gravity="center_vertical|right"
-           android:paddingBottom="8dp"
-           android:paddingLeft="10dp"
-           android:paddingRight="10dp"
-           android:paddingTop="8dp"
+           android:padding="10dp"
            android:text="立即下单"
            android:textColor="@color/white"
            android:textSize="16sp"
            android:textStyle="bold" />
+
 </RelativeLayout>
 </LinearLayout>
 

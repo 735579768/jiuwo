@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -74,11 +75,16 @@ public class MiaoshaDetailActivity extends BaseActivity{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					if(!TextUtils.isEmpty(GLOBAL.USERINFO)){
 					//实例化弹出窗口
 					menuWindow = new MyPopupWindow(MiaoshaDetailActivity.this,goods_id);
 					//显示窗口
 					menuWindow.showAtLocation(MiaoshaDetailActivity.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-
+					}else{
+						Intent intent=new Intent();
+						intent.setClass(MiaoshaDetailActivity.this,LoginActivity.class);
+						startActivity(intent);
+					}
 				}});
 
 

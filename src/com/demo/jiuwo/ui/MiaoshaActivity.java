@@ -44,7 +44,7 @@ public class MiaoshaActivity extends BaseActivity implements OnPullListener{
 	private TextView tvTopTitle;
 	private PullRefreshScrollView mPullRefresh;
 	protected MyListView miaoshalistview;
-	protected String uri=GLOBAL.PRO_INFO;
+	//protected String uri=GLOBAL.PRO_INFO;
 
 	 private List<Map<String, Object>> listItems; //菜单列表
 	 private MiaoshaListViewAdapter miaoshaadapter;   //菜单适配器
