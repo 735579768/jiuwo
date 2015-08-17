@@ -22,12 +22,13 @@
         <TextView
             android:id="@+id/titleItem"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:ellipsize="none"
+            android:layout_height="50dp"
+            android:maxLines="2"
+ 			android:scrollHorizontally="false"
             android:gravity="center_vertical|left"
             android:padding="5dp"
             android:textColor="#FF666666"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/price"
@@ -36,7 +37,7 @@
             android:gravity="center_vertical|left"
             android:padding="5dp"
             android:textColor="#FFC53F4C"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
   
