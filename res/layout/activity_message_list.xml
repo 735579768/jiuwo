@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout 
     	xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        >
+
+<LinearLayout
+    	
     	android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -30,7 +36,7 @@
 		</com.demo.jiuwo.ui.MyListView>
 </LinearLayout>
 </com.ex.PullRefreshScrollView>
- 
+</LinearLayout>
     <ProgressBar 
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -39,4 +45,4 @@
         android:visibility="gone"
         android:padding="20dp"
         style="@style/CustomProgressStyle"/>
-</LinearLayout>
+</FrameLayout>

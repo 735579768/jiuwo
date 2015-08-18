@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.demo.adapter.MessageListViewAdapter;
@@ -43,6 +44,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	final static int RESET_PULLREFRESH = 3;
 	
 	protected ImageView goback;
+	private ProgressBar progressBar;
 	private TextView tvTopTitle;
 	private MyListView messagelist;
 	private PullRefreshScrollView	mpullScrollView;//下拉刷新
@@ -52,6 +54,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_message_list);
 			
+			progressBar=(ProgressBar)findViewById(R.id.progressBar);
 			//取下拉刷新对象
 			mpullScrollView= (PullRefreshScrollView)findViewById(R.id.scrollid);
 			//mpullScrollView.setfooterEnabled(false);
@@ -90,6 +93,7 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					sendMessage(MSG_TYPE.MSG_SHOW_PROGRESSBAR);
 					String strUri=GLOBAL.MESSAGE_URL;
 					 List<NameValuePair> params = new ArrayList<NameValuePair>(); 
 					 params.add(new BasicNameValuePair("num", mMessageadapter.getCount()+""));
@@ -148,41 +152,18 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 	            	}else{
 	            		mpullScrollView.setfooterEnabled(false);
 	            	}
+	            	progressBar.setVisibility(View.GONE);
 	        		break;
+	        	case MSG_TYPE.MSG_SHOW_PROGRESSBAR:
+	        		progressBar.setVisibility(View.VISIBLE);
 	        	case MSG_TYPE.MSG_DATA_LOADOVER:
 	        		 mpullScrollView.setfooterLoadOverText("加载完毕，共"+mMessageadapter.getCount()+"个");
-/*	        	case RESET_PULLREFRESH:
-	        		mpullScrollView.setheaderViewReset();
-	        		mpullScrollView.setfooterViewReset();
-	        		mpullScrollView.setfooterEnabled(true);
-	        		break;*/
 	        	default:
 	        		break;
 	        	}
 	        	//super.handleMessage(msg);  
 	        };  
 	    };  	
-/*		//动态设置listview的高度
-		public void setListViewHeightBasedOnChildren(ListView listView) {     
-	        // 获取ListView对应的Adapter     
-			ListAdapter listAdapter = listView.getAdapter();  
-		    if (listAdapter == null) { 
-		        return; 
-		    } 
-		    int totalHeight = 0; 
-		    for (int i = 0; i < listAdapter.getCount(); i++) { 
-		        View listItem = listAdapter.getView(i, null, listView); 
-		        listItem.measure(0, 0); 
-		        totalHeight += listItem.getMeasuredHeight(); 
-		    } 
-
-		    ViewGroup.LayoutParams params = listView.getLayoutParams(); 
-		    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()-1)); 
-		    params.height=params.height+listView.getPaddingTop()+listView.getPaddingBottom()+300;
-		    //((MarginLayoutParams)params).setMargins(10, 10, 10, 10);
-		    listView.setLayoutParams(params); 
-	    }  */
-
 	    //重置头部下拉刷新
 	    public void resetRefresh(){
 	        Message msg1=handler.obtainMessage();;
@@ -205,7 +186,6 @@ public class MessageListActivity extends BaseActivity implements OnPullListener 
 		public void loadMore() {
 			// TODO Auto-generated method stub
 			loaddata();
-
 		}
 		private void initListener(){
 			messagelist.setOnItemClickListener(new OnItemClickListener(){
