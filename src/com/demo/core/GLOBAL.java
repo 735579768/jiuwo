@@ -70,6 +70,9 @@ public class GLOBAL {
 	/**商品选购和礼品赠送区地址**/
 	public static final String GOODS_A_LISTS_URL="http://app.0yuanwang.com/Api/getXuangouList/";
 	
+	/**代购列表地址**/
+	public static final String GOODS_DAIGOU_LISTS_URL="http://app.0yuanwang.com/Api/getDaigouList/";
+	
 	/**秒杀列表地址**/
 	public static final String GOODS_MIAOSHA_LISTS_URL="http://app.0yuanwang.com/Api/getMiaoshaList/";
 	

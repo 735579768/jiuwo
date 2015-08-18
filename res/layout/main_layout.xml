@@ -72,29 +72,6 @@
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/iv_menu_22"
-            android:onClick="click"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/iv_menu_2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:onClick="click"
-                android:src="@drawable/bt_menu_2_select" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消息"
-                android:textSize="11sp" />
-        </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/iv_menu_33"
@@ -116,6 +93,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="秒杀"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/iv_menu_22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="click"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/iv_menu_2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="click"
+                android:src="@drawable/bt_menu_2_select" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"
                 android:textSize="11sp" />
         </LinearLayout>
 

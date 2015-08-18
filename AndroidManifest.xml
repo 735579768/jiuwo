@@ -62,6 +62,8 @@
 	    <activity android:name="com.demo.core.DecodeCodeActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.CartActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.MiaoshaActivity"></activity> 
+	    <activity android:name="com.demo.jiuwo.ui.DaigouActivity"></activity> 
+	     <activity android:name="com.demo.jiuwo.ui.DaigouDetailActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.MiaoshaOrderActivity"></activity> 
 	    <activity android:name="com.demo.jiuwo.ui.MiaoshaDetailActivity"
 	        	  android:windowSoftInputMode="adjustUnspecified|stateHidden"

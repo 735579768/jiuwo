@@ -22,7 +22,7 @@ public class MainLayoutActivity extends FragmentActivity{
 	private FragmentManager fm ;
 	boolean isExit;
 	private Fragment home,proinfo,cart;
-	private ImageView img4,img1,img2,img3;
+	private ImageView img4,img1,img2,img3,img5;
 	/* (non-Javadoc)
 	 * @see com.demo.jiuwo.BaseActivity#onCreate(android.os.Bundle)
 	 */
@@ -38,6 +38,7 @@ public class MainLayoutActivity extends FragmentActivity{
 		img2=(ImageView)findViewById(R.id.iv_menu_2);
 		img3=(ImageView)findViewById(R.id.iv_menu_3);
 		img4=(ImageView)findViewById(R.id.iv_menu_4);
+		img5=(ImageView)findViewById(R.id.iv_menu_5);
 	
 		fm = getSupportFragmentManager();
 		home = new HomeFragment();
@@ -57,6 +58,7 @@ public class MainLayoutActivity extends FragmentActivity{
 			img2.setSelected(false);
 			img3.setSelected(false);
 			img4.setSelected(false);
+			img5.setSelected(false);
 			FragmentTransaction ft1 = fm.beginTransaction();
 			ft1.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left,
 					R.anim.in_from_right, R.anim.out_to_left);
@@ -67,6 +69,7 @@ public class MainLayoutActivity extends FragmentActivity{
 			img1.setSelected(false);
 			img3.setSelected(false);
 			img4.setSelected(false);
+			img5.setSelected(false);
 			Intent intent=new Intent();
 			intent.setClass(this,MessageListActivity.class);
 			startActivity(intent);
@@ -76,28 +79,16 @@ public class MainLayoutActivity extends FragmentActivity{
 	                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 			ft2.replace(R.id.main_container,home);
 			ft2.commit();		*/
-		}else if(id==R.id.iv_menu_33 || id== R.id.iv_menu_3){//购物车
+		}else if(id==R.id.iv_menu_33 || id== R.id.iv_menu_3){//秒杀
 			//跳转到秒杀界面
 			img1.setSelected(false);
 			img3.setSelected(false);
 			img4.setSelected(false);
+			img5.setSelected(false);
 			Intent intent=new Intent();
 			intent.setClass(this,MiaoshaActivity.class);
 			startActivity(intent);
-/*			
-			Intent intent=new Intent();
-			intent.setClass(this,CartActivity.class);
-			startActivity(intent);*/
-			
-/*			img1.setSelected(false);
-			img2.setSelected(false);
-			img4.setSelected(false);
-			FragmentTransaction ft3 = fm.beginTransaction();
-			ft3.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left,
-					R.anim.in_from_right, R.anim.out_to_left);
-			ft3.replace(R.id.main_container,cart);
-			ft3.addToBackStack(null);
-			ft3.commit();*/
+
 		}else if(id==R.id.iv_menu_44 || id== R.id.iv_menu_4){//个人中心
 			//登陆验证
 
@@ -109,6 +100,7 @@ public class MainLayoutActivity extends FragmentActivity{
 				img1.setSelected(false);
 				img2.setSelected(false);
 				img3.setSelected(false);
+				img5.setSelected(false);
 				FragmentTransaction ft31 = fm.beginTransaction();
 				ft31.setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left,
 						R.anim.in_from_right, R.anim.out_to_left);
@@ -117,6 +109,11 @@ public class MainLayoutActivity extends FragmentActivity{
 				ft31.commit();		    	  
 		     }
 
+		}else if(id==R.id.iv_menu_55 || id== R.id.iv_menu_5){
+			//跳转到代购界面
+			Intent intent=new Intent();
+			intent.setClass(this,DaigouActivity.class);
+			startActivity(intent);
 		}
 	}
 	@Override
