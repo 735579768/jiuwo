@@ -161,10 +161,10 @@ public final class R {
         public static final int category_title=0x7f090066;
         public static final int categorylist_lipin=0x7f090061;
         public static final int categorylist_xuangou=0x7f090060;
-        public static final int check_goodsdescr=0x7f090021;
+        public static final int check_goodsdescr=0x7f090020;
         public static final int clear_category_title=0x7f090067;
         public static final int content=0x7f090017;
-        public static final int daojishi=0x7f090020;
+        public static final int daojishi=0x7f09002b;
         public static final int decode=0x7f090001;
         public static final int decode_failed=0x7f090002;
         public static final int decode_succeeded=0x7f090003;
@@ -179,10 +179,10 @@ public final class R {
         public static final int goods_price=0x7f09001f;
         public static final int goods_title=0x7f09001e;
         public static final int goodsid=0x7f090044;
-        public static final int goodslist=0x7f090025;
+        public static final int goodslist=0x7f090024;
         public static final int gridview=0x7f09000c;
-        public static final int gridview_a=0x7f090029;
-        public static final int gridview_b=0x7f09002a;
+        public static final int gridview_a=0x7f090028;
+        public static final int gridview_b=0x7f090029;
         public static final int id_tv_loadingmsg=0x7f09003d;
         public static final int imageItem=0x7f090045;
         public static final int include1=0x7f090014;
@@ -203,7 +203,7 @@ public final class R {
         public static final int later=0x7f090076;
         public static final int launch_product_query=0x7f090006;
         public static final int layout=0x7f09001c;
-        public static final int loading=0x7f090026;
+        public static final int loading=0x7f090025;
         public static final int loadingImageView=0x7f09003c;
         public static final int login_btn=0x7f090051;
         public static final int login_reg_block=0x7f09002c;
@@ -213,12 +213,12 @@ public final class R {
         public static final int menu_line=0x7f090054;
         public static final int menulist=0x7f090016;
         public static final int messageid=0x7f09004a;
-        public static final int messagelist=0x7f09002b;
-        public static final int miaoshalist=0x7f090023;
+        public static final int messagelist=0x7f09002a;
+        public static final int miaoshalist=0x7f090022;
         public static final int no_icon=0x7f090073;
         public static final int non_ghost=0x7f090079;
         public static final int order_address=0x7f090039;
-        public static final int order_btn=0x7f090022;
+        public static final int order_btn=0x7f090021;
         public static final int order_mobile=0x7f090038;
         public static final int order_name=0x7f090037;
         public static final int order_num=0x7f090035;
@@ -252,8 +252,8 @@ public final class R {
         public static final int search_book_contents_succeeded=0x7f09000b;
         public static final int search_btn=0x7f090065;
         public static final int searchtool=0x7f090062;
-        public static final int slideshowView=0x7f090028;
-        public static final int slidingLayout=0x7f090024;
+        public static final int slideshowView=0x7f090027;
+        public static final int slidingLayout=0x7f090023;
         public static final int split=0x7f09000f;
         public static final int submenu=0x7f090078;
         public static final int tag_first=0x7f090010;
@@ -269,7 +269,7 @@ public final class R {
         public static final int verify=0x7f09004f;
         public static final int viewPager=0x7f090040;
         public static final int viewfinder_view=0x7f090013;
-        public static final int webv=0x7f090027;
+        public static final int webv=0x7f090026;
         public static final int webview=0x7f09000d;
     }
     public static final class layout {
