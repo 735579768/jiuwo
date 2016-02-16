@@ -345,7 +345,7 @@ public class HomeFragment extends BaseFragment implements OnPullListener {
         		break;*/
         	case SHOW_PROGRESSBAR:
         		threadnum++;
-        		mProgressbar.setVisibility(View.VISIBLE);
+        		//mProgressbar.setVisibility(View.VISIBLE);
         		break;
         	case HIDE_PROGRESSBAR:
         		//threadnum--;

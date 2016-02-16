@@ -319,7 +319,7 @@ public class GoodsListActivity extends BaseActivity implements MyProgressBar,OnP
 	        		setListViewHeightBasedOnChildren(goodslistview);
 	        		break;*/
 	        	case SHOW_PROGRESSBAR:
-	        		mProgressbar.setVisibility(View.VISIBLE);
+	        		//mProgressbar.setVisibility(View.VISIBLE);
 	        		break;
 	        	case HIDE_PROGRESSBAR:
 	        		mProgressbar.setVisibility(View.GONE);

@@ -1,6 +1,5 @@
 package com.ex;
 import java.text.SimpleDateFormat;
-
 import com.demo.jiuwo.R;
 
 
@@ -14,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.MeasureSpec;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -29,8 +29,8 @@ import android.widget.TextView;
  * @author www.zhaokeli.com
  */
 public class PullRefreshScrollView extends ScrollView {
-	public static final int 		SUDU=5;//动画 间隔速度
-	public static final int 		BUZENG=5;//动画步增速度
+	public static final int 		SUDU=1;//动画 间隔速度
+	public static final int 		BUZENG=15;//动画步增速度
 	private AlphaAnimation mHideAnimation= null;//渐隐
 
 	private AlphaAnimation mShowAnimation= null;//渐显
@@ -275,11 +275,6 @@ public class PullRefreshScrollView extends ScrollView {
 			}
 		}
 		this.setVerticalScrollBarEnabled(true);
-/*		if(pullState==DONE){
-			this.setVerticalScrollBarEnabled(true);
-		}else{
-			this.setVerticalScrollBarEnabled(false);
-		}*/
 		
 		//下拉和释放状态屏蔽滚动条
 		if(pullState==PULL_DOWN_STATE||pullState==RELEASE_TO_REFRESH){
@@ -351,11 +346,11 @@ public class PullRefreshScrollView extends ScrollView {
 
 			// 松开手刷新
 			if (pullState == RELEASE_TO_REFRESH) {
-				pullState = headerView.setRefreshing();
+				//pullState = headerView.setRefreshing();
 				headerView.setPaddingTop(0);
-				footerView.setStartLoad();
+				//footerView.setStartLoad();
 				
-				if(onPullListener!=null)onPullListener.refresh();
+				//if(onPullListener!=null)onPullListener.refresh();
 			}
 			// 松开手加载更多
 			else if (pullState == RELEASE_TO_LOADING && !isautoload) {
@@ -395,9 +390,14 @@ public class PullRefreshScrollView extends ScrollView {
 	 * 重置下拉刷新按钮状态并隐藏
 	 */
 	public void setheaderViewReset() {
-		headerView.setStartRefresh();
-		headerView.setPaddingTop(-1 * headContentHeight);
-		pullState = DONE;
+		headerView.refreshOver();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				headerView.setPaddingTop(-1 * headContentHeight);			
+			}
+		}, 1000);
+
 	}
 	/**
 	 * 加载更多按钮可用状态
@@ -513,7 +513,7 @@ public class PullRefreshScrollView extends ScrollView {
 	public void setOnPullListener(OnPullListener onPullListener) {
 		this.onPullListener = onPullListener;
 	}
-   class ScrollTask extends AsyncTask<Integer, Integer, Integer> {
+    class ScrollTask extends AsyncTask<Integer, Integer, Integer> {
 	   
         @Override
         protected Integer doInBackground(Integer... speed) {
@@ -604,6 +604,13 @@ class HeaderView extends LinearLayout {
 		tvDate = (TextView) findViewById(R.id.pull_to_refresh_updated_at);
 	}
 
+	/**
+	 * 刷新完成
+	 * */
+	public void refreshOver(){
+		tvRefresh.setText("刷新完成");
+		progressBar.setVisibility(View.GONE);
+	}
 	/**
 	 * 下拉刷新
 	 */
@@ -711,11 +718,22 @@ class HeaderView extends LinearLayout {
 		}
 	}
 	   class ScrollTask extends AsyncTask<Integer, Integer, Integer> {
-		   
+		   private boolean isto0 = false;
+		   private boolean isover=false;
 	        @Override
 	        protected Integer doInBackground(Integer... speed) {
 	            // 根据传入的速度来滚动界面，当滚动到达左边界或右边界时，跳出循环。
 	        	int ptop = speed[0];
+	        	if (ptop==0){
+	        		isto0=true;
+	        	}else{
+	        		isto0=false;
+	        	}
+	        	if(ptop==(-1 * headContentHeight)){
+	        		isover=true;
+	        	}else{
+	        		isover=false;
+	        	}
 	            while (true) {
 	            	curtop-=PullRefreshScrollView.BUZENG;
 	            	if(curtop<=ptop){
@@ -735,6 +753,15 @@ class HeaderView extends LinearLayout {
 	 
 	        @Override
 	        protected void onPostExecute(Integer ptop) {
+	        	if(isto0){
+		        	pullState = headerView.setRefreshing();
+		        	footerView.setStartLoad();
+		        	if(onPullListener!=null)onPullListener.refresh();	        		
+	        	}
+	        	if(isover){
+					headerView.setStartRefresh();
+					pullState = DONE;	      		
+	        	}
 
 	        }
 	    }
